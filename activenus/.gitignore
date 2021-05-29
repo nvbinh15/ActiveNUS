@@ -1,0 +1,6 @@
+activenus/__pycache__
+.env
+.env/
+.venv/
+env/
+venv/

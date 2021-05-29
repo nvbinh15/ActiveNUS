@@ -1,0 +1,28 @@
+<!-- {% load static %}
+{% if request.user.is_authenticated %}
+<div class="ui menu">
+  <div class="ui container">
+    <a href={% url 'home' %} class="header item">
+      <img class="logo" class="logo" src= {% static 'img/logo.png' %} />
+    </a>
+
+
+    <div class="right item">
+
+      
+      <div class="ui simple dropdown item">
+         {{request.user.username}} <i class="dropdown icon"></i>
+        <div class="menu">
+        <form class="ui large form" method="post" action={% url 'logout_user' %}>
+
+          {% csrf_token %}
+         <input class="ui button" type="submit" value="Sign out"/>
+        </form>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+{% endif %} -->
