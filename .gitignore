@@ -1,0 +1,10 @@
+activenus/__pycache__
+authentication/__pycache__
+dashboard/__pycache__
+
+
+.env
+.env/
+.venv/
+env/
+venv/
