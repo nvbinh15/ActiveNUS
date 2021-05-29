@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY',)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', ]
+ALLOWED_HOSTS = ['127.0.0.1', 'activenus.herokuapp.com']
 
 AUTH_USER_MODEL = "authentication.User" 
 
@@ -36,8 +36,9 @@ LOGIN_URL = "auth/login"
 # Application definition
 
 INSTALLED_APPS = [
+    'dashboard',
     'authentication',
-    
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
