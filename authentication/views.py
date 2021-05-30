@@ -70,9 +70,6 @@ def login_user(request):
 
         login(request, user)
 
-        # messages.add_message(request, messages.SUCCESS,
-        #                     f'Welcome {user.username}')
-        
         return redirect(reverse('home'))
 
     return render(request, 'authentication/login.html')
@@ -87,9 +84,9 @@ def register(request):
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
 
-        if len(password1) < 6:
+        if len(password1) < 8:
             messages.add_message(request, messages.ERROR,
-                                 'Password should be at least 6 characters')
+                                 'Password should be at least 8 characters')
             context['has_error'] = True
 
         if password1 != password2:

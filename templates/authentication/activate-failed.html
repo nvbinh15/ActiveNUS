@@ -1,10 +1,32 @@
 {% extends '_partials/base.html' %}
 
+{% load static %}
+
 {% block title %}
 Activation Failed | ActiveNUS
 {% endblock title %}
 
+{% block css %}
+  <link rel="stylesheet" href={% static 'css/registration/registration.css' %}>
+{% endblock %}
+
 {% block content %}
-    <h2>Something went wrong with your link</h2>
-    <div>Your account might have been activated. Try to login <a href={% url 'login' %}>here</a></div>
+<div class='main'>
+
+
+    <div class="right">
+        <div class='form'>
+            <h2 class="title" style='margin: 0'>Something went wrong</h2>
+            <div class="form_des" ><i class='large bug icon'></i>Your account might have been activated. Try to login <a href={% url 'login' %}>here</a></div>
+        </div>
+  </div>
+
+
+    <div class='left'>
+        <div class="switch_circle"></div>
+        <div class="switch_circle switch_circle-t"></div>
+        <img src={% static 'img/logo.png' %} height=90px>
+    </div>
+
+</div>
 {% endblock content %}
