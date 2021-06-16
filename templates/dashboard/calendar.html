@@ -7,7 +7,8 @@ Calendar | ActiveNUS
 
 {% block css %}
     <!-- <link rel='stylesheet' href={% static 'css/dashboard/home.css' %}> -->
-    <link rel='stylesheet' href="{% static 'css/dashboard/calendar.css' %}?{% now 'U' %}">
+    <link rel='stylesheet' href="{% static 'css/dashboard/calendar/styles.css' %}?{% now 'U' %}">
+    <link rel='stylesheet' href="{% static 'css/dashboard/calendar/main.css' %}?{% now 'U' %}">
 {% endblock css %}
 
 
@@ -15,7 +16,7 @@ Calendar | ActiveNUS
 <h1 style='margin: 2rem'>
     Calendar
 </h1>
-
+<div id='calendar'></div>
 {% endblock contentdiv1 %}
 
 
@@ -23,3 +24,7 @@ Calendar | ActiveNUS
 
 {% endblock contentdiv2 %}
 
+{% block js %} 
+    <script src="{% static 'js/dashboard/calendar/main.js' %}?{% now 'U' %}"></script>
+    <script src="{% static 'js/dashboard/calendar/script.js' %}?{% now 'U' %}"></script>
+{% endblock js %}
