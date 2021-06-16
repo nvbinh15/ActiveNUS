@@ -12,6 +12,35 @@ Pomodoro | ActiveNUS
 
 {% block contentdiv1%}
 
+<div id="pomodoro-module">
+    <div id="modes">
+      <button class="ui button" v-bind:class="{'focus-button' : isFocused }" tabindex="0" @click="timerReset">Pomodoro</button>
+      <button class="ui button" v-bind:class="{'focus-button' : isShortBreak }" tabindex="0" @click="timerShortBreak">Short Break</button>
+      <button class="ui button" v-bind:class="{'focus-button' : isLongBreak }" tabindex="0" @click="timerLongBreak">Long Break</button>
+    </div>
+    <div id="container">
+      <button id="minus" class="" tabindex="0" v-bind:class="{'non-clickable' : timerRunning }"  @click="timeDecrease" :disabled="timerRunning" >-</button>
+      <button id="plus" class="" tabindex="0" v-bind:class="{'non-clickable' : timerRunning }" @click="timeIncrease" :disabled="timerRunning">+</button>
+      <div id="timer">
+        <div id="time">
+            <div id="timer2" v-html="time"></div>
+          <!-- <span id="minutes">25</span>
+          <span id="colon">:</span>
+          <span id="seconds">00</span> -->
+        </div>
+      </div>
+  
+      <div id="buttons">
+        <button id="start" class="ui button" v-if="!timerRunning"  @click="timerRun" tabindex="0">Start</button>
+        <button id="stop" class="ui button" v-if="timerRunning" @click="timerPause" tabindex="0">Stop</button>
+      </div>
+    </div>
+  </div>
+
+<div class="right">
+    
+</div>
+
 
 {% endblock contentdiv1 %}
 
