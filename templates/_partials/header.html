@@ -1,28 +1,30 @@
-<!-- {% load static %}
+{% load static %}
+
 {% if request.user.is_authenticated %}
-<div class="ui menu">
-  <div class="ui container">
+<div class="ui text menu" style='margin: 5px 5px 15px 5px; height: 50px;'>
+
     <a href={% url 'home' %} class="header item">
-      <img class="logo" class="logo" src= {% static 'img/logo.png' %} />
+      <img class='ui small image' src={% static 'img/logo+icon.png' %}>
     </a>
 
-
-    <div class="right item">
-
-      
-      <div class="ui simple dropdown item">
-         {{request.user.username}} <i class="dropdown icon"></i>
-        <div class="menu">
-        <form class="ui large form" method="post" action={% url 'logout_user' %}>
-
+    <div class="ui right dropdown simple item">
+  
+      <div> {{ request.user.username }} &nbsp</div>
+      <img class="ui mini circular image" src={% static 'img/icon.png' %}>
+  
+      <div class="menu">
+  
+        <a href='' class='item'><div class="item"><i class="user icon"></i>Account</div></a>
+        <a href='' class='item'><div class='item'><i class="info circle icon"></i>About</div></a>
+  
+        <form id='sign_out' method="post" action={% url 'logout_user' %}>
           {% csrf_token %}
-         <input class="ui button" type="submit" value="Sign out"/>
         </form>
-        </div>
-      </div>
-
-
+        <a class='item'><div class="item" onclick="document.forms['sign_out'].submit();"><i class="sign out alternate icon"></i>Sign out
+        </div></a>
+  
     </div>
   </div>
 </div>
-{% endif %} -->
+
+{% endif %}

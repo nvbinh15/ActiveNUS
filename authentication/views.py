@@ -70,6 +70,7 @@ def login_user(request):
 
         login(request, user)
 
+        
         return redirect(reverse('home'))
 
     return render(request, 'authentication/login.html')
@@ -83,6 +84,10 @@ def register(request):
         username = request.POST.get('username')
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
+
+        if len(username) > 150:
+            messages.add_message(request, messages.ERROR,
+                            'Username should contain 150 characters or fewer')
 
         if len(password1) < 8:
             messages.add_message(request, messages.ERROR,
@@ -131,7 +136,7 @@ def register(request):
 
             messages.add_message(request, messages.SUCCESS,
                              'We sent you an email to verify your account')
-            return redirect('login')
+            return redirect('auth_login')
 
     return render(request, 'authentication/register.html')
 
@@ -143,7 +148,7 @@ def logout_user(request):
     messages.add_message(request, messages.SUCCESS,
                          'Successfully logged out')
 
-    return redirect(reverse('login'))
+    return redirect(reverse('auth_login'))
 
 
 def activate_user(request, uidb64, token):
@@ -162,6 +167,6 @@ def activate_user(request, uidb64, token):
 
         messages.add_message(request, messages.SUCCESS,
                              'Email verified, you can now login')
-        return redirect(reverse('login'))
+        return redirect(reverse('auth_login'))
 
     return render(request, 'authentication/activate-failed.html', {"user": user})

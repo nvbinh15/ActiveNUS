@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,18 +12,64 @@
         {% endblock %}
     </title>
     <link rel='icon' href={% static 'img/icon.png' %} type='image/x-icon'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+        integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"
+        integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- <link rel='stylesheet' href={% static 'css/main.css' %}> -->
+    <link rel='stylesheet' href="{% static 'css/main.css' %}?{% now 'U' %}">
     {% block css %}
-    {% endblock %}
+
+
+    {% endblock css %}
 
 </head>
 
-<body>
-    {% include "_partials/header.html" %}
 
-            {% block content %}
+<body style='background-color: #f9fafd;'>
+    {% if request.user.is_authenticated %}
+        {% include "_partials/header.html" %}
+        <div id="main-part" class="ui grid" style="height: 100%">
+            <div class="two wide column" id="left-div">
+                <div class="div-content" id="left-div-content">
+                    <a href={% url 'home' %}><div class='tab'><i class="home icon"></i> Dashboard</div></a>
+                    <a href={% url 'calendar' %}><div class='tab'><i class="calendar alternate icon"></i> Calendar</div></a>
+                    <a href={% url 'pomodoro' %}><div class='tab'><i class="clock icon"></i> Pomodoro Timer</div></a>
+                    <a href={% url 'flashcard' %}><div class='tab'><i class="copy icon"></i> Flashcard</div></a>                 
+                </div>
 
-            {% endblock content %}
+            </div>
+            <div class="ten wide column" id="mid-div">
+                <div class="div-content" id="mid-div-content">
+                    {% block contentdiv1 %}
+
+                    {% endblock contentdiv1 %}
+                </div>
+            </div>
+
+            <div class="four wide column" id="right-div">
+                <div class="div-content" id="right-div-content">
+                    {% block contentdiv2 %}
+
+                    {% endblock contentdiv2 %}
+                </div>
+            </div>
+        </div>
+
+    {% else %}
+
+    {% block content %}
+
+    {% endblock content %}
+
+    {% endif %}
 
 </body>
+{% block js %}
+
+{% endblock js %}
+
 </html>

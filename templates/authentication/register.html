@@ -8,41 +8,86 @@ Register | ActiveNUS
 
 
 {% block css %}
-<link rel="stylesheet" href={% static 'css/registration/registration.css' %}>
+<!-- <link rel="stylesheet" href={% static 'css/registration/registration.css' %}> -->
+<link rel="stylesheet" href="{% static 'css/registration/registration.css' %}?{% now 'U' %}">
 {% endblock %}
 
 {% block content %}
-<div class='main'>
 
-  <div class="right">
+<div class="l-form">
+  <div class="shape1"></div>
+  <div class="shape2"></div>
 
+  <div class="form">
+      <img src={% static 'img/logo.png' %} class="form__img">
 
-      <form class="form" method="post" action={% url 'register' %}>
-        
+      <form method="post" action={% url 'auth_register' %} class="form__content">
         {% csrf_token %}
+          <h1 class="form__title">Registration</h1>
 
-        <h2 class="title">Registration</h2>
 
           {% if messages %}
-            {% for message in messages %}
-              <div class="ui {{message.tags}} message" style="margin-top: 0; margin-bottom: 4px; padding: 0.5rem; width: 300px; font-family: sans-serif;"> {{message}} </div> 
-            {% endfor %} 
+          {% for message in messages %}
+          {%  if forloop.first  %}
+            <div class="ui mini {{message.tags}} message" style="text-align: center; width: 100%"> {{message}} </div> 
+          {% endif %}
+          {% endfor %} 
           {% endif %}
 
-        <input class="form_input" type="text" name='username' value='{{ data.username }}' placeholder="Username">
-        <input class="form_input" type="text" name='email' value='{{ data.email }}' placeholder="Email Address">
-        <input class="form_input" type="password" name='password1'  placeholder="Password">
-        <input class="form_input" type="password" name='password2' placeholder="Confirm Password">
-        <button class="button">SIGN UP</button>
-        <a class="form_link" type="font-family: sans-serif;" href={% url 'login' %}>Log in instead</a>
+          <div class="form__div">
+              <div class="form__icon">
+                  <i class="user icon"></i>
+              </div>
+
+              <div class="form__div-input">
+                  <input type="text" name='username' value='{{ data.username }}' class="form__input" placeholder="Username">
+              </div>
+          </div>
+
+
+          <div class="form__div">
+              <div class="form__icon">
+                  <i class="envelope open icon"></i>
+              </div>
+
+              <div class="form__div-input">
+                  <input type="text" name='email' value='{{ data.email }}' class="form__input" placeholder='Email Address'>
+              </div>
+          </div>
+
+
+          <div class="form__div">
+              <div class="form__icon">
+                  <i class="lock icon"></i>
+              </div>
+
+              <div class="form__div-input">
+                  <input type="password" name='password1' class="form__input" placeholder="Password">
+              </div>
+          </div>
+
+          <div class="form__div">
+              <div class="form__icon">
+                  <i class="lock icon"></i>
+              </div>
+
+              <div class="form__div-input">
+                  <input type="password" name='password2' class="form__input"placeholder="Confirm Password">
+              </div>
+          </div>
+          <input type="submit" class="form__button" value="Sign up">
+
+          <a class='form__link' href={% url 'auth_login' %}>Log in instead</a>
+
       </form>
   </div>
 
-  <div class='left'>
-    <div class="switch_circle"></div>
-    <div class="switch_circle switch_circle-t"></div>
-    <img src={% static 'img/logo.png' %} height=90px>
-  </div>
-
 </div>
+
+<!--Scroll-->
+<script src="https://unpkg.com/scrollreveal"></script>
+
+<!-- ===== MAIN JS ===== -->
+<script src={% static 'js/registration/registration.js' %}></script>
+
 {% endblock content %}
