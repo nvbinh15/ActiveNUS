@@ -6,16 +6,57 @@ Flashcard | ActiveNUS
 {% endblock title %}
 
 {% block css %}
-    <!-- <link rel='stylesheet' href={% static 'css/dashboard/home.css' %}> -->
-    <link rel='stylesheet' href="{% static 'css/dashboard/flashcard.css' %}?{% now 'U' %}">
+<!-- <link rel='stylesheet' href={% static 'css/dashboard/home.css' %}> -->
+<link rel='stylesheet' href="{% static 'css/dashboard/flashcard.css' %}?{% now 'U' %}">
 {% endblock css %}
 
 
 {% block contentdiv1 %}
-<h1 style='margin: 2rem'>
-    Flashcard
+<h1 style='padding: 2rem'>
+  Flashcard
 </h1>
 
+
+<div class="flashcard-container" id="fc">
+
+  <div class="flashcard hidden-xs hidden-sm" id="big-container">
+    <div class="card-flipper" @click="flip(card)">
+      <div class="card-question" v-bind:class="{ 'reveal-answer' : flipped }">
+        <span v-if="!card.startcard">[[ card.key ]] [[card.number]]</span>
+        <div v-if="card.startcard">
+          <span>Click me!</span>
+        </div>
+      </div>
+      <div class="card-answer" v-bind:class="{ 'reveal-answer' : flipped }">
+        <span v-if="!card.startcard" v-bind:class="{'noshow' : !flipped }"><small>[[ card.val ]]</small></span>
+        <div v-if="card.startcard">
+          <span>Deck: [[title]]</span>
+          <span><small>Click next to start learning</small></span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="button-container" id="command" v-bind:class="{'noshow' : !flipped }">
+      <button v-if="!card.startcard" class="ui button" id="previous" @click="previous">Previous</button>
+      <button class="ui button" id="next" @click="forward">Next</button>
+    </div>
+
+  </div>
+
+  <form v-if="!card.startcard" @submit.prevent="addCard" id="new-card-form">
+
+    <div class="ui input">
+      <input type="text" placeholder="Question" :maxlength="max" v-model="newCard.key">
+      <input type="text" placeholder="Answer" :maxlength="max" v-model="newCard.val">
+    </div>
+    <button class="ui button" @click="addCard">Add Card</button>
+  </form>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="{% static 'js/dashboard/flashcard.js' %}?{% now 'U' %}"></script>
 {% endblock contentdiv1 %}
 
 
@@ -23,3 +64,9 @@ Flashcard | ActiveNUS
 
 {% endblock contentdiv2 %}
 
+
+{% block js %}
+
+
+<!-- <script src="{% static 'js/dashboard/flashcard.js' %}?{% now 'U' %}"></script> -->
+{% endblock js %}

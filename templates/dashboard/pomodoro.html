@@ -11,6 +11,9 @@ Pomodoro | ActiveNUS
 {% endblock css %}
 
 {% block contentdiv1%}
+<h1 style='padding: 2rem'>
+  Pomodoro Timer
+</h1>
 
 <div id="pomodoro-module">
     <div id="modes">
@@ -24,9 +27,6 @@ Pomodoro | ActiveNUS
       <div id="timer">
         <div id="time">
             <div id="timer2" v-html="time"></div>
-          <!-- <span id="minutes">25</span>
-          <span id="colon">:</span>
-          <span id="seconds">00</span> -->
         </div>
       </div>
   
@@ -45,6 +45,6 @@ Pomodoro | ActiveNUS
 {% endblock contentdiv1 %}
 
 {% block js %}
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.21/vue.js'></script>    
+    <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.21/vue.js'></script>     -->
     <script src="{% static 'js/dashboard/pomodoro.js' %}?{% now 'U' %}"></script>
 {% endblock js %}

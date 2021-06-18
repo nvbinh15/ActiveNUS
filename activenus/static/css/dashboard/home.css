@@ -2,3 +2,164 @@
     transform: scale(1.05);
     transition: transform 0.25s;
 }
+
+/* TODO LIST */
+#todolist {
+	margin:1rem auto;
+	max-width:500px;
+	background:#fff;
+	color:#000;
+}
+#todolist h1 span {
+	display:block;
+	font-size:0.8rem;
+	margin-bottom:0.7rem;
+	margin-left:3px;
+	margin-top:0.2rem;   
+}
+
+#todolist .emptylist {
+	margin-top:1rem;
+	text-align:center;
+	letter-spacing:.05em;
+	font-style:italic;
+	opacity:0.8;
+	
+}
+#todolist ul {
+	list-style:none;
+}
+#todolist .todolist-move {
+	transition: transform 0.2s;
+}
+#todolist li {
+	display:flex;
+	margin:0 -3rem 4px;
+	padding:1.1rem 3rem;
+	justify-content:space-between;
+	align-items:center;
+	background:rgba(255,255,255,0.1);
+}
+
+#todolist .actions {
+	flex-shrink:0;
+	padding-left:0.7em;
+}
+#todolist .label {
+	position:relative;
+	transition:opacity .2s linear;
+}
+#todolist .done .label {
+	opacity:.6;
+	text-decoration: line-through;
+}
+#todolist .done .label:before {
+	content:'';
+	position:absolute;
+	top:50%;
+	left:-.5rem;
+	display:block;
+	width:0%;
+	height:1px;
+	background:#FFF;
+	animation:strikeitem .3s ease-out 0s forwards;
+}
+#todolist .btn-picto {
+	border:none;
+	background:none;
+	-webkit-appearance:none;
+	cursor:pointer;
+	color:#000;
+}
+
+
+/* FORM */
+form {
+	margin-top:3rem;
+	display:flex;
+	flex-wrap:wrap;
+}
+/* form label {
+	min-width:100%;
+	margin-bottom:.5rem;
+	font-size:1.2rem;
+} */
+form input {
+	flex-grow:1;
+	border:solid 1px black;
+	background:#fff;
+	padding:0 1em;
+	font-size:initial;
+    border-radius: 10px;
+	margin:5px;
+}
+form button {
+	padding:0 1rem;
+	border:none;
+	background:#254159;
+	color:white;
+	text-transform:uppercase;
+	font-weight:500;
+	/* border:1px solid rgba(255,255,255,.3); */
+	margin:5px;
+	cursor:pointer;
+	transition:background .2s ease-out;
+    border-radius: 1rem;
+}
+form button:hover {
+	background:#718A9F;
+}
+form input, 
+form button {
+	font-family:sans-serif;
+	height:3rem;
+}
+
+
+/* TOOGLE COMPONENT */
+.togglebutton-wrapper {
+	margin-top:1em;
+}
+.togglebutton-wrapper label {
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+}
+.togglebutton-wrapper input {
+	position:absolute;
+    left:-9999px;
+}
+.togglebutton-wrapper .togglebutton-label {
+	font-size:.8rem;
+	letter-spacing:.1em
+}
+.togglebutton-wrapper .tooglebutton-box {
+	position:relative;
+	display:block;
+	margin-left:0.6em;
+	width:38px;
+	height:22px;
+	background:black;
+	/*border:1px solid black;*/
+	border-radius:999px;
+	cursor:pointer;
+}
+.togglebutton-wrapper .tooglebutton-box:before {
+	content:'';
+	position:absolute;
+	top:2px; left:2px;
+	display:block;
+	width:18px; height:18px;
+	/*border:1px solid #FF6666;*/
+	border-radius:50%;
+	background:#9ABBD9;
+	opacity:0.7;
+	transition:	all .2s ease-in-out;
+}
+.togglebutton-wrapper.togglebutton-focus .tooglebutton-box {
+	box-shadow:0px 0px 0px 3px rgba(0,0,0,0.1);
+}
+.togglebutton-wrapper.togglebutton-checked .tooglebutton-box:before {
+	left:calc(100% - 4px - 16px);
+	opacity:1;
+}
