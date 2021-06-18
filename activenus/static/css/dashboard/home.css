@@ -28,6 +28,8 @@
 }
 #todolist ul {
 	list-style:none;
+	margin-bottom: 3rem;
+	font-size: 1.1rem;
 }
 #todolist .todolist-move {
 	transition: transform 0.2s;
@@ -35,7 +37,7 @@
 #todolist li {
 	display:flex;
 	margin:0 -3rem 4px;
-	padding:1.1rem 3rem;
+	padding:0.5rem 3rem;
 	justify-content:space-between;
 	align-items:center;
 	background:rgba(255,255,255,0.1);
@@ -75,15 +77,10 @@
 
 /* FORM */
 form {
-	margin-top:3rem;
 	display:flex;
 	flex-wrap:wrap;
 }
-/* form label {
-	min-width:100%;
-	margin-bottom:.5rem;
-	font-size:1.2rem;
-} */
+
 form input {
 	flex-grow:1;
 	border:solid 1px black;
@@ -100,7 +97,6 @@ form button {
 	color:white;
 	text-transform:uppercase;
 	font-weight:500;
-	/* border:1px solid rgba(255,255,255,.3); */
 	margin:5px;
 	cursor:pointer;
 	transition:background .2s ease-out;
@@ -140,7 +136,6 @@ form button {
 	width:38px;
 	height:22px;
 	background:black;
-	/*border:1px solid black;*/
 	border-radius:999px;
 	cursor:pointer;
 }
@@ -150,7 +145,6 @@ form button {
 	top:2px; left:2px;
 	display:block;
 	width:18px; height:18px;
-	/*border:1px solid #FF6666;*/
 	border-radius:50%;
 	background:#9ABBD9;
 	opacity:0.7;
