@@ -13,15 +13,12 @@
       <img class="ui mini circular image" src={% static 'img/icon.png' %}>
   
       <div class="menu">
-  
         <a href='' class='item'><div class="item"><i class="user icon"></i>Account</div></a>
         <a href='' class='item'><div class='item'><i class="info circle icon"></i>About</div></a>
-  
         <form id='sign_out' method="post" action={% url 'logout_user' %}>
           {% csrf_token %}
         </form>
-        <a class='item'><div class="item" onclick="document.forms['sign_out'].submit();"><i class="sign out alternate icon"></i>Sign out
-        </div></a>
+        <a class='item'><div class="item" onclick="document.forms['sign_out'].submit();"><i class="sign out alternate icon"></i>Sign out</div></a>
   
     </div>
   </div>

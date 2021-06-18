@@ -6,13 +6,13 @@ ActiveNUS
 {% endblock title %}
 
 {% block css %}
-    <!-- <link rel='stylesheet' href={% static 'css/dashboard/home.css' %}> -->
-    <link rel='stylesheet' href="{% static 'css/dashboard/home.css' %}?{% now 'U' %}">
+<!-- <link rel='stylesheet' href={% static 'css/dashboard/home.css' %}> -->
+<link rel='stylesheet' href="{% static 'css/dashboard/home.css' %}?{% now 'U' %}">
 {% endblock css %}
 
 
 {% block contentdiv1 %}
-<h1 style='margin: 2rem'>
+<h1 style='padding: 2rem'>
     Progress
 </h1>
 <div class='progress-card' style='float:left;
@@ -75,6 +75,47 @@ border-radius: 20px;'>
 
 
 {% block contentdiv2 %}
+<div id="todolist">
+    <h1 style='padding: 2rem'>
+        Todo List
+    </h1>
+    <template v-if="todo.length">
+        <transition-group name="todolist" tag="ul">
+            <li v-for="item in todoByStatus" v-bind:class="item.done ? 'done' : ''" v-bind:key="item.id">
+                <span class="label" style>[[ item.label ]]</span>
+                <div class="actions">
+                    <button class="btn-picto" type="button" v-on:click="markAsDoneOrUndone(item)"
+                         v-bind:title="item.done ? 'Undone' : 'Done'">
+
+                        <span v-if='!item.done'><i class="circle outline icon"></i></span>
+                        <span v-else><i class="check circle outline icon"></i></span>
+
+                    </button>
+                    <button class="btn-picto" type="button" v-on:click="deleteItemFromList(item)" aria-label="Delete"
+                        title="Delete">
+                        <i class="trash icon"></i>
+                    </button>
+                </div>
+            </li>
+        </transition-group>
+        <togglebutton label="Move done items to the end?" name="todosort" v-on:clicked="clickontoogle" />
+    </template>
+    <p v-else class="emptylist">Your todo list is empty.</p>
+
+    <form name="newform" v-on:submit.prevent="addItem">
+
+        <!-- <label for="newitem">Add task</label> -->
+        <input type="text" name="newitem" id="newitem" v-model="newitem">
+        <button type="submit">Add task</button>
+    </form>
+</div>
+
+
 
 {% endblock contentdiv2 %}
 
+
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="{% static 'js/dashboard/home.js' %}?{% now 'U' %}"></script>
+{% endblock js%}

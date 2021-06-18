@@ -13,7 +13,7 @@ Calendar | ActiveNUS
 
 
 {% block contentdiv1 %}
-<h1 style='margin: 2rem'>
+<h1 style='padding: 2rem'>
     Calendar
 </h1>
 <div id='calendar'></div>
@@ -21,6 +21,23 @@ Calendar | ActiveNUS
 
 
 {% block contentdiv2 %}
+<h3 style='padding: 3rem'>Add New Event</h3>
+<form class="ui form" id="choose">
+    <div class="field">
+      <label>Event name</label>
+      <input type="text" id="name" name="event-name" placeholder="Event Name">
+    </div>
+    <div class="field">
+      <label>Start Time</label>
+      <input type="date" id="start" name="start-time" placeholder="Start Time">
+    </div>
+    <div class="field">
+      <label>End Time</label>
+      <input type="date" id="end" name="end-time" placeholder="End Time">
+    </div>
+    <button class="ui button" type="submit">Submit</button>
+  </form>
+  
 
 {% endblock contentdiv2 %}
 
