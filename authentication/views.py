@@ -88,6 +88,7 @@ def register(request):
         if len(username) > 150:
             messages.add_message(request, messages.ERROR,
                             'Username should contain 150 characters or fewer')
+            context['has_error'] = True
 
         if len(password1) < 8:
             messages.add_message(request, messages.ERROR,
