@@ -98,6 +98,8 @@ def register(request):
             messages.add_message(request, messages.ERROR,
                                  'Password mismatch')
             context['has_error'] = True
+            
+            return render(request, 'authentication/register.html', context, status=409)
 
         if not validate_email(email):
             messages.add_message(request, messages.ERROR,

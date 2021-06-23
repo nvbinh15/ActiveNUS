@@ -1,0 +1,224 @@
+/*=== Colores ===*/
+:root{
+  --first-color: #3A668C;
+  --text-color: #5f6164;
+}
+
+/*=== Fuente y tipografia ===*/
+:root{
+  --body-font: sans-serif;
+  --big-font-size: 1.5rem;
+  --normal-font-size: 0.938rem;
+  --smaller-font-size: 0.875rem;
+}
+@media screen and (min-width: 768px){
+  :root{
+      --big-font-size: 2rem;
+      --normal-font-size: 1rem;
+  }  
+}
+
+/*===== BASE =====*/
+*,::before,::after{
+  box-sizing: border-box;
+}
+body{
+  margin: 0;
+  padding: 0;
+  font-family: var(--body-font);
+  color: var(--first-color);
+}
+h1{
+  margin: 0;
+}
+a{
+  text-decoration: none;
+}
+img{
+  max-width: 100%;
+  height: auto;
+}
+/*===== FORM =====*/
+.l-form{
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  /* background-color: #FEF5DA; */
+  background-color: #fff;
+}
+
+/*=== Shapes ===*/
+.shape1,
+.shape2{
+  position: absolute;
+  width: 300px;
+  height: 250px;
+  border-radius: 50%;
+}
+.shape1{
+  top: -7rem;
+  left: -3.5rem;
+  /* background: linear-gradient(180deg, var(--first-color) 0%, rgba(196,196,196,0) 100%); */
+  /* background-color: var(--first-color); */
+  border: solid var(--first-color);
+}
+.shape2{
+  bottom: -6rem;
+  right: -5.5rem;
+  /* background: linear-gradient(180deg, var(--first-color) 0%, rgba(196,196,196,0) 100%); */
+  transform: rotate(180deg);
+  /* background-color: var(--first-color); */
+  border: solid var(--first-color);
+}
+/*=== Form ===*/
+.form{
+  height: 100vh;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem;
+}
+.form__content{
+  width: 320px;
+  border-radius: 20px;
+  background-color:rgba(255,255,255,0.5);
+  padding: 1.5rem;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25); 
+  height: 480px;   
+}
+
+.form__img{
+  display: none;
+}
+.form__title{
+  font-size: var(--big-font-size);
+  font-weight: 500;
+  padding-top: 1.5rem;
+  text-align: center;
+}
+
+.form__div{
+  position: relative;
+  display: grid;
+  grid-template-columns: 7% 93%;
+  margin: 2rem;
+  padding: .25rem 0;
+  border-bottom: 1px solid var(--text-color);
+}
+/*=== Div focus ===*/
+.form__div.focus{
+  border-bottom: 1px solid var(--first-color);
+}
+
+.form__div-one{
+  margin-bottom: 3rem;
+}
+
+.form__icon{
+  font-size: 1.5rem;
+  color: var(--text-color);
+  transition: .3s;
+}
+/*=== Icon focus ===*/
+.form__div.focus .form__icon{
+  color: var(--first-color);
+}
+
+
+.form__div-input{
+  position: relative;
+}
+.form__input{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: none;
+  padding: .5rem .75rem;
+  font-size: 1.2rem;
+  color: var(--first-color);
+  transition: .3s;
+}
+.form__link{
+  display: block;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: var(--normal-font-size);
+  color: var(--text-color);
+  font-weight: 550;
+  transition: .5;
+}
+.form__link:hover{
+  color: var(--first-color);
+  transition: .5s;
+}
+.form__signup {
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+  font-size: var(--normal-font-size);
+  color: var(--text-color);
+  font-weight: 500;
+  transition: .5;
+}
+
+.form__outlink {
+  font-size: var(--normal-font-size);
+  color: var(--text-color);
+  font-weight: 550;
+  transition: .5;
+}
+.form__outlink:hover{
+  color: var(--first-color);
+  transition: .5s;
+}
+
+.form__button{
+  width: 100%;
+  padding: 1rem;
+  font-size: var(--normal-font-size);
+  outline: none;
+  border: none;
+  margin-bottom: 1.5rem;
+  background-color: var(--first-color);
+  color: #fff;
+  border-radius: .5rem;
+  cursor: pointer;
+  transition: .3s;
+}
+.form__button:hover{
+  box-shadow: 0px 5px 12px rgba(0,0,0,.15);
+}
+
+
+/*===== MEDIA QUERIS =====*/
+@media screen and (min-width: 968px){
+  .shape1{
+      width: 600px;
+      height: 450px;
+      top: -11rem;
+      left: -6.5rem;
+  }
+  .shape2{
+      width: 350px;
+      height: 300px;
+      right: -6.5rem;
+  }
+
+  .form{
+      grid-template-columns: 1.5fr 1fr;
+      padding: 0 2rem;
+  }
+  .form__content{
+      width: 400px;
+  }
+  .form__img{
+      display: block;
+      width: 480px;
+      justify-self: center;
+  }
+}
+
