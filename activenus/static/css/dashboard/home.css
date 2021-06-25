@@ -3,6 +3,11 @@
     transition: transform 0.25s;
 }
 
+.progress-card {
+	text-align: center;
+	align-items: center;
+}
+
 /* TODO LIST */
 #todolist {
 	margin:1rem auto;
@@ -156,4 +161,11 @@ form button {
 .togglebutton-wrapper.togglebutton-checked .tooglebutton-box:before {
 	left:calc(100% - 4px - 16px);
 	opacity:1;
+}
+
+.progress_title {
+	font-size: 1.5rem;
+	font-weight: bolder;
+	display: inline;
+	margin-top: 10rem;
 }
