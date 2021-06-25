@@ -1,11 +1,30 @@
 
   #calendar {
+    font-family: sans-serif !important;
     width: 70%;
     margin: 0 auto;
   }
 
-  #choose {
-    width: 70%;
-    margin: 0 auto;
-    margin-top: 40px;
+  .fc-state-default {
+    border: none !important;
+    text-shadow: none !important; 
+    background-image: none !important;
+    color: white !important;
   }
+
+  .fc-left .fc-state-default {
+    background-color: #254159 !important;
+  }
+
+  .fc-right .fc-state-default {
+    background-color: #254159 !important;
+  }
+
+  .fc-event {
+    background-color: #3a668b !important; 
+    border: none !important;
+  }
+
+  .fc-time{ display: none; }
+
+  /* #3a668b #be7f22*/

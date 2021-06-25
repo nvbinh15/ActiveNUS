@@ -117,7 +117,7 @@ const pomo = new Vue({
     },
     countdownTimer() {
       if(this.totalTime <= 0){
-          alert("Time's up!");
+          notifyMe();
           if(this.isFocused){
               this.timerShortBreak();
           } else {
@@ -127,7 +127,6 @@ const pomo = new Vue({
           if (this.timerRunning == true) {
           this.totalTime--;
           if(this.isFocused){
-              this.timeFocused = localStorage.getItem('timeFocused');
               this.timeFocused++;
               localStorage.setItem('timeFocused', this.timeFocused);
           }
@@ -137,6 +136,32 @@ const pomo = new Vue({
     }
   }
 })
+
+function notifyMe() {
+  // Let's check if the browser supports notifications
+  if (!("Notification" in window)) {
+    alert("This browser does not support desktop notification");
+  }
+
+  // Let's check whether notification permissions have already been granted
+  else if (Notification.permission === "granted") {
+    // If it's okay let's create a notification
+    var notification = new Notification("Time is up!!!");
+  }
+
+  // Otherwise, we need to ask the user for permission
+  else if (Notification.permission !== "denied") {
+    Notification.requestPermission().then(function (permission) {
+      // If the user accepts, let's create a notification
+      if (permission === "granted") {
+        var notification = new Notification("Time is up!!!");
+      }
+    });
+  }
+
+  // At last, if the user has denied notifications, and you
+  // want to be respectful there is no need to bother them any more.
+}
 
 const vm = pomo.mount('#pomodoro-module');
 console.log(vm.totalTime); // => 4
