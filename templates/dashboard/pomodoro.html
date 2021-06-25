@@ -44,6 +44,24 @@ Pomodoro | ActiveNUS
 
 {% endblock contentdiv1 %}
 
+{% block contentdiv2 %}
+<h1 style='padding: 2rem'>
+  Reward
+</h1>
+
+<div style='margin:1rem'>
+  <img src={% static 'img/dashboard/tomato.png' %} style='width:3rem; margin: 0 0.5rem 1rem 0.5rem'>
+  <img src={% static 'img/dashboard/tomato.png' %} style='width:3rem; margin: 0 0.5rem 1rem 0.5rem'>
+  <img src={% static 'img/dashboard/tomato.png' %} style='width:3rem; margin: 0 0.5rem 1rem 0.5rem'>
+  <img src={% static 'img/dashboard/tomato.png' %} style='width:3rem; margin: 0 0.5rem 1rem 0.5rem'>
+  <img src={% static 'img/dashboard/tomato.png' %} style='width:3rem; margin: 0 0.5rem 1rem 0.5rem'>
+
+  <img src={% static 'img/dashboard/pizza.png' %} style='width:3rem; margin: 0 0.5rem 1rem 0.5rem'>
+  <img src={% static 'img/dashboard/pizza.png' %} style='width:3rem; margin: 0 0.5rem 1rem 0.5rem'>
+  <img src={% static 'img/dashboard/pizza.png' %} style='width:3rem; margin: 0 0.5rem 1rem 0.5rem'>
+</div>
+{% endblock contentdiv2 %}
+
 {% block js %}
     <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.21/vue.js'></script>     -->
     <script src="{% static 'js/dashboard/pomodoro.js' %}?{% now 'U' %}"></script>
