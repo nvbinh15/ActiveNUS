@@ -14,7 +14,7 @@
 4. [Proposed Level of Achievement](#4-proposed-level-of-achievement)
 5. [Motivation](#5-motivation)
 6. [Value Proposition](#6-value-proposition)
-7. [How are we different from state-of-the-art platforms?](#7-how-are-we-different-from-state-of-the-art-platforms?)\
+7. [How are we different from state-of-the-art platforms?](#7-how-are-we-different-from-state-of-the-art-platforms)\
   7.1 [Google Calendar](#71-google-calendar)\
   7.2 [Quizlet](#72-quizlet)\
   7.3 [Pomofocus](#73-pomofocus)
@@ -37,11 +37,11 @@
   15.1 [CSRF Token](#151-csrf-token)\
   15.2 [Password Hashing](#152-password-hashing)
 16. [Software Design Patterns and Principles](#16-software-design-patterns-and-principles)\
-  16.1 [Single Level of Abstraction Principle (SLAP)](#161-single-level-of-abstraction-principle)
+  16.1 [Single Level of Abstraction Principle (SLAP)](#161-single-level-of-abstraction-principle-slap)
 17. [Software Engineering Practices](#17-software-engineering-practices)\
-  17.1 [Virtual Environment](#171-virtual-environment)
-  17.2 [Version Control](#172-version-control)
-  17.3 [Continuous Delivery / Continuous Integration (CI/CD)](#173-continuous-delivery-continuois-integration)
+  17.1 [Virtual Environment](#171-virtual-environment)\
+  17.2 [Version Control](#172-version-control)\
+  17.3 [Continuous Delivery / Continuous Integration (CI/CD)](#173-continuous-delivery-continuous-integration-cicd)
 18. [Developers](#18-developers)
 
 &nbsp;  
