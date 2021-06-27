@@ -6,19 +6,23 @@
 
 
 # 1. Deployment
+
 [activenus.herokuapp.com](https://activenus.herokuapp.com/){:target="_blank"}
 
 # 2. Testing Account
+
 Username: test
 
 Password: testingexamplepassword
 
-# 3. Video
+# 3. Videos
+
 ## 3.1 Introduction Video
 [![Introduction Video](img/intro_thumbnail.png)](https://youtu.be/ZSS92-gmpTY){:target="_blank"}
 
 ## 3.2 Demo Video
 [![Demo Video](img/intro_thumbnail.png)](https://youtu.be/QgBkij0k48A){:target="_blank"}
+
 
 # 4. Proposed Level of Achievement
 Apollo 11
@@ -78,6 +82,12 @@ Server Deployment
 |----------|---------------|-------------------|
 |user|have a highly interconnected work/study management tool|easily navigate around the workspace and not be bothered by mundane administrative tasks|
 |student|get recommendations on effective revision schedule|ncorporate active recall and spaced repetition methods into their studying routines|
+|user|organize my tasks, keep track of work/study progress|manage my time effectively|
+|user|use Pomodoro timer while working and studying|avoid distractions and work/study with the optimal productivity|
+|student|create flashcards based on the topic I have studied and use them later on|revise effectively|
+|user (especially student)|use my time effectively with a Pomodoro timer and get rewards|avoid being distracted while working and studying|
+|users|write posts in the forum, see the others’ posts, chat with my friends within the ActiveNUS community|share my schedule, learning tips, and learn from the others|
+|administrator|identify abusers, warn them and ban them if they continue to cause problems|prevent abuse of the system|
 
 # 11. Overall Design
 
@@ -108,9 +118,12 @@ We aim to make a website that helps users, especially students, plan for work an
 
 ## 11.2 User Interface Design
 ActiveNUS’s main target users are students and young people. Therefore, we choose a modern design language for the platform. Furthermore, we also promote simplicity in design, helping users get the best experience of learning and working with ActiveNUS.
+
 The UI style guide and prototypes are included below.
 
 ![UI Guide](img/ui_guide.png)
+
+&nbsp;
 
 ![Prototypes](img/prototypes.png)
 
@@ -118,6 +131,7 @@ The UI style guide and prototypes are included below.
 # 12. Program Flow
 
 ![Flowchart](img/flowchart.png)
+
 
 # 13. Project Scopes
 The project is broken down into 3 parts corresponding to 3 milestones.
@@ -257,6 +271,11 @@ Details of the implemented tests are included in the table below.
 | ID | Name | Inputs | Expected Outputs | Result |
 |----|------|--------|------------------|--------|
 |1|Register page|`response = self.client.get(reverse('auth_register'))`|`response.status_code == 200; templateUsed == “authentication/register.html”`|Pass|
+|2|Login page|`response = self.client.get(reverse('auth_login'))`|`response.status_code == 200; templateUsed == “authentication/login.html”`|Pass|
+|3|Sign up user|`self.user = {"username":"username", "Email": "email@hmail2.com", "password1": "password”, "password2": "password"}`|`response.status_code == 302`|Pass|
+|4|Not sign up user with taken username|`self.user = {"username": "username", "email": "email@hmail2.com", "password1": "password", "password2": "password"}; self.client.post(reverse("auth_register"),self.user); response = self.client.post(reverse("auth_register"),self.user)`|`response.status_code == 409; response.wsgi_request.message == “Username is taken, choose another one”`|Pass|
+|5|Not sign up user with taken email|`self.user = {"username": "username1", "email": "email@hmail2.com", "password1": "password", "password2": "password" }; self.test_user2 = {"username":"username11", "email": "email@hmail2.com", "password1": "password", "password2": "password"}`|`response.status_code == 409`|Pass|
+|6|Not sign up user with mismatch password|`self.user = {"username": "username3", "email": "email@hmail3.com", "password1": "password3", "password2": "password33"}; response = self.client.post(reverse("auth_register"), self.user)`|`response.status_code == 409; response.wsgi_request.message == “Password mismatch”`|Pass|
 
 
 ## 14.2 Model Testing
@@ -362,7 +381,7 @@ Switching between levels of abstraction makes code harder to read. Reading the c
 
 Therefore, we choose to follow this principle to make the process of writing, understanding, and debugging easier. 
 
-For example, in '/helpers/decorators.py', the 'auth_user_should_not_access' function is abstracted and used as decorators in '/authentication/views.py' although we can achieve the same features using conditional statements.
+For example, in `/helpers/decorators.py`, the `auth_user_should_not_access` function is abstracted and used as decorators in `/authentication/views.py` although we can achieve the same features using conditional statements.
 
 ```python
 from django.contrib.auth.decorators import user_passes_test
@@ -382,7 +401,7 @@ def auth_user_should_not_access(viewfunc):
 
 A virtual environment is a Python environment in which the Python interpreter, libraries, and scripts installed are isolated from those installed in other virtual environments, as well as (by default) any libraries installed in a “system” Python, that is, one that is installed as part of the operating system.
 
-We used virtualenv to create a virtual environment (venv) so that all the dependencies are controlled and not affected by any other projects/tasks running locally on our computer. Furthermore, by isolating the libraries, the process of deployment also becomes easier.
+We used virtualenv to create a virtual environment (`venv`) so that all the dependencies are controlled and not affected by any other projects/tasks running locally on our computer. Furthermore, by isolating the libraries, the process of deployment also becomes easier.
 
 ## 17.2 Version Control
 
@@ -390,22 +409,25 @@ We use GitHub as the Git repository hosting for development and version control 
 
 * GitHub Issues: We use GitHub Issues not only to report bugs but also to collect user feedback and organize the tasks to be implemented.
 
-![Pull request 1](img/pull_request_1.png)
+![Issue](img/issue.png)
 
 * Pull request workflow:
-* A collaborator starts by checking out a new branch and doing all the work for a specific task on that branch. To signal the other about that new branch, the collaborator push it to GitHub.
-* Every time an important part of the task is implemented, the collaborator will make a new commit with a descriptive commit message.
-* After finishing that task, the collaborators will commit and push that branch and create a pull request through GitHub’s UI.
+  * A collaborator starts by checking out a new branch and doing all the work for a specific task on that branch. To signal the other about that new branch, the collaborator push it to GitHub.
+  * Every time an important part of the task is implemented, the collaborator will make a new commit with a descriptive commit message.
+  * After finishing that task, the collaborators will commit and push that branch and create a pull request through GitHub’s UI.
+
+![Pull request 1](img/pull_request_1.png)
+
+  * Both collaborators will then review the code and test it by running tests and deploying that branch.
+  * If every requirement is satisfied, we will merge that branch with the main branch and deploy the main branch again with the newly implemented features.
 
 ![Pull request 2](img/pull_request_2.png)
-
-* Both collaborators will then review the code and test it by running tests and deploying that branch.
-* If every requirement is satisfied, we will merge that branch with the main branch and deploy the main branch again with the newly implemented features.
 
 * GitHub Actions (to be mentioned in CI/CD)
 
 
 ## 17.3 Continuous Delivery / Continuous Integration (CI/CD)
+
 Continuous integration and continuous delivery are set up using Github action.
 
 GitHub Actions allows collaborators to construct workflows where certain actions can be specified to be performed every time someone pushes to a git repository.
