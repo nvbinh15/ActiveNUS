@@ -4,6 +4,15 @@
 
 &nbsp;  
 
+# Table of Contents
+
+1. [Deployment](#1-deployment)
+2. [Testing Account](#2-testing-account)
+3. [Videos](#3-videos)\
+  3.1 [Introduction Video](#31-introduction-video)\
+  3.2 [Demo Video](#32-demo-video)
+4. [Proposed Level of Achievement](#4-proposed-level-of-achivement) 
+
 
 # 1. Deployment
 
@@ -21,7 +30,7 @@ Password: testingexamplepassword
 [![Introduction Video](img/intro_thumbnail.png)](https://youtu.be/ZSS92-gmpTY){:target="_blank"}
 
 ## 3.2 Demo Video
-[![Demo Video](img/intro_thumbnail.png)](https://youtu.be/QgBkij0k48A){:target="_blank"}
+[![Demo Video](img/demo_thumbnail.png)](https://youtu.be/QgBkij0k48A){:target="_blank"}
 
 
 # 4. Proposed Level of Achievement
