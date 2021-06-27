@@ -258,6 +258,7 @@ Details of the implemented tests are included in the table below.
 |----|------|--------|------------------|--------|
 |1|Register page|`response = self.client.get(reverse('auth_register'))`|`response.status_code == 200; templateUsed == “authentication/register.html”`|Pass|
 
+
 ## 14.2 Model Testing
 
 The User class is inherited from the `AbstractUser` class of `django.contrib.auth.models`. The test function is written under the `TestModel` class (inherited from the `TestCase` class of `django.test`). It checks whether the user can be created correctly and asserts the matching of user information
