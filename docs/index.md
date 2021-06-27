@@ -11,8 +11,40 @@
 3. [Videos](#3-videos)\
   3.1 [Introduction Video](#31-introduction-video)\
   3.2 [Demo Video](#32-demo-video)
-4. [Proposed Level of Achievement](#4-proposed-level-of-achivement) 
+4. [Proposed Level of Achievement](#4-proposed-level-of-achievement)
+5. [Motivation](#5-motivation)
+6. [Value Proposition](#6-value-proposition)
+7. [How are we different from state-of-the-art platforms?](#7-how-are-we-different-from-state-of-the-art-platforms?)\
+  7.1 [Google Calendar](#71-google-calendar)\
+  7.2 [Quizlet](#72-quizlet)\
+  7.3 [Pomofocus](#73-pomofocus)
+8. [Tech Stack](#8-tech-stack)
+9. [Target User Profile](#9-target-user-profile)
+10. [User Stories](#10-user-stories)
+11. [Overall Design](#11-overall-design)\
+  11.1 [Core Features](#111-core-features)\
+  11.2 [User Interface Design](#112-user-interface-design)
+12. [Program Flow](#12-program-flow)
+13. [Project Scopes](#13-project-scopes)\
+  13.1 [Milestone 1: Setting up authentication and administration](#131-milestone-1-setting-up-authentication-and-administration)\
+  13.2 [Milestone 2: Building the core](#132-milestone-2-building-the-core)
+14. [Testing](#14-testing)\
+  14.1 [View Testing](#141-view-testing)\
+  14.2 [Model Testing](#142-model-testing)\
+  14.3 [Running Tests](#143-running-tests)\
+  14.4 [User Acceptance Testing](#144-user-acceptance-testing)
+15. [Software Security Measures](#15-software-security-measures)\
+  15.1 [CSRF Token](#151-csrf-token)\
+  15.2 [Password Hashing](#152-password-hashing)
+16. [Software Design Patterns and Principles](#16-software-design-patterns-and-principles)\
+  16.1 [Single Level of Abstraction Principle (SLAP)](#161-single-level-of-abstraction-principle)
+17. [Software Engineering Practices](#17-software-engineering-practices)\
+  17.1 [Virtual Environment](#171-virtual-environment)
+  17.2 [Version Control](#172-version-control)
+  17.3 [Continuous Delivery / Continuous Integration (CI/CD)](#173-continuous-delivery-continuois-integration)
+18. [Developers](#18-developers)
 
+&nbsp;  
 
 # 1. Deployment
 
@@ -78,7 +110,7 @@ Backend & Database
 Server Deployment
 * Heroku
 
-# 9. Target user profile
+# 9. Target User Profile
 * Users who prefer managing their schedule digitally
 * Students approaching exam period
 * Students who want to incorporate active recall and spaced repetition methods into their studying routines
@@ -175,7 +207,7 @@ urlpatterns = [
 
 ![Register](img/register.png)
 
-## 13.2 Building the core
+## 13.2 Milestone 2: Building the core
 
 ### 13.2.1 Dashboard
 
