@@ -1,4 +1,9 @@
+&nbsp;  
+
 ![ActiveNUS](img/logo+icon.png)
+
+&nbsp;  
+
 
 # 1. Deployment
 [activenus.herokuapp.com](https://activenus.herokuapp.com/){:target="_blank"}
@@ -8,11 +13,11 @@ Username: test
 Password: testingexamplepassword
 
 # 3. Video
-## 3.1 Introduction
+## 3.1 Introduction Video
 [![Introduction Video](img/intro_thumbnail.png)](https://youtu.be/ZSS92-gmpTY){:target="_blank"}
 
-## 3.2 Demo
-(Video thumbnail + link)
+## 3.2 Demo Video
+[![Demo Video](img/intro_thumbnail.png)](https://youtu.be/QgBkij0k48A){:target="_blank"}
 
 # 4. Proposed Level of Achievement
 Apollo 11
@@ -68,7 +73,13 @@ Server Deployment
 
 # 10. User Stories
 
-(table)
+| As a ... | I want to ... | So that I can ... |
+
+|----------|---------------|-------------------|
+
+|user|have a highly interconnected work/study management tool|easily navigate around the workspace and not be bothered by mundane administrative tasks|
+
+|student|get recommendations on effective revision schedule|ncorporate active recall and spaced repetition methods into their studying routines|
 
 # 11. Overall Design
 
@@ -105,14 +116,19 @@ The UI style guide and prototypes are included below.
 
 ![Prototypes](img/prototypes.png)
 
-# 12. Project Scopes
+
+# 12. Program Flow
+
+![Flowchart](img/flowchart.png)
+
+# 13. Project Scopes
 The project is broken down into 3 parts corresponding to 3 milestones.
 
-## 12.1 Milestone 1: Setting up authentication and administration
+## 13.1 Milestone 1: Setting up authentication and administration
 
-12.1.1 Set up application components (Authentication, Dashboard, Admin)
+13.1.1 Set up application components (Authentication, Dashboard, Admin)
 
-12.1.2 Frontend Web Routing: Set up URLs for the components of the applications 
+13.1.2 Frontend Web Routing: Set up URLs for the components of the applications 
 
 ```python
 from django.contrib import admin
@@ -128,19 +144,19 @@ urlpatterns = [
 ]
 ```
 
-12.1.3 Set up Database using SQLite3. Models and data are stored in db.sqlite3 file.
+13.1.3 Set up Database using SQLite3. Models and data are stored in db.sqlite3 file.
 
-12.1.4 Set up administration: using Django default admin app and creating a superuser.
+13.1.4 Set up administration: using Django default admin app and creating a superuser.
 
 ![Admin](img/admin.png)
 
-12.1.5 Token Authentication: implement user registration and login. Users will be able to register (email verification required), and upon logging in, are authenticated and assigned a token, their password will be hashed (instead of being stored as plain text directly).
+13.1.5 Token Authentication: implement user registration and login. Users will be able to register (email verification required), and upon logging in, are authenticated and assigned a token, their password will be hashed (instead of being stored as plain text directly).
 
 ![Register](img/register.png)
 
-## 12.2 Building the core
+## 13.2 Building the core
 
-### 12.2.1 Dashboard
+### 13.2.1 Dashboard
 
 **Description**
 
@@ -154,7 +170,7 @@ To-do list design consideration: On using to-do list, users might want to keep t
 
 Additionally, users can also have an option to move finished tasks to the end. This will be very helpful because in real-life usage, the order users add tasks and finish them are not the same. Hence, users can easily see at a glance which are the undone and done tasks separately. 
 
-### 12.2.2 Pomodoro timer
+### 13.2.2 Pomodoro timer
 
 **Description**
 
@@ -178,7 +194,7 @@ Hence, in our second prototype, we replace the 4 buttons structures with a simpl
 
 ![Prev_timer](img/prev_timer.png)
 
-### 12.2.3 Calendar
+### 13.2.3 Calendar
 
 **Description**
 
@@ -194,7 +210,7 @@ On view the calendar, users might want to view their schedule for the whole mont
 
 Users can navigate easily between previous/next month, week or day using the 2 arrows on the top left. Also, users might want to immediately return to today’s date, hence, we add a ‘today’ button next to the arrow buttons.
 
-### 12.2.4 Flashcard
+### 13.2.4 Flashcard
 
 **Description**
 
@@ -210,18 +226,18 @@ To replicate a real flashcard, we use flipping animation that occurs when users 
 
 Previously, we did not allow users to add cards to the card set while in learning mode. However, doing so may affect the user's workflow. Therefore, we came up with the current implementation.
 
-### 12.2.5 Route protection
+### 13.2.5 Route protection
 
 Unauthorized users can only access the Authentication and Registration system. Similarly, logged-in users can only view Dashboard, Calendar, Pomodoro Timer, and Flashcard before signing out.
 
 
-# 13. Testing
+# 14. Testing
 
-Django provides a test framework with a hierarchy of classes that build on the Python standard unittest library. Django has a default test.py file for each application of the project. 
+Django provides a test framework with a hierarchy of classes that build on the Python standard unittest library. Django has a default `test.py` file for each application of the project. 
 
-However, to cope with the complexity of the website and a large number of views and models created (and to be created), we write two separate files test_views.py and test_models.py, which are stored in the tests directory of each application instead.
+However, to cope with the complexity of the website and a large number of views and models created (and to be created), we write two separate files `test_views.py` and `test_models.py`, which are stored in the tests directory of each application instead.
 
-## 13.1 View Testing
+## 14.1 View Testing
 
 We want to ensure that the views of each application are handled correctly. To do that, test functions are written to check the template rendering, the HTTP status codes and assert the messages to the client. 
 
@@ -240,9 +256,14 @@ The testing functions are created under the `TestViews` class, which is inherite
 
 Details of the implemented tests are included in the table below.
 
-(table)
+| ID | Name | Inputs | Expected Outputs | Result |
+|----|------|--------|------------------|--------|
+|1|Register page|`response = self.client.get(reverse('auth_register'))`|`response.status_code == 200
 
-## 13.2 Model Testing
+templateUsed == “authentication/register.html”
+`|Pass|
+
+## 14.2 Model Testing
 
 The User class is inherited from the `AbstractUser` class of `django.contrib.auth.models`. The test function is written under the `TestModel` class (inherited from the `TestCase` class of `django.test`). It checks whether the user can be created correctly and asserts the matching of user information
 
@@ -265,7 +286,7 @@ class TestModel(TestCase):
 
 In the example above, the `test_should_create_user` creates a new testing user with `username = ‘username’` and `email = ‘email@app.com’`. Then, it then checks if this information is stored correctly in the database and its string representation is correct or not.
 
-## 13.3 Running Tests
+## 14.3 Running Tests
 
 To run tests, run the command `$ python manage.py test`.
 
@@ -282,7 +303,7 @@ OK
 Destroying test database for alias 'default'...
 ```
 
-## 13.4 User Acceptance Testing
+## 14.4 User Acceptance Testing
 
 When the prototype for ActiveNUS is ready, acceptance testing will be conducted. The sample size for acceptance is projected to be 50, composed of our target users which are university students.
 
@@ -314,11 +335,11 @@ We intend to inquire testers on the following features:
 * Are the automatically recommended cards really the ones that users need to reinforce?
 
 
-# 14. Software Security Measures
+# 15. Software Security Measures
 
 To ensure the safety of our database and the privacy of users, we introduced some security measures.
 
-## 14.1 CSRF Token
+## 15.1 CSRF Token
 
 A CSRF (Cross-site request forge) token is a unique, secret, unpredictable value generated by the server-side application and transmitted to the client so that it is included in a subsequent HTTP request made by the client. When the later request is made, the server-side application validates that the request consists of the expected token and rejects the request if the token is missing or invalid.
 
@@ -326,10 +347,79 @@ CSRF tokens can prevent CSRF attacks by making it impossible for an attacker to 
 
 In ActiveNUS, POST requests are used in the registration system and other forms for users to add the information. Therefore, CSRF tokens are used to protect the database of unwanted threats.
 
-## 14.2 Password Hashing
+## 15.2 Password Hashing
 
 If the user's password is stored as plaintext in the database, the system can be put at risk by unwanted attacks. Moreover, user privacy may be violated if necessary practices are not taken. Therefore, we hash people's passwords using SHA265 algorithm with 260,000 iterations and salt added.
 
 A hash is a ‘one-way’ cryptographic function, and the output of hashing has a fixed size for any size of the source text. A good hash function should map the expected inputs as evenly as possible over its output range. That is, every hash value in the output range should be generated with roughly the same probability. Also, a very small change of the input should lead to a significant variation of the output. 
 
 We choose SHA256 to protect users’ passwords because it satisfies all properties of a good hash function as mentioned above. To enhance security, we run the hash function through 260,000 iterations with salt (adding random bits to each password instance before hashing).
+
+
+# 16. Software Design Patterns and Principles
+
+## 16.1 Single Level of Abstraction Principle (SLAP)
+
+The Single Level of Abstraction Principle statement is that “each method should be written in terms of a single level of abstraction”.
+
+Switching between levels of abstraction makes code harder to read. Reading the code requires you to mentally create the missing abstractions by looking for groupings of statements that belong together.
+
+Therefore, we choose to follow this principle to make the process of writing, understanding, and debugging easier. 
+
+For example, in '/helpers/decorators.py', the 'auth_user_should_not_access' function is abstracted and used as decorators in '/authentication/views.py' although we can achieve the same features using conditional statements.
+
+```python
+from django.contrib.auth.decorators import user_passes_test
+
+def check_user(user):
+    return not user.is_authenticated
+
+user_logout_required = user_passes_test(check_user, '/', None)
+
+def auth_user_should_not_access(viewfunc):
+    return user_logout_required(viewfunc)
+```
+
+# 17. Software Engineering Practices
+
+## 17.1 Virtual Environment
+
+A virtual environment is a Python environment in which the Python interpreter, libraries, and scripts installed are isolated from those installed in other virtual environments, as well as (by default) any libraries installed in a “system” Python, that is, one that is installed as part of the operating system.
+
+We used virtualenv to create a virtual environment (venv) so that all the dependencies are controlled and not affected by any other projects/tasks running locally on our computer. Furthermore, by isolating the libraries, the process of deployment also becomes easier.
+
+## 17.2 Version Control
+
+We use GitHub as the Git repository hosting for development and version control for ActiveNUS. GitHub allows us to manage the workflow and make sure the project is on schedule with GitHub Issues, Pull Requests, and GitHub Actions.
+
+* GitHub Issues: We use GitHub Issues not only to report bugs but also to collect user feedback and organize the tasks to be implemented.
+
+![Pull request 1](img/pull_request_1.png)
+
+* Pull request workflow:
+* A collaborator starts by checking out a new branch and doing all the work for a specific task on that branch. To signal the other about that new branch, the collaborator push it to GitHub.
+* Every time an important part of the task is implemented, the collaborator will make a new commit with a descriptive commit message.
+* After finishing that task, the collaborators will commit and push that branch and create a pull request through GitHub’s UI.
+
+![Pull request 2](img/pull_request_2.png)
+
+* Both collaborators will then review the code and test it by running tests and deploying that branch.
+* If every requirement is satisfied, we will merge that branch with the main branch and deploy the main branch again with the newly implemented features.
+
+* GitHub Actions (to be mentioned in CI/CD)
+
+
+## 17.3 Continuous Delivery / Continuous Integration (CI/CD)
+Continuous integration and continuous delivery are set up using Github action.
+
+GitHub Actions allows collaborators to construct workflows where certain actions can be specified to be performed every time someone pushes to a git repository.
+
+Since Heroku (deployment platform) is connected to Github, the website will be automatically deployed after every push if that push passes all the tests and requirements. If not, then it will be evaluated manually by the collaborators.
+
+
+# 18. Developers
+
+| Name | GitHub | Portfolio |    
+|--------|-------|-------|
+| Nguyen Van Binh | [nvbinh15](https://github.com/nvbinh15) | [Portfolio](https://portfolio-nvbinh15.vercel.app/) |
+| Tran Thi Phuong Thao | [thaotran27](https://github.com/thaotran27) | |
