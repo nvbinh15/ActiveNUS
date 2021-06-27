@@ -10,6 +10,7 @@
 
 # 2. Testing Account
 Username: test
+
 Password: testingexamplepassword
 
 # 3. Video
@@ -74,11 +75,8 @@ Server Deployment
 # 10. User Stories
 
 | As a ... | I want to ... | So that I can ... |
-
 |----------|---------------|-------------------|
-
 |user|have a highly interconnected work/study management tool|easily navigate around the workspace and not be bothered by mundane administrative tasks|
-
 |student|get recommendations on effective revision schedule|ncorporate active recall and spaced repetition methods into their studying routines|
 
 # 11. Overall Design
@@ -258,10 +256,7 @@ Details of the implemented tests are included in the table below.
 
 | ID | Name | Inputs | Expected Outputs | Result |
 |----|------|--------|------------------|--------|
-|1|Register page|`response = self.client.get(reverse('auth_register'))`|`response.status_code == 200
-
-templateUsed == “authentication/register.html”
-`|Pass|
+|1|Register page|`response = self.client.get(reverse('auth_register'))`|`response.status_code == 200<br>templateUsed == “authentication/register.html”`|Pass|
 
 ## 14.2 Model Testing
 
