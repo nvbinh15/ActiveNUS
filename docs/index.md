@@ -41,7 +41,7 @@
 17. [Software Engineering Practices](#17-software-engineering-practices)\
   17.1 [Virtual Environment](#171-virtual-environment)\
   17.2 [Version Control](#172-version-control)\
-  17.3 [Continuous Delivery / Continuous Integration (CI/CD)](#173-continuous-delivery-continuous-integration-cicd)
+  17.3 [Continuous Delivery / Continuous Integration (CI/CD)](#173-continuous-delivery-continuous-integration)
 18. [Developers](#18-developers)
 
 &nbsp;  
@@ -467,9 +467,9 @@ We use GitHub as the Git repository hosting for development and version control 
 * GitHub Actions (to be mentioned in CI/CD)
 
 
-## 17.3 Continuous Delivery / Continuous Integration (CI/CD)
+## 17.3 Continuous Delivery / Continuous Integration
 
-Continuous integration and continuous delivery are set up using Github action.
+Continuous integration and continuous delivery (CI/CD) are set up using Github action.
 
 GitHub Actions allows collaborators to construct workflows where certain actions can be specified to be performed every time someone pushes to a git repository.
 
