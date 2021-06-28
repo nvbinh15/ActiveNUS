@@ -9,31 +9,6 @@ var deck1 = [{
 	"startcard": false,
 	"number": 0
 }, {
-	"val": "God of war, bloodshed, and violence",
-	"key": "Ares",
-	"startcard": false,
-	"number": 0
-}, {
-	"val": "Virgin goddess of the hunt, wilderness, animals, young girls, childbirth, plague, and the moon",
-	"key": "Artemis",
-	"startcard": false,
-	"number": 0
-}, {
-	"val": "Goddess of intelligence, skill, peace, warfare, battle strategy, handicrafts, and wisdom",
-	"key": "Athena",
-	"startcard": false,
-	"number": 0
-}, {
-	"val": "Goddess of grain, agriculture and the harvest, growth and nourishment",
-	"key": "Demeter",
-	"startcard": false,
-	"number": 0
-}, {
-	"val": "God of wine, parties and festivals, madness, chaos, drunkenness, drugs, and ecstasy",
-	"key": "Dionysus",
-	"startcard": false,
-	"number": 0
-}, {
 	"val": "King of the underworld and the dead, and god of regret.",
 	"key": "Hades",
 	"startcard": false,
@@ -46,21 +21,6 @@ var deck1 = [{
 }, {
 	"val": "Queen of the gods and goddess of marriage, women, childbirth, heirs, kings, and empires",
 	"key": "Hera",
-	"startcard": false,
-	"number": 0
-}, {
-	"val": "God of boundaries, travel, communication, trade, language, and writing",
-	"key": "Hermes",
-	"startcard": false,
-	"number": 0
-}, {
-	"val": "Virgin goddess of the hearth, home and chastity",
-	"key": "Hestia",
-	"startcard": false,
-	"number": 0
-}, {
-	"val": "God of the sea, rivers, floods, droughts, and earthquakes.",
-	"key": "Poseidon",
 	"startcard": false,
 	"number": 0
 }, {
