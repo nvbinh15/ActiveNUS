@@ -6,7 +6,7 @@
 1. [Core Features](#1-core-features)\
   1.1 [Dashboad](#11-dashboard)\
     1.1.1 [Progress tracking](#111-progress-tracking)\
-    1.1.2 [To-do List](#112-todo-list)
+    1.1.2 [To-do List](#112-todo-list)\
   1.2 [Pomodoro Timer](#12-pomodoro-timer)\
     1.2.1 [Countdown Clock](#121-countdown-clock)
 2. [Database](#2-database)
