@@ -5,18 +5,18 @@
 
 1. [Core Features](#1-core-features)\
   1.1 [Dashboad](#11-dashboard)\
-    1.1.1 [Progress tracking](#111-progress-tracking)\
-    1.1.2 [To-do List](#112-todo-list)\
+    &nbsp;&nbsp;1.1.1 [Progress tracking](#111-progress-tracking)\
+    &nbsp;&nbsp;1.1.2 [To-do List](#112-to-do-list)\
   1.2 [Pomodoro Timer](#12-pomodoro-timer)\
-    1.2.1 [Countdown Clock](#121-countdown-clock)
-    1.2.2 [Reward](#122-reward)\
-  1.3 [Calendar] (#13-calendar)\
-    1.3.1 [Calendar Module](#131-calendar-module)\
-    1.3.2 [Recommendation System](#132-recommendation-system)\
+    &nbsp;&nbsp;1.2.1 [Countdown Clock](#121-countdown-clock)\
+    &nbsp;&nbsp;1.2.2 [Reward](#122-reward)\
+  1.3 [Calendar](#13-calendar)\
+    &nbsp;&nbsp;1.3.1 [Calendar Module](#131-calendar-module)\
+    &nbsp;&nbsp;1.3.2 [Recommendation System](#132-recommendation-system)\
   1.4 [Flashcard](#14-flashcard)\
-    1.4.1 [Flashcard System](#141-flashcard-system)\
-    1.4.2 [Algorithm to Optimize Flashcard Order](#142-algorithm-to-optimize-flashcard-order)\
-  1.5 [Social Forum](#15-social-orum-depends-on-the-progress))
+    &nbsp;&nbsp;1.4.1 [Flashcard System](#141-flashcard-system)\
+    &nbsp;&nbsp;1.4.2 [Algorithm to Optimize Flashcard Order](#142-algorithm-to-optimize-flashcard-order)\
+  1.5 [Social Forum](#15-social-forum-depends-on-the-progress)
 2. [Database](#2-database)
 3. [Testing](#3-testing)\
   3.1 [Django Unit Testing](#31-django-unit-testing)\
