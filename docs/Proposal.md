@@ -9,6 +9,14 @@
     1.1.2 [To-do List](#112-todo-list)\
   1.2 [Pomodoro Timer](#12-pomodoro-timer)\
     1.2.1 [Countdown Clock](#121-countdown-clock)
+    1.2.2 [Reward](#122-reward)\
+  1.3 [Calendar] (#13-calendar)\
+    1.3.1 [Calendar Module](#131-calendar-module)\
+    1.3.2 [Recommendation System](#132-recommendation-system)\
+  1.4 [Flashcard](#14-flashcard)\
+    1.4.1 [Flashcard System](#141-flashcard-system)\
+    1.4.2 [Algorithm to Optimize Flashcard Order](#142-algorithm-to-optimize-flashcard-order)\
+  1.5 [Social Forum](#15-social-orum-depends-on-the-progress))
 2. [Database](#2-database)
 3. [Testing](#3-testing)\
   3.1 [Django Unit Testing](#31-django-unit-testing)\
@@ -66,7 +74,7 @@
 * Add new `resume` and `restart` buttons and bind their condition of appearance using VueJS.
 * Write a Django model `Cycle` that has the following attributes `cycleCount`, `duration`, and `dateTime` to store the focus time into the database.
 
-### 1.2.2 Countdown Clock
+### 1.2.2 Reward
 
 #### Description
 
@@ -95,7 +103,7 @@
 * Call API from Google Calendar API to sync and read data from Google Calendar
 * We are considering using `django-ical` or `ics` package to export `.ics` files.
 
-### 1.3.2 Calendar Module
+### 1.3.2 Recommendation System
 
 #### Description
 
@@ -108,9 +116,13 @@
 
 The algorithm to generate schedules automatically will be written based on Ebbinghaus’ forgetting curve and review cycle. ActiveNUS will also have conditions to restrict the input data (for example end date must be at least 2 days after the start date, or the number of iterations must fall into some range based on the expected workload input,...). Based on the input data, ActiveNUS will generate calendar events.
 
-## 1.4 Flashcard System
+![Space Repetition](img/space_repetition.png)
 
-### 1.4.1 Flashcard Folder
+*Ebbinghaus' forgetting curve and review cycle.*
+
+## 1.4 Flashcard 
+
+### 1.4.1 Flashcard System
 
 #### Description
 
@@ -142,6 +154,8 @@ score = (score * number_of_attempts + n) / (number_of_attempts + 1)
 
 number_of_attempts = number_of_attempts + 1
 ```
+
+With `n` equals `1`, `2`, or `3` if the user clicks on `Hard`, `Medium`, or `Easy`, respectively.
 
 The items in a folder are sorted by the score and displayed to the user in ascending order of score.
 
