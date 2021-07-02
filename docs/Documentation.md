@@ -519,6 +519,7 @@ We choose to follow this principle in order to make our code more maintainable a
 For example, since most of the components of ActiveNUS have the same design language, we write a `base.html` file in `/templates/_partials` that define the structure of the pages, and the other templates extend that file.
 
 ```html
+{% raw %}
   {% if request.user.is_authenticated %}
     {% include "_partials/header.html" %}
     <div id="main-part" class="ui grid" style="height: 100%">
@@ -563,6 +564,7 @@ For example, since most of the components of ActiveNUS have the same design lang
     {% endblock content %}
 
   {% endif %}
+{% endraw %}
 ```
 
 
