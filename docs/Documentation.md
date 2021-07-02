@@ -16,6 +16,7 @@
   7.2 [Quizlet](#72-quizlet)\
   7.3 [Pomofocus](#73-pomofocus)
 8. [Tech Stack](#8-tech-stack)
+9. [Set Up Instruction](#9-set-up-instruction)
 9. [Target User Profile](#9-target-user-profile)
 10. [User Stories](#10-user-stories)
 11. [Overall Design](#11-overall-design)\
@@ -34,7 +35,8 @@
   15.1 [CSRF Token](#151-csrf-token)\
   15.2 [Password Hashing](#152-password-hashing)
 16. [Software Design Patterns and Principles](#16-software-design-patterns-and-principles)\
-  16.1 [Single Level of Abstraction Principle (SLAP)](#161-single-level-of-abstraction-principle-slap)
+  16.1 [Single Level of Abstraction Principle (SLAP)](#161-single-level-of-abstraction-principle-slap)\
+  16.2 [Don’t Repeat Yourself (DRY) Principle](#162-dont-repeat-yourself-dry-principle)
 17. [Software Engineering Practices](#17-software-engineering-practices)\
   17.1 [Virtual Environment](#171-virtual-environment)\
   17.2 [Version Control](#172-version-control)\
@@ -105,6 +107,78 @@ Backend & Database
 
 Server Deployment
 * Heroku
+
+# 9. Set Up Instruction
+
+Change into the directory you want to store the code (the directory must not contain any non-empty directory named `ActiveNUS`).
+
+Clone the codebase by `$ git clone https://github.com/nvbinh15/ActiveNUS.git`
+
+A new `ActiveNUS` directory will be created in the current directory.
+
+Change into the `ActiveNUS` directory.
+
+Directory structure:
+
+![Directory](img/directory.png)
+
+Create a virtual environment with `python3` by running `$ virtualenv -p python3 venv`. A new directory called `venv` will be created in the current directory.
+
+Activate the `venv` environment by running `$ source venv/bin/activate`. You are now switching to the `venv` environment.
+
+Install all the required packages by running `$ pip install -r requirements.txt`
+
+The following packages will be installed into the current environment (`venv`):
+
+|Package|Version|
+|-------|-------|
+|`appdirs`|1.4.4|
+|`asgiref`|3.3.4|
+|`certifi`|2020.12.5|
+|`chardet`|4.0.0|
+|`distlib`|0.3.1|
+|`dj-database-url`|0.5.0|
+|`Django`|3.2.3|
+|`django-heroku`|0.0.0|
+|`firelock`|3.0.12|
+|`gunicorn`|20.1.0|
+|`heroku`|0.1.4|
+|`idna`|2.10|
+|`pipenv`|2021.5.29|
+|`python-detautil`|1.5|
+|`pytz`|2021.1|
+|`requests`|2.25.1|
+|`six`|1.16.0|
+|`sqlparse`|0.4.1|
+|`urllib3`|1.26.5|
+|`validate-email`|1.3|
+|`virtualenv`|20.4.7|
+|`virtualenv-clone`|0.5.4|
+|`whitenoise`|5.2.0|
+
+Create a new file `.env` in the current directory that stores all the environment information. Type in your secret key (django secret key), your email address, and your email password. The content of the file should be like this:
+
+```
+export SECRET_KEY=’<YOUR_SECRET_KEY>’
+export EMAIL_FROM_USER=<YOUR_EMAIL_ADDRESS>
+export EMAIL_HOST_PASSWORD=<YOUR_EMAIL_PASSWORD>
+```
+
+Activate the `.env` file by running `$ python manage.py runserver`
+
+Now, everything is set up. You can run the website locally by `$ python manage.py runserver`. The local server deployment should be found at [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
+
+```
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+July 01, 2021 - 15:07:06
+Django version 3.2.3, using settings 'activenus.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+```
+
 
 # 9. Target User Profile
 * Users who prefer managing their schedule digitally
@@ -435,6 +509,62 @@ user_logout_required = user_passes_test(check_user, '/', None)
 def auth_user_should_not_access(viewfunc):
     return user_logout_required(viewfunc)
 ```
+
+## 16.2 Don’t Repeat Yourself (DRY) Principle
+
+This is one of the core design philosophies of Django. “Every distinct concept and/or piece of data should live in one, and only one, place. Redundancy is bad. Normalization is good. The framework, within reason, should deduce as much as possible from as little as possible.”
+
+We choose to follow this principle in order to make our code more maintainable and reusable.
+
+For example, since most of the components of ActiveNUS have the same design language, we write a `base.html` file in `/templates/_partials` that define the structure of the pages, and the other templates extend that file.
+
+```html
+  {% if request.user.is_authenticated %}
+    {% include "_partials/header.html" %}
+    <div id="main-part" class="ui grid" style="height: 100%">
+        <div class="two wide column" id="left-div">
+            <div class="div-content" id="left-div-content">
+                <a href={% url 'home' %}>
+                    <div class='tab'><i class="home icon"></i> Dashboard</div>
+                </a>
+                <a href={% url 'calendar' %}>
+                    <div class='tab'><i class="calendar alternate icon"></i> Calendar</div>
+                </a>
+                <a href={% url 'pomodoro' %}>
+                    <div class='tab'><i class="clock icon"></i> Pomodoro Timer</div>
+                </a>
+                <a href={% url 'flashcard' %}>
+                    <div class='tab'><i class="copy icon"></i> Flashcard</div>
+                </a>
+            </div>
+
+        </div>
+        <div class="ten wide column" id="mid-div">
+            <div class="div-content" id="mid-div-content">
+                {% block contentdiv1 %}
+
+                {% endblock contentdiv1 %}
+            </div>
+        </div>
+
+        <div class="four wide column" id="right-div">
+            <div class="div-content" id="right-div-content">
+                {% block contentdiv2 %}
+
+                {% endblock contentdiv2 %}
+            </div>
+        </div>
+    </div>
+
+  {% else %}
+
+    {% block content %}
+
+    {% endblock content %}
+
+  {% endif %}
+```
+
 
 # 17. Software Engineering Practices
 

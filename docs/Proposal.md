@@ -20,7 +20,8 @@
 2. [Database](#2-database)
 3. [Testing](#3-testing)\
   3.1 [Django Unit Testing](#31-django-unit-testing)\
-  3.2 [Authoring Functional Tests Using Selenium](#32-authoring-functional-tests-using-selenium)
+  3.2 [Authoring Functional Tests Using Selenium](#32-authoring-functional-tests-using-selenium)\
+  3.3 [User Acceptance Testing](#33-user-acceptance-testing)
 
 
 # 1. Core Features
@@ -216,3 +217,35 @@ driver = webdriver.Chrome()
 ```
 
 Then we can use the driver to simulate automated tests of our page.
+
+
+## 3.3 User Acceptance Testing
+
+When the prototype for ActiveNUS is ready, acceptance testing will be conducted. The sample size for acceptance is projected to be 20, composed of our target users which are university students.
+
+We intend to inquire testers on the following features:
+
+### Authentication:
+* Is it easy and intuitive to navigate to the registration page for new users?
+* Is it easy and intuitive to log in for existing users?
+* If the users fail to provide valid credentials on logging in, do users face any difficulties setting up a new password?
+
+### Dashboard and to-do list:
+* Is the user interface of the dashboard and to-do list clear and comprehensive on users’ tasks and progress?
+* Do users face any inconveniences while viewing their progress boxes?
+* Do users face any inconveniences to add, track and delete to-do list tasks?
+
+### Calendar:
+* Do users face any inconveniences to add, update and delete calendar events?
+* Is it easy and intuitive for users to view different viewing modes of the calendar (monthly, weekly and daily view)?
+* Do users face any other inconveniences while using the calendar?
+
+### Pomodoro timer:
+* Is it easy and intuitive for users to choose different modes of Pomodoro timer (focus mode, short break mode, long break mode)?
+* What do users think of the notification? Is the volume suitable for a working/studying environment? 
+* What do users think of the gamified reward scheme? Is it exciting enough to motivate users?
+
+### Flashcard:
+* Do users face any inconveniences when adding new cards and using existing card decks?
+* Are the animation and user interface pleasant to use?
+* Are the automatically recommended cards really the ones that users need to reinforce?
