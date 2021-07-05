@@ -17,30 +17,38 @@
   7.3 [Pomofocus](#73-pomofocus)
 8. [Tech Stack](#8-tech-stack)
 9. [Set Up Instruction](#9-set-up-instruction)
-9. [Target User Profile](#9-target-user-profile)
-10. [User Stories](#10-user-stories)
-11. [Overall Design](#11-overall-design)\
-  11.1 [Core Features](#111-core-features)\
-  11.2 [User Interface Design](#112-user-interface-design)
+10. [Target User Profile](#10-target-user-profile)
+11. [User Stories](#11-user-stories)
+12. [Overall Design](#12-overall-design)\
+  12.1 [Core Features](#121-core-features)\
+  12.2 [User Interface Design](#122-user-interface-design)\
+  12.3 [Program Flow](#123-program-flow)
 12. [Program Flow](#12-program-flow)
 13. [Project Scopes](#13-project-scopes)\
   13.1 [Milestone 1: Setting up authentication and administration](#131-milestone-1-setting-up-authentication-and-administration)\
   13.2 [Milestone 2: Building the core](#132-milestone-2-building-the-core)
-14. [Testing](#14-testing)\
+14. [Testing (completed in milestone 2)](#14-testing-completed-in-milestone-2)\
   14.1 [View Testing](#141-view-testing)\
   14.2 [Model Testing](#142-model-testing)\
   14.3 [Running Tests](#143-running-tests)\
-  14.4 [User Acceptance Testing](#144-user-acceptance-testing)
-15. [Software Security Measures](#15-software-security-measures)\
-  15.1 [CSRF Token](#151-csrf-token)\
-  15.2 [Password Hashing](#152-password-hashing)
-16. [Software Design Patterns and Principles](#16-software-design-patterns-and-principles)\
-  16.1 [Single Level of Abstraction Principle (SLAP)](#161-single-level-of-abstraction-principle-slap)\
-  16.2 [Don’t Repeat Yourself (DRY) Principle](#162-dont-repeat-yourself-dry-principle)
-17. [Software Engineering Practices](#17-software-engineering-practices)\
-  17.1 [Virtual Environment](#171-virtual-environment)\
-  17.2 [Version Control](#172-version-control)\
-  17.3 [Continuous Integration / Continuous Delivery (CI/CD)](#173-continuous-integration--continuous-delivery-cicd)
+  14.4 [Manual Testing](#144-manual-testing)
+15. [Features to be Completed by Milestone 3](#15-features-to-be-completed-by-milestone-3)\
+  15.1 [Core Features](#151-core-features)\
+  15.2 [Database](#152-database)\
+  15.3 [Testing](#153-testing)\
+  &nbsp;&nbsp;15.3.1 [Django Unit Testing](#1531-django-unit-testing)\
+  &nbsp;&nbsp;15.3.2 [Authoring Functional Tests Using Selenium](#1532-authoring-functional-tests-using-selenium)\
+  &nbsp;&nbsp;15.3.3 [User Acceptance Testing](#1533-user-acceptance-testing)
+16. [Software Security Measures](#16-software-security-measures)\
+  16.1 [CSRF Token](#161-csrf-token)\
+  16.2 [Password Hashing](#162-password-hashing)
+17. [Software Design Patterns and Principles](#17-software-design-patterns-and-principles)\
+  17.1 [Single Level of Abstraction Principle (SLAP)](#161-single-level-of-abstraction-principle-slap)\
+  17.2 [Don’t Repeat Yourself (DRY) Principle](#172-dont-repeat-yourself-dry-principle)
+18. [Software Engineering Practices](#18-software-engineering-practices)\
+  18.1 [Virtual Environment](#181-virtual-environment)\
+  18.2 [Version Control](#182-version-control)\
+  18.3 [Continuous Integration / Continuous Delivery (CI/CD)](#183-continuous-integration--continuous-delivery-cicd)
 
 &nbsp;  
 
@@ -180,14 +188,14 @@ Quit the server with CONTROL-C.
 ```
 
 
-# 9. Target User Profile
+# 10. Target User Profile
 * Users who prefer managing their schedule digitally
 * Students approaching exam period
 * Students who want to incorporate active recall and spaced repetition methods into their studying routines
 * Students who want to use effective revision methods
 * Users who want to have a platform to share and learn from the others
 
-# 10. User Stories
+# 11. User Stories
 
 | As a ... | I want to ... | So that I can ... |
 |----------|---------------|-------------------|
@@ -200,11 +208,11 @@ Quit the server with CONTROL-C.
 |users|write posts in the forum, see the others’ posts, chat with my friends within the ActiveNUS community|share my schedule, learning tips, and learn from the others|
 |administrator|identify abusers, warn them and ban them if they continue to cause problems|prevent abuse of the system|
 
-# 11. Overall Design
+# 12. Overall Design
 
 We aim to make a website that helps users, especially students, plan for work and study in general and promotes efficient study methods, namely active recall and spaced repetition. To achieve this goal, we came up with the overall design for ActiveNUS.
 
-## 11.1 Core Features
+## 12.1 Core Features
 
 **Dashboard:** a comprehensive overview of your work/study progress and daily tasks 
 
@@ -227,7 +235,7 @@ We aim to make a website that helps users, especially students, plan for work an
 * Create folders of flashcards based on the topic you are studying for. 
 * Accessing the flashcards folder for the topic or module directly from the dashboard
 
-## 11.2 User Interface Design
+## 12.2 User Interface Design
 ActiveNUS’s main target users are students and young people. Therefore, we choose a modern design language for the platform. Furthermore, we also promote simplicity in design, helping users get the best experience of learning and working with ActiveNUS.
 
 The UI style guide and prototypes are included below.
@@ -239,13 +247,13 @@ The UI style guide and prototypes are included below.
 ![Prototypes](img/prototypes.png)
 
 
-# 12. Program Flow
+## 12.3 Program Flow
 
-## 12.1 Activity Diagram
+### Activity Diagram
 
 ![Activity Diagram](img/activity_diagram.jpeg)
 
-## 12.2 Web Mechanism Diagram
+### Web Mechanism Diagram
 
 ![Workflow](img/workflow.jpeg)
 
@@ -360,13 +368,13 @@ Previously, we did not allow users to add cards to the card set while in learnin
 Unauthorized users can only access the Authentication and Registration system. Similarly, logged-in users can only view Dashboard, Calendar, Pomodoro Timer, and Flashcard before signing out.
 
 
-# 14. Testing
+# 14. Testing (completed in milestone 2)
 
 Django provides a test framework with a hierarchy of classes that build on the Python standard unittest library. Django has a default `test.py` file for each application of the project. 
 
 However, to cope with the complexity of the website and a large number of views and models created (and to be created), we write two separate files `test_views.py` and `test_models.py`, which are stored in the tests directory of each application instead.
 
-## 14.1 View Testing
+## 14.1 View Testing 
 
 We want to ensure that the views of each application are handled correctly. To do that, test functions are written to check the template rendering, the HTTP status codes and assert the messages to the client. 
 
@@ -460,44 +468,240 @@ Destroying test database for alias 'default'...
 |15|Flashcard|User can flip card and progress through the deck|Navigate to Flashcard<br />Click on `Next`<br />Click on the card to flip and see answer<br />Clicking `Next` or `Previous` to view other cards|On clicking `next`, the first card is presented<br />Card will be flipped to the answer when clicked on<br />Clicking `Next` and `Previous`, the other card will be presented|Pass|
 |16||User can add card|Navigate to Flashcard<br />Click on `Next` to start the deck<br />Fill the form below the card and submit to add<br />Fill unfinished form then submit|On submitting the new card with all fields filled in, the new card object will be added to local storage on browser<br />On submitting the new card with unfinished form, no new card will be added to local storage on browser|Pass|
 
+# 15. Features to be Completed by Milestone 3
 
-## 14.4 User Acceptance Testing
+## 15.1 Core Features
 
-When the prototype for ActiveNUS is ready, acceptance testing will be conducted. The sample size for acceptance is projected to be 50, composed of our target users which are university students.
+### 15.1.1 Dashboard
+
+#### Progress tracking
+
+**Description**
+
+* User’s progress is displayed on the dashboard with each of their project and plan as one individual card. 
+* User will be able to view immediately their progress quantitatively with a visualized progress bar and increase or decrease easily with the `+` and `-` buttons.
+* User can edit their progress card name.
+
+![New Dashboard](img/new_dashboard.png)
+
+**Implementation**
+
+* Client-side: write a VueJS component for each of the progress card that includes the following attributes:
+  * `title` (string)
+  * `progress` (integer)
+  * `duration` (datetime)
+  * `tag` (string)
+* Write a Django model that has the same attribute as the VueJS component. The sever-side data will be updated calling a Django view function asynchronously (Ajax) using Vue.
+
+#### To-do List
+
+**Description**
+
+* Users are able to have more options to customize their task: they can add a task tag (school, work, networking,...) and specify the level of urgency. The tags and level of urgency will be displayed beside the task title. Users will benefit from this feature in the sense that they will know which task needs finishing first and not get overwhelmed.
+* Connect client-side and server-side data: currently, users are able to interact with the todo list, but data will be refreshed after each session. By the end of milestone 3, the to-do list will be bind to the user with the one-to-many relationship.
+
+**Implementation**
+
+* Expand the current `todolist` object (add tag and the level of urgency attributes).
+* Write a Django model that has the same attribute as the `todolist` object. The server-side data will be updated by calling a Django view function asynchronously (Ajax) using Vue.
+
+
+### 15.1.2 Pomodoro Timer
+
+#### Countdown Clock
+
+**Description**
+
+* Current approach to focus cycle tracking: Currently, when the current mode is Pomodoro (focus) mode, if users stop the countdown clock, they might adjust the focus time using `+` and `-` buttons then resume. As a result, users can cheat to get their rewards, which might counteract the aim of the reward scheme.
+* New way of cycle tracking: When users top the countdown clock in Pomodoro mode, they will have 2 options: `resume` and `restart`. Additionally, when in Pomodoro mode, users are unable to adjust the time using `+` and `-` buttons. If users choose to restart, they can start a new cycle, adjust the time to their liking, but the old cycle will be completely lost. This approach will motivate users to complete their current cycle and ban them from cheating.
+* Overview/tracking cycle count: A comprehensive overview of the usage of the Pomodoro timer will be displayed to the user, which will give the user a broad view of their work/study.
+
+**Implementation**
+
+* Add new `resume` and `restart` buttons and bind their condition of appearance using VueJS.
+* Write a Django model `Cycle` that has the following attributes `cycleCount`, `duration`, and `dateTime` to store the focus time into the database.
+
+#### Reward
+
+**Description**
+
+* There will be a reward for each week, which is a random hidden picture. The picture will be revealed piece by piece based on the total focus time of the user.
+* Users will also be able to see their progress in detail with a visualized dynamic progress bar.
+* This will gamify the pomodoro module and motivate users to focus more.
+
+![New Pomodoro](img/new_pomodoro.png)
+
+**Implementation**
+
+* The total focus time of the user will be stored in the database. The picture with the exact hidden pieces will be rendered based on that focus time.
+* The total time focus bar is a Vuejs component bind with asynchronous data fetch from Django backend.
+
+### 15.1.3 Calendar
+
+#### Calendar Module
+
+**Description**
+
+* Users can connect their calendar with Google Calendar, they can export their existing schedule or sync ActiveNUS calendar and Google Calendar.
+* Users can also export their schedule to `.ics` file so that they can import it to many other different calendar applications.
+
+**Implementation**
+
+* Call API from Google Calendar API to sync and read data from Google Calendar
+* We are considering using `django-ical` or `ics` package to export `.ics` files.
+
+#### Recommendation System
+
+**Description**
+
+* Within the calendar module, users have a choice to create a new progress, which will be reflected on the dashboard page. 
+* Users can choose to or not to authorize ActiveNUS to automatically render a schedule, which will be based on the expected workload and expected number of iterations using active recall and spaced repetition logic
+
+![New Calendar](img/new_calendar.png)
+
+**Implementation**
+
+The algorithm to generate schedules automatically will be written based on Ebbinghaus’ forgetting curve and review cycle. ActiveNUS will also have conditions to restrict the input data (for example end date must be at least 2 days after the start date, or the number of iterations must fall into some range based on the expected workload input,...). Based on the input data, ActiveNUS will generate calendar events.
+
+![Space Repetition](img/space_repetition.png)
+
+*Ebbinghaus' forgetting curve and review cycle.*
+
+### 15.1.4 Flashcard 
+
+#### Flashcard System
+
+**Description**
+
+* Organizing flashcards by folder. Users will be able to see the number of items in each folder to have a broader overview of the subject. They can also add a new folder with the description on this page.
+* For each folder, users have the option to edit and learn the topic
+
+![New Flashcard](img/new_flashcard.png)
+
+**Implementation**
+
+* Create a new page to display folders.
+* Each folder will have a specific view page with a parameter which is the `id` of the folder and will be handled by `django.urls`.
+
+#### Algorithm to Optimize Flashcard Order
+
+**Description**
+
+* Instead of the option to go to the next or previous card, users will be asked about their familiarity with the item.
+* The next flashcard will be rendered based on their level of familiarity with the topic.
+
+![New Flashcard 1](img/new_flashcard1.png)
+
+**Implementation**
+
+Each card has score and number_of_attempts attributes. After each attempts, these attributes will be updated with the formula:
+
+```python
+score = (score * number_of_attempts + n) / (number_of_attempts + 1)
+
+number_of_attempts = number_of_attempts + 1
+```
+
+With `n` equals `1`, `2`, or `3` if the user clicks on `Hard`, `Medium`, or `Easy`, respectively.
+
+The items in a folder are sorted by the score and displayed to the user in ascending order of score.
+
+### 15.1.5 Social Forum (depends on the progress)
+
+**Description**
+
+* Find friends on ActiveNUS
+* Write posts in the forum
+* Comment on the others’ posts
+
+**Implementation**
+
+* Finding friends can be implemented by a database query.
+* Writing posts and commenting functionalities will be handled by POST request and rendered to the website by a Vue model.
+
+
+## 15.2 Database
+
+Currently, data is stored in local storage, except Users’ profiles are stored in SQLite3 database (server-side). By milestone 3, we will store all the data in the server-side database.
+
+In addition, we are considering using PostgreSQL to store and manage data for the final product instead of SQLite3 since PostgreSQL is more compatible with Heroku and can manage a larger amount of data.
+
+
+## 15.3 Testing
+
+### 15.3.1 Django Unit Testing
+
+Along with completing the main components, we also write test functions for features with the same approach taken in milestone 2 using `django.test` module.
+
+The tests include:
+
+* Checking models (valid methods and attributes)
+* Checking client-side (assert the HTTP status codes and the messages to the client)
+* Checking logic (the algorithms of schedule suggestion and rendering flashcards to the users based on their level of familiarity with the topic)
+
+### 15.3.2 Authoring Functional Tests Using Selenium
+
+Since ActiveNUS consists of many components, it is difficult to test the client-side code manually. Therefore, we will use Selenium WebDriver, which is a collection of open-source APIs, to automate the testing of the web application.
+
+To use Selenium and ChromeDriver, we need to install these 2 libraries into our environment by running `pip install selenium` and `pip install chromedriver-py`.
+
+Basic setup:
+
+```python
+import os
+import pathlib
+import unittest
+
+from selenium import webdriver
+
+# Finds the Uniform Resourse Identifier of a file
+def file_uri(filename):
+    return pathlib.Path(os.path.abspath(filename)).as_uri()
+
+# Sets up web driver using Google chrome
+driver = webdriver.Chrome()
+```
+
+Then we can use the driver to simulate automated tests of our page.
+
+
+### 15.3.3 User Acceptance Testing
+
+When the prototype for ActiveNUS is ready, acceptance testing will be conducted. The sample size for acceptance is projected to be 20, composed of our target users which are university students.
 
 We intend to inquire testers on the following features:
 
-#### Authentication
+#### Authentication:
 * Is it easy and intuitive to navigate to the registration page for new users?
 * Is it easy and intuitive to log in for existing users?
 * If the users fail to provide valid credentials on logging in, do users face any difficulties setting up a new password?
 
-#### Dashboard and To-do list
+#### Dashboard and to-do list:
 * Is the user interface of the dashboard and to-do list clear and comprehensive on users’ tasks and progress?
 * Do users face any inconveniences while viewing their progress boxes?
 * Do users face any inconveniences to add, track and delete to-do list tasks?
 
-#### Calendar
+#### Calendar:
 * Do users face any inconveniences to add, update and delete calendar events?
 * Is it easy and intuitive for users to view different viewing modes of the calendar (monthly, weekly and daily view)?
 * Do users face any other inconveniences while using the calendar?
 
-#### Pomodoro timer
+#### Pomodoro timer:
 * Is it easy and intuitive for users to choose different modes of Pomodoro timer (focus mode, short break mode, long break mode)?
 * What do users think of the notification? Is the volume suitable for a working/studying environment? 
 * What do users think of the gamified reward scheme? Is it exciting enough to motivate users?
 
-#### Flashcard
+#### Flashcard:
 * Do users face any inconveniences when adding new cards and using existing card decks?
 * Are the animation and user interface pleasant to use?
 * Are the automatically recommended cards really the ones that users need to reinforce?
 
 
-# 15. Software Security Measures
+# 16. Software Security Measures
 
 To ensure the safety of our database and the privacy of users, we introduced some security measures.
 
-## 15.1 CSRF Token
+## 16.1 CSRF Token
 
 A CSRF (Cross-site request forge) token is a unique, secret, unpredictable value generated by the server-side application and transmitted to the client so that it is included in a subsequent HTTP request made by the client. When the later request is made, the server-side application validates that the request consists of the expected token and rejects the request if the token is missing or invalid.
 
@@ -505,7 +709,7 @@ CSRF tokens can prevent CSRF attacks by making it impossible for an attacker to 
 
 In ActiveNUS, POST requests are used in the registration system and other forms for users to add the information. Therefore, CSRF tokens are used to protect the database of unwanted threats.
 
-## 15.2 Password Hashing
+## 16.2 Password Hashing
 
 If the user's password is stored as plaintext in the database, the system can be put at risk by unwanted attacks. Moreover, user privacy may be violated if necessary practices are not taken. Therefore, we hash people's passwords using SHA265 algorithm with 260,000 iterations and salt added.
 
@@ -514,9 +718,9 @@ A hash is a ‘one-way’ cryptographic function, and the output of hashing has 
 We choose SHA256 to protect users’ passwords because it satisfies all properties of a good hash function as mentioned above. To enhance security, we run the hash function through 260,000 iterations with salt (adding random bits to each password instance before hashing).
 
 
-# 16. Software Design Patterns and Principles
+# 17. Software Design Patterns and Principles
 
-## 16.1 Single Level of Abstraction Principle (SLAP)
+## 17.1 Single Level of Abstraction Principle (SLAP)
 
 The Single Level of Abstraction Principle statement is that “each method should be written in terms of a single level of abstraction”.
 
@@ -538,7 +742,7 @@ def auth_user_should_not_access(viewfunc):
     return user_logout_required(viewfunc)
 ```
 
-## 16.2 Don’t Repeat Yourself (DRY) Principle
+## 17.2 Don’t Repeat Yourself (DRY) Principle
 
 This is one of the core design philosophies of Django. “Every distinct concept and/or piece of data should live in one, and only one, place. Redundancy is bad. Normalization is good. The framework, within reason, should deduce as much as possible from as little as possible.”
 
@@ -596,15 +800,15 @@ For example, since most of the components of ActiveNUS have the same design lang
 ```
 
 
-# 17. Software Engineering Practices
+# 18. Software Engineering Practices
 
-## 17.1 Virtual Environment
+## 18.1 Virtual Environment
 
 A virtual environment is a Python environment in which the Python interpreter, libraries, and scripts installed are isolated from those installed in other virtual environments, as well as (by default) any libraries installed in a “system” Python, that is, one that is installed as part of the operating system.
 
 We used virtualenv to create a virtual environment (`venv`) so that all the dependencies are controlled and not affected by any other projects/tasks running locally on our computer. Furthermore, by isolating the libraries, the process of deployment also becomes easier.
 
-## 17.2 Version Control
+## 18.2 Version Control
 
 We use GitHub as the Git repository hosting for development and version control for ActiveNUS. GitHub allows us to manage the workflow and make sure the project is on schedule with GitHub Issues, Pull Requests, and GitHub Actions.
 
@@ -627,7 +831,7 @@ We use GitHub as the Git repository hosting for development and version control 
 * GitHub Actions (to be mentioned in CI/CD)
 
 
-## 17.3 Continuous Integration / Continuous Delivery (CI/CD)
+## 18.3 Continuous Integration / Continuous Delivery (CI/CD)
 
 Continuous integration and continuous delivery are set up using Github action.
 
