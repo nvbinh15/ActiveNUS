@@ -23,7 +23,6 @@
   12.1 [Core Features](#121-core-features)\
   12.2 [User Interface Design](#122-user-interface-design)\
   12.3 [Program Flow](#123-program-flow)
-12. [Program Flow](#12-program-flow)
 13. [Project Scopes](#13-project-scopes)\
   13.1 [Milestone 1: Setting up authentication and administration](#131-milestone-1-setting-up-authentication-and-administration)\
   13.2 [Milestone 2: Building the core](#132-milestone-2-building-the-core)
