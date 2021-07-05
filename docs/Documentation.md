@@ -42,7 +42,7 @@
   16.1 [CSRF Token](#161-csrf-token)\
   16.2 [Password Hashing](#162-password-hashing)
 17. [Software Design Patterns and Principles](#17-software-design-patterns-and-principles)\
-  17.1 [Single Level of Abstraction Principle (SLAP)](#161-single-level-of-abstraction-principle-slap)\
+  17.1 [Single Level of Abstraction Principle (SLAP)](#171-single-level-of-abstraction-principle-slap)\
   17.2 [Don’t Repeat Yourself (DRY) Principle](#172-dont-repeat-yourself-dry-principle)
 18. [Software Engineering Practices](#18-software-engineering-practices)\
   18.1 [Virtual Environment](#181-virtual-environment)\
