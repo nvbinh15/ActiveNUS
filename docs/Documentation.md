@@ -241,7 +241,13 @@ The UI style guide and prototypes are included below.
 
 # 12. Program Flow
 
-![Flowchart](img/flowchart.png)
+## 12.1 Activity Diagram
+
+![Activity Diagram](img/activity_diagram.jpeg)
+
+## 12.2 Web Mechanism Diagram
+
+![Workflow](img/workflow.jpeg)
 
 
 # 13. Project Scopes
@@ -432,6 +438,31 @@ Ran 7 tests in 1.157s
 OK
 Destroying test database for alias 'default'...
 ```
+
+## 14.4 Manual Testing
+
+| ID | Function | Objective | Expected | Steps Taken | Result |
+|----|----------|-----------|----------|-------------|--------|
+|1|Authentication|User can sign up|Open website with no authenticated user<br />Click `Sign up` at the right hand corner<br />After being navigated to sign up page, key in credentials<br />Click the link sent to mailbox|Users are able to navigate to the sign up page<br />After keying in the credentials and submit the form, a verification email will be sent to their mailbox<br />After clicking the link, their account is created and stored in database|Pass|
+|2||Users can log in successfully with correct credentials<br />User will be given appropriate warning for incorrect credentials|Open website with no authenticated user<br />Key in the incorrect credentials<br />Key in the correct credentials of existing user and submit|With incorrect credentials, users are prompted with appropriate warnings (wrong username, wrong password)<br />With correct credentials, users can log in|Pass|
+|3||User can change password|Open website with no authenticated user<br />Click on `Forgot Password?`<br />Fill in the prompted form<br />Click on the link sent to mailbox<br />Fill in form to change password<br />Sign in with new password
+|Users can navigate to Forgot Password form<br />Users receive email with the link to change password<br />User can sign in with the new password|Pass|
+|4|Dashboard|User can navigate around the functionalities|Sign in with correct credentials<br />Click on `Dashboard`, `Calendar`, `Pomodoro Timer` and `Flashcard` on the left bar|Users get navigated to the correct views|Pass|
+|5|To-do list|User can add new task and delete task|Navigate to Dashboard<br />In the text input field on the right, key in new task and press `Enter` (or `return`) or click submit|Users are able to key in new task<br />After submitting, new task appear on the task list|Pass|
+|6||User can cross out finished task|Navigate to Dashboard<br />User can tick the circle on the right of each task to cross it out<br />User can untick to remove the cross|When users tick unfinished task, it will be crossed out and marked as finished<br />When users untick finished task, it will be marked as unfinished|Pass|
+|7||User can sort task according to status|Navigate to Dashboard<br />User can toggle the button below the tasks to sort according to status|When the button is toggled on, tasks is sorted according to status<br />When button is toggled off, tasks is not sorted and displayed according to their added order|Pass|
+|8|Calendar|User can add new event, delete event, update event|Navigate to Calendar<br />Add new event: Click on one day or drag across several day to be prompted with a new event form. Fill in the prompt<br />Update event: Drag existing events to other dates<br />Delete event: Click on existing events and prompted with a form to confirm deletion|New event is added by click or drag to choose date<br />Existing events are updated on the calendar<br />Upon deletion, existing event will disappear from calendar|Pass|
+|9||User can navigate to different months|Navigate to Calendar<br />Click on the two arrows on the top left corner of the calendar to navigate to the previous and future months<br />Click on `today` button next to the arrows to return to today’s date|On clicking the left and right arrows, the calendar shift backward/forward by one month<br />On clicking the `today` button, the calendar returns to the current month|Pass|
+|10||User can view month, week and day|Navigate to Calendar<br />Click on the 3 buttons `month`, `week`, `day` on the top right corner of the calendar|The view changes according to the button clicked|Pass|
+|11|Pomodoro timer|User can start timer immediately with Pomodoro mode|Navigate to Pomodoro Timer<br />Press `Start`|When first navigated to Pomodoro Timer, the button `Pomodoro` on the top left will be highlighted with black, indicating it is in Pomodoro mode, timer is defaultly set to 25 minutes<br />On pressing `Start`, timer starts immediately to count down|Pass|
+|12||User will be taken to break mode after a Pomodoro session|Navigate to Pomodoro Timer<br />Make sure the Pomodoro mode is highlighted, if not, click on it<br />Run the timer and wait for it to reach 00:00|When the timer counts to 00:00, the timer will stop, send a notification on browser<br />Mode is switched to Short Break|Pass|
+|13||User can start, stop and resume timer|Navigate to Pomodoro Timer<br />Click `Start` to start counting down<br />Click `Stop` to pause the timer<br />Click `Pomodoro`/`Short Break`/`Long Break` buttons on the top to reset timer|On clicking `Start`, the `Start` button will change to `Stop` button<br />On clicking `Stop`, timer will be pause<br />No matter the current state, when clicking on 3 buttons on the top, timer will be reset and brought to the respective modes|Pass|
+|14||User can adjust time|Navigate to Pomodoro Timer
+Click `+` and `-` buttons to adjust time|When clicking `+` and `-`, timer will increase or decrease by 1 minute<br />The `+` `-` buttons are disable when the timer is running<br />The timer can only be increased up to 90 minutes and decreased to 1 minute|Pass|
+|15|Flashcard|User can flip card and progress through the deck|Navigate to Flashcard<br />Click on `Next`<br />Click on the card to flip and see answer<br />Clicking `Next` or `Previous` to view other cards|On clicking `next`, the first card is presented<br />Card will be flipped to the answer when clicked on<br />Clicking `Next` and `Previous`, the other card will be presented|Pass|
+|16||User can add card|Navigate to Flashcard
+Click on `Next` to start the deck<br />Fill the form below the card and submit to add<br />Fill unfinished form then submit|On submitting the new card with all fields filled in, the new card object will be added to local storage on browser<br />On submitting the new card with unfinished form, no new card will be added to local storage on browser|Pass|
+
 
 ## 14.4 User Acceptance Testing
 
