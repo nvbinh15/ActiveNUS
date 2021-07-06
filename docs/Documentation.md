@@ -33,7 +33,7 @@
   &nbsp;&nbsp;&nbsp;&nbsp;14.1.3 [Running Tests](#1413-running-tests)\
   14.4 [Manual Testing](#142-manual-testing)
 15. [Features to be Completed by Milestone 3](#15-features-to-be-completed-by-milestone-3)\
-  15.1 [Timeline](#151-timeline)
+  15.1 [Timeline](#151-timeline)\
   15.2 [Core Features](#152-core-features)\
   15.3 [Database](#153-database)\
   15.4 [Testing](#154-testing)\

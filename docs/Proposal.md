@@ -20,9 +20,9 @@
   2.5 [Social Forum](#25-social-forum-depends-on-the-progress)
 3. [Database](#3-database)
 4. [Testing](#4-testing)\
-  4.1 [Automated Testing](#41-automated-testing)
-  &nbsp;&nbsp;&nbsp;&nbsp;3.1 [Django Unit Testing](#411-django-unit-testing)\
-  &nbsp;&nbsp;&nbsp;&nbsp;3.2 [Authoring Functional Tests Using Selenium](#412-authoring-functional-tests-using-selenium)\
+  4.1 [Automated Testing](#41-automated-testing)\
+  &nbsp;&nbsp;&nbsp;&nbsp;4.1.1 [Django Unit Testing](#411-django-unit-testing)\
+  &nbsp;&nbsp;&nbsp;&nbsp;4.1.2 [Authoring Functional Tests Using Selenium](#412-authoring-functional-tests-using-selenium)\
   4.2 [User Acceptance Testing](#42-user-acceptance-testing)
 5. [Analytics](#5-analytics)
 
