@@ -3,32 +3,66 @@
 
 # Table of Contents
 
-1. [Core Features](#1-core-features)\
-  1.1 [Dashboad](#11-dashboard)\
-    &nbsp;&nbsp;1.1.1 [Progress tracking](#111-progress-tracking)\
-    &nbsp;&nbsp;1.1.2 [To-do List](#112-to-do-list)\
-  1.2 [Pomodoro Timer](#12-pomodoro-timer)\
-    &nbsp;&nbsp;1.2.1 [Countdown Clock](#121-countdown-clock)\
-    &nbsp;&nbsp;1.2.2 [Reward](#122-reward)\
-  1.3 [Calendar](#13-calendar)\
-    &nbsp;&nbsp;1.3.1 [Calendar Module](#131-calendar-module)\
-    &nbsp;&nbsp;1.3.2 [Recommendation System](#132-recommendation-system)\
-  1.4 [Flashcard](#14-flashcard)\
-    &nbsp;&nbsp;1.4.1 [Flashcard System](#141-flashcard-system)\
-    &nbsp;&nbsp;1.4.2 [Algorithm to Optimize Flashcard Order](#142-algorithm-to-optimize-flashcard-order)\
-  1.5 [Social Forum](#15-social-forum-depends-on-the-progress)
-2. [Database](#2-database)
-3. [Testing](#3-testing)\
-  3.1 [Django Unit Testing](#31-django-unit-testing)\
-  3.2 [Authoring Functional Tests Using Selenium](#32-authoring-functional-tests-using-selenium)\
-  3.3 [User Acceptance Testing](#33-user-acceptance-testing)
+1. [Timeline](#1-timeline)
+2. [Core Features](#2-core-features)\
+  2.1 [Dashboad](#21-dashboard)\
+    &nbsp;&nbsp;&nbsp;&nbsp;2.1.1 [Progress tracking](#211-progress-tracking)\
+    &nbsp;&nbsp;&nbsp;&nbsp;2.1.2 [To-do List](#212-to-do-list)\
+  2.2 [Pomodoro Timer](#22-pomodoro-timer)\
+    &nbsp;&nbsp;&nbsp;&nbsp;2.2.1 [Countdown Clock](#221-countdown-clock)\
+    &nbsp;&nbsp;&nbsp;&nbsp;2.2.2 [Reward](#222-reward)\
+  2.3 [Calendar](#23-calendar)\
+    &nbsp;&nbsp;&nbsp;&nbsp;2.3.1 [Calendar Module](#231-calendar-module)\
+    &nbsp;&nbsp;&nbsp;&nbsp;2.3.2 [Recommendation System](#232-recommendation-system)\
+  2.4 [Flashcard](#24-flashcard)\
+    &nbsp;&nbsp;&nbsp;&nbsp;2.4.1 [Flashcard System](#241-flashcard-system)\
+    &nbsp;&nbsp;&nbsp;&nbsp;2.4.2 [Algorithm to Optimize Flashcard Order](#242-algorithm-to-optimize-flashcard-order)\
+  2.5 [Social Forum](#25-social-forum-depends-on-the-progress)
+3. [Database](#3-database)
+4. [Testing](#4-testing)\
+  4.1 [Automated Testing](#41-automated-testing)
+  &nbsp;&nbsp;&nbsp;&nbsp;3.1 [Django Unit Testing](#411-django-unit-testing)\
+  &nbsp;&nbsp;&nbsp;&nbsp;3.2 [Authoring Functional Tests Using Selenium](#412-authoring-functional-tests-using-selenium)\
+  4.2 [User Acceptance Testing](#42-user-acceptance-testing)
+5. [Analytics](#5-analytics)
 
 
-# 1. Core Features
+# 1. Timeline
 
-## 1.1 Dashboard
+Our timeline for milestone 3 includes 3 phases:
 
-### 1.1.1 Progress tracking
+## 1.1 Phase 1
+
+Time: 29 June - 15 July
+
+Objectives:
+* Implement core features
+* Implement automated testing
+* Set up Google Analytics
+
+## 1.2 Phase 2
+
+Time: 16 July - 20 July
+
+Objectives:
+* Perform user acceptance testing
+* Collect data from Google Analytics
+
+## 1.3 Phase 3
+
+Time: 21 July - 15 July
+
+Objectives:
+* Perform necessary adjustment based on users' feedback (user acceptance testing) and data from Google Analytics
+* Final modifications
+* Making demo video, finalize documentation
+
+
+# 2. Core Features
+
+## 2.1 Dashboard
+
+### 2.1.1 Progress tracking
 
 #### Description
 
@@ -47,7 +81,7 @@
   * `tag` (string)
 * Write a Django model that has the same attribute as the VueJS component. The sever-side data will be updated calling a Django view function asynchronously (Ajax) using Vue.
 
-### 1.1.2 To-do List
+### 2.1.2 To-do List
 
 #### Description
 
@@ -60,9 +94,9 @@
 * Write a Django model that has the same attribute as the `todolist` object. The server-side data will be updated by calling a Django view function asynchronously (Ajax) using Vue.
 
 
-## 1.2 Pomodoro Timer
+## 2.2 Pomodoro Timer
 
-### 1.2.1 Countdown Clock
+### 2.2.1 Countdown Clock
 
 #### Description
 
@@ -75,7 +109,7 @@
 * Add new `resume` and `restart` buttons and bind their condition of appearance using VueJS.
 * Write a Django model `Cycle` that has the following attributes `cycleCount`, `duration`, and `dateTime` to store the focus time into the database.
 
-### 1.2.2 Reward
+### 2.2.2 Reward
 
 #### Description
 
@@ -90,9 +124,9 @@
 * The total focus time of the user will be stored in the database. The picture with the exact hidden pieces will be rendered based on that focus time.
 * The total time focus bar is a Vuejs component bind with asynchronous data fetch from Django backend.
 
-## 1.3 Calendar
+## 2.3 Calendar
 
-### 1.3.1 Calendar Module
+### 2.3.1 Calendar Module
 
 #### Description
 
@@ -104,7 +138,7 @@
 * Call API from Google Calendar API to sync and read data from Google Calendar
 * We are considering using `django-ical` or `ics` package to export `.ics` files.
 
-### 1.3.2 Recommendation System
+### 2.3.2 Recommendation System
 
 #### Description
 
@@ -121,9 +155,9 @@ The algorithm to generate schedules automatically will be written based on Ebbin
 
 *Ebbinghaus' forgetting curve and review cycle.*
 
-## 1.4 Flashcard 
+## 2.4 Flashcard 
 
-### 1.4.1 Flashcard System
+### 2.4.1 Flashcard System
 
 #### Description
 
@@ -137,7 +171,7 @@ The algorithm to generate schedules automatically will be written based on Ebbin
 * Create a new page to display folders.
 * Each folder will have a specific view page with a parameter which is the `id` of the folder and will be handled by `django.urls`.
 
-### 1.4.2 Algorithm to Optimize Flashcard Order
+### 2.4.2 Algorithm to Optimize Flashcard Order
 
 #### Description
 
@@ -160,7 +194,7 @@ With `n` equals `1`, `2`, or `3` if the user clicks on `Hard`, `Medium`, or `Eas
 
 The items in a folder are sorted by the score and displayed to the user in ascending order of score.
 
-## 1.5 Social Forum (depends on the progress)
+## 2.5 Social Forum (depends on the progress)
 
 #### Description
 
@@ -174,16 +208,18 @@ The items in a folder are sorted by the score and displayed to the user in ascen
 * Writing posts and commenting functionalities will be handled by POST request and rendered to the website by a Vue model.
 
 
-# 2. Database
+# 3. Database
 
 Currently, data is stored in local storage, except Users’ profiles are stored in SQLite3 database (server-side). By milestone 3, we will store all the data in the server-side database.
 
 In addition, we are considering using PostgreSQL to store and manage data for the final product instead of SQLite3 since PostgreSQL is more compatible with Heroku and can manage a larger amount of data.
 
 
-# 3. Testing
+# 4. Testing
 
-## 3.1 Django Unit Testing
+## 4.1 Automated Testing
+
+### 4.1.1 Django Unit Testing
 
 Along with completing the main components, we also write test functions for features with the same approach taken in milestone 2 using `django.test` module.
 
@@ -193,7 +229,7 @@ The tests include:
 * Checking client-side (assert the HTTP status codes and the messages to the client)
 * Checking logic (the algorithms of schedule suggestion and rendering flashcards to the users based on their level of familiarity with the topic)
 
-## 3.2 Authoring Functional Tests Using Selenium
+### 4.1.2 Authoring Functional Tests Using Selenium
 
 Since ActiveNUS consists of many components, it is difficult to test the client-side code manually. Therefore, we will use Selenium WebDriver, which is a collection of open-source APIs, to automate the testing of the web application.
 
@@ -219,7 +255,7 @@ driver = webdriver.Chrome()
 Then we can use the driver to simulate automated tests of our page.
 
 
-## 3.3 User Acceptance Testing
+## 4.2 User Acceptance Testing
 
 When the prototype for ActiveNUS is ready, acceptance testing will be conducted. The sample size for acceptance is projected to be 20, composed of our target users which are university students.
 
@@ -249,3 +285,29 @@ We intend to inquire testers on the following features:
 * Do users face any inconveniences when adding new cards and using existing card decks?
 * Are the animation and user interface pleasant to use?
 * Are the automatically recommended cards really the ones that users need to reinforce?
+
+# 5. Analytics
+
+In order for the system to operate in the most efficient way as well as satisfy the user's requirements, ActiveNUS needs to be constantly updated based on data from the users. To achieve this goal, we have embed Google Analytics into our system.
+
+Google Analytics provides services that help track and understand customer’s behavior, user experience, online content, device functionality and more.
+
+It can be set up by placing a script tag in the template files.
+
+```html
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="<google tag manager link>"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', '<key>');
+    </script>
+```
+
+We have embeded Google Analytics to ActiveNUS and collect some data. However, further properties need to be set up in order to get meaningful data that can help us improve the system.
+
+![Analytics](img/analytics.png)
+
+After getting more data from users in phase 2 of milestone 3, we will have the modifications to meet users' need.

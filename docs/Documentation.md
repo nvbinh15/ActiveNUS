@@ -27,17 +27,19 @@
   13.1 [Milestone 1: Setting up authentication and administration](#131-milestone-1-setting-up-authentication-and-administration)\
   13.2 [Milestone 2: Building the core](#132-milestone-2-building-the-core)
 14. [Testing (completed in milestone 2)](#14-testing-completed-in-milestone-2)\
-  14.1 [View Testing](#141-view-testing)\
-  14.2 [Model Testing](#142-model-testing)\
-  14.3 [Running Tests](#143-running-tests)\
-  14.4 [Manual Testing](#144-manual-testing)
+  14.1 [Automated Testing](#141-automated-testing)\
+  &nbsp;&nbsp;&nbsp;&nbsp;14.1.1 [View Testing](#1411-view-testing)\
+  &nbsp;&nbsp;&nbsp;&nbsp;14.1.2 [Model Testing](#1412-model-testing)\
+  &nbsp;&nbsp;&nbsp;&nbsp;14.1.3 [Running Tests](#1413-running-tests)\
+  14.4 [Manual Testing](#142-manual-testing)
 15. [Features to be Completed by Milestone 3](#15-features-to-be-completed-by-milestone-3)\
-  15.1 [Core Features](#151-core-features)\
-  15.2 [Database](#152-database)\
-  15.3 [Testing](#153-testing)\
-  &nbsp;&nbsp;15.3.1 [Django Unit Testing](#1531-django-unit-testing)\
-  &nbsp;&nbsp;15.3.2 [Authoring Functional Tests Using Selenium](#1532-authoring-functional-tests-using-selenium)\
-  &nbsp;&nbsp;15.3.3 [User Acceptance Testing](#1533-user-acceptance-testing)
+  15.1 [Timeline](#151-timeline)
+  15.2 [Core Features](#152-core-features)\
+  15.3 [Database](#153-database)\
+  15.4 [Testing](#154-testing)\
+  &nbsp;&nbsp;&nbsp;&nbsp;15.4.1 [Automated Testing](#1541-automated-testing)\
+  &nbsp;&nbsp;&nbsp;&nbsp;15.4.2 [User Acceptance Testing](#1542-user-acceptance-testing)\
+  15.5 [Analytics](#155-analytics)
 16. [Software Security Measures](#16-software-security-measures)\
   16.1 [CSRF Token](#161-csrf-token)\
   16.2 [Password Hashing](#162-password-hashing)
@@ -369,11 +371,13 @@ Unauthorized users can only access the Authentication and Registration system. S
 
 # 14. Testing (completed in milestone 2)
 
+## 14.1 Automated Testing
+
 Django provides a test framework with a hierarchy of classes that build on the Python standard unittest library. Django has a default `test.py` file for each application of the project. 
 
 However, to cope with the complexity of the website and a large number of views and models created (and to be created), we write two separate files `test_views.py` and `test_models.py`, which are stored in the tests directory of each application instead.
 
-## 14.1 View Testing 
+### 14.1.1 View Testing 
 
 We want to ensure that the views of each application are handled correctly. To do that, test functions are written to check the template rendering, the HTTP status codes and assert the messages to the client. 
 
@@ -406,7 +410,7 @@ Details of the implemented tests are included in the table below.
 |10|Flashcard redirect login|`response = self.client.get(reverse('home'))`|`expected_url == '/auth/login?next=/flashcard'; status_code == 302; target_status_code == 200; msg_prefix == ''; fetch_redirect_response == True`|Pass|
 
 
-## 14.2 Model Testing
+### 14.1.2 Model Testing
 
 The User class is inherited from the `AbstractUser` class of `django.contrib.auth.models`. The test function is written under the `TestModel` class (inherited from the `TestCase` class of `django.test`). It checks whether the user can be created correctly and asserts the matching of user information
 
@@ -429,7 +433,7 @@ class TestModel(TestCase):
 
 In the example above, the `test_should_create_user` creates a new testing user with `username = ‘username’` and `email = ‘email@app.com’`. Then, it then checks if this information is stored correctly in the database and its string representation is correct or not.
 
-## 14.3 Running Tests
+### 14.1.3 Running Tests
 
 To run tests, run the command `$ python manage.py test`.
 
@@ -446,7 +450,7 @@ OK
 Destroying test database for alias 'default'...
 ```
 
-## 14.4 Manual Testing
+## 14.2 Manual Testing
 
 | ID | Function | Objective | Expected | Steps Taken | Result |
 |----|----------|-----------|----------|-------------|--------|
@@ -469,9 +473,39 @@ Destroying test database for alias 'default'...
 
 # 15. Features to be Completed by Milestone 3
 
-## 15.1 Core Features
+## 15.1 Timeline
 
-### 15.1.1 Dashboard
+Our timeline for milestone 3 includes 3 phases:
+
+### Phase 1
+
+Time: 29 June - 15 July
+
+Objectives:
+* Implement core features
+* Implement automated testing
+* Set up Google Analytics
+
+### Phase 2
+
+Time: 16 July - 20 July
+
+Objectives:
+* Perform user acceptance testing
+* Collect data from Google Analytics
+
+### Phase 3
+
+Time: 21 July - 15 July
+
+Objectives:
+* Perform necessary adjustment based on users' feedback (user acceptance testing) and data from Google Analytics
+* Final modifications
+* Making demo video, finalize documentation
+
+## 15.2 Core Features
+
+### 15.2.1 Dashboard
 
 #### Progress tracking
 
@@ -505,7 +539,7 @@ Destroying test database for alias 'default'...
 * Write a Django model that has the same attribute as the `todolist` object. The server-side data will be updated by calling a Django view function asynchronously (Ajax) using Vue.
 
 
-### 15.1.2 Pomodoro Timer
+### 15.2.2 Pomodoro Timer
 
 #### Countdown Clock
 
@@ -535,7 +569,7 @@ Destroying test database for alias 'default'...
 * The total focus time of the user will be stored in the database. The picture with the exact hidden pieces will be rendered based on that focus time.
 * The total time focus bar is a Vuejs component bind with asynchronous data fetch from Django backend.
 
-### 15.1.3 Calendar
+### 15.2.3 Calendar
 
 #### Calendar Module
 
@@ -566,7 +600,7 @@ The algorithm to generate schedules automatically will be written based on Ebbin
 
 *Ebbinghaus' forgetting curve and review cycle.*
 
-### 15.1.4 Flashcard 
+### 15.2.4 Flashcard 
 
 #### Flashcard System
 
@@ -605,7 +639,7 @@ With `n` equals `1`, `2`, or `3` if the user clicks on `Hard`, `Medium`, or `Eas
 
 The items in a folder are sorted by the score and displayed to the user in ascending order of score.
 
-### 15.1.5 Social Forum (depends on the progress)
+### 15.2.5 Social Forum (depends on the progress)
 
 **Description**
 
@@ -619,16 +653,18 @@ The items in a folder are sorted by the score and displayed to the user in ascen
 * Writing posts and commenting functionalities will be handled by POST request and rendered to the website by a Vue model.
 
 
-## 15.2 Database
+## 15.3 Database
 
 Currently, data is stored in local storage, except Users’ profiles are stored in SQLite3 database (server-side). By milestone 3, we will store all the data in the server-side database.
 
 In addition, we are considering using PostgreSQL to store and manage data for the final product instead of SQLite3 since PostgreSQL is more compatible with Heroku and can manage a larger amount of data.
 
 
-## 15.3 Testing
+## 15.4 Testing
 
-### 15.3.1 Django Unit Testing
+### 15.4.1 Automated Testing
+
+#### 15.4.1.1 Django Unit Testing
 
 Along with completing the main components, we also write test functions for features with the same approach taken in milestone 2 using `django.test` module.
 
@@ -638,7 +674,7 @@ The tests include:
 * Checking client-side (assert the HTTP status codes and the messages to the client)
 * Checking logic (the algorithms of schedule suggestion and rendering flashcards to the users based on their level of familiarity with the topic)
 
-### 15.3.2 Authoring Functional Tests Using Selenium
+#### 15.4.1.2 Authoring Functional Tests Using Selenium
 
 Since ActiveNUS consists of many components, it is difficult to test the client-side code manually. Therefore, we will use Selenium WebDriver, which is a collection of open-source APIs, to automate the testing of the web application.
 
@@ -664,7 +700,7 @@ driver = webdriver.Chrome()
 Then we can use the driver to simulate automated tests of our page.
 
 
-### 15.3.3 User Acceptance Testing
+### 15.4.2 User Acceptance Testing
 
 When the prototype for ActiveNUS is ready, acceptance testing will be conducted. The sample size for acceptance is projected to be 20, composed of our target users which are university students.
 
@@ -694,6 +730,32 @@ We intend to inquire testers on the following features:
 * Do users face any inconveniences when adding new cards and using existing card decks?
 * Are the animation and user interface pleasant to use?
 * Are the automatically recommended cards really the ones that users need to reinforce?
+
+## 15.5 Analytics
+
+In order for the system to operate in the most efficient way as well as satisfy the user's requirements, ActiveNUS needs to be constantly updated based on data from the users. To achieve this goal, we have embed Google Analytics into our system.
+
+Google Analytics provides services that help track and understand customer’s behavior, user experience, online content, device functionality and more.
+
+It can be set up by placing a script tag in the template files.
+
+```html
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="<google tag manager link>"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', '<key>');
+    </script>
+```
+
+We have embeded Google Analytics to ActiveNUS and collect some data. However, further properties need to be set up in order to get meaningful data that can help us improve the system.
+
+![Analytics](img/analytics.png)
+
+After getting more data from users in phase 2 of milestone 3, we will have the modifications to meet users' need.
 
 
 # 16. Software Security Measures
