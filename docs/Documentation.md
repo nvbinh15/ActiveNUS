@@ -22,7 +22,9 @@
 12. [Overall Design](#12-overall-design)\
   12.1 [Core Features](#121-core-features)\
   12.2 [User Interface Design](#122-user-interface-design)\
-  12.3 [Program Flow](#123-program-flow)
+  12.3 [Program Flow](#123-program-flow)\
+  &nbsp;&nbsp;&nbsp;&nbsp;12.3.1 [Activity Diagram](#1231-activity-diagram)\
+  &nbsp;&nbsp;&nbsp;&nbsp;12.3.2 [Web Mechanism Diagram](#1232-web-mechanism-diagram)
 13. [Project Scopes](#13-project-scopes)\
   13.1 [Milestone 1: Setting up authentication and administration](#131-milestone-1-setting-up-authentication-and-administration)\
   13.2 [Milestone 2: Building the core](#132-milestone-2-building-the-core)
@@ -250,13 +252,44 @@ The UI style guide and prototypes are included below.
 
 ## 12.3 Program Flow
 
-### Activity Diagram
+### 12.3.1 Activity Diagram
 
 ![Activity Diagram](img/activity_diagram.jpeg)
 
-### Web Mechanism Diagram
+
+**Login/Registration**
+
+
+
+**Dashboard**
+
+After logging in, users will be directed to the Dashboard page. 
+
+**Calendar**
+
+
+
+**Pomodoro Timer**
+
+**Flashcard**
+
+**Social**
+
+
+
+### 12.3.2 Web Mechanism Diagram
 
 ![Workflow](img/workflow.jpeg)
+
+ActiveNUS has the same mechanism as a typical Django web application.
+
+**HTTP request and URLS:** ActiveNUS waits for HTTP requests from the client (web browser). It then checks whether the user is logged in or not. If not, the request will be forwarded to the appropiate view of the dashboard app (`dashboard/urls.py`). Otherwise, the task will be handled by authentication application (`authentiaction/urls.py`). The URL mapper redirects HTTP requests based on the request URL and matches particular patterns of parameters in a URL and pass these to a view function as data.
+
+**Views:** A view (under `*/views.py`) is a request handler functions. After receiving HTTP requests, it returns HTTP responses. It also makes use of static files and templates, reads and writes data to models.
+
+**Templates and Static:** A template is a text file defining the structure or layout of a file. Here, we use HTML pages for our application. In order to have full functional client-side web pages, we also use static files, which are CSS, JavaScript files, and images. 
+
+**Models:** A model is a Python class that define structure of the application's data. It also provides certain methods to manage (add, delete, modify) and query records in the database.
 
 
 # 13. Project Scopes
@@ -733,7 +766,7 @@ We intend to inquire testers on the following features:
 
 ## 15.5 Analytics
 
-In order for the system to operate in the most efficient way as well as satisfy the user's requirements, ActiveNUS needs to be constantly updated based on data from the users. To achieve this goal, we have embed Google Analytics into our system.
+In order for the system to operate in the most efficient way as well as satisfy the user's requirements, ActiveNUS needs to be constantly updated based on data from the users. To achieve this goal, we have embeded Google Analytics into our system.
 
 Google Analytics provides services that help track and understand customer’s behavior, user experience, online content, device functionality and more.
 

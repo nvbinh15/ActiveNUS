@@ -288,7 +288,7 @@ We intend to inquire testers on the following features:
 
 # 5. Analytics
 
-In order for the system to operate in the most efficient way as well as satisfy the user's requirements, ActiveNUS needs to be constantly updated based on data from the users. To achieve this goal, we have embed Google Analytics into our system.
+In order for the system to operate in the most efficient way as well as satisfy the user's requirements, ActiveNUS needs to be constantly updated based on data from the users. To achieve this goal, we have embeded Google Analytics into our system.
 
 Google Analytics provides services that help track and understand customer’s behavior, user experience, online content, device functionality and more.
 
