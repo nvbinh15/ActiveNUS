@@ -257,25 +257,41 @@ The UI style guide and prototypes are included below.
 ![Activity Diagram](img/activity_diagram.jpeg)
 
 
-**Login/Registration**
+#### Login/Registration
 
+Users can easily register for an account using email address and log in to ActiveNUS.
 
+#### Dashboard
 
-**Dashboard**
+Once logged in, users are greeted with a comprehensive overview of their long-term progress and daily to-do list. 
 
-After logging in, users will be directed to the Dashboard page. 
+As for progress, they can add, edit and change the styling of their progress box according to their likings. Progress adding is directly linked to the active recall automatic scheduler discussed in the calendar module. 
 
-**Calendar**
+For daily tasks, users can add, cross out, delete and sort their tasks. They can also add labels and priority for their daily tasks.
 
+#### Calendar
 
+Users of ActiveNUS will also benefit from a scheduling tool with our built-in calendar module. Users are able to add, delete and update events. Users can also easily navigate to different dates, or view your monthly, weekly and daily calendar. 
 
-**Pomodoro Timer**
+For better user experience, ActiveNUS allows users to integrate with external calendars, they can add events to their Google calendar and export iCal files.
 
-**Flashcard**
+#### Pomodoro Timer
 
-**Social**
+Another feature which is very helpful for personal productivity is the Pomodoro timer. Pomodoro timer is a time management technique that helps users focus and balance work-relaxation. 
 
+There are 3 modes: Pomodoro (focus mode), Short Break and Long Break. Each mode is associated with a default time interval, but users can easily change it according to their needs. 
 
+To motivate users, ActiveNUS makes use of a reward scheme, which is a new jigsaw puzzle every week. Users have to finish more focus cycles to unlock new pieces.
+
+#### Flashcard
+
+Learning new concepts is also a major part of being a student. Using active recall, the flashcard method has been one of the most efficient when it comes to learning new concepts. ActiveNUS also includes an extensive flashcard module to aid students. Users can organize flashcards into folders, add flashcards and edit folders according to the topic they are learning. 
+
+To distinguish ourselves from tons and tons of other flashcard applications, we incorporate spaced repetition into our algorithm. ActiveNUS will ask for the familiarity of users with each and every card they encounter (easy, medium or hard), then calculate immediately what is the next card they should learn. This will optimize their learning process.
+
+#### Social
+
+Lastly, users can also interact with their friends without having to use other media platforms which might cause distractions. They can find friends and interact with them on our social forum on academic matters or student life in general.
 
 ### 12.3.2 Web Mechanism Diagram
 
