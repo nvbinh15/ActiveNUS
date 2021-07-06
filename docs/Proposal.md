@@ -36,16 +36,16 @@ Our timeline for milestone 3 includes 3 phases:
 Time: 29 June - 15 July
 
 Objectives:
-* Implement core features
-* Implement automated testing
-* Set up Google Analytics
+* Implement core features (more details in [section 2](#2-core-features))
+* Implement automated testing (more details in [section 4.1](#41-automated-testing))
+* Set up Google Analytics (more details in [section 5](#5-analytics))
 
 ## 1.2 Phase 2
 
 Time: 16 July - 20 July
 
 Objectives:
-* Perform user acceptance testing
+* Perform user acceptance testing (more details in [section 4.2](#42-user-acceptance-testing))
 * Collect data from Google Analytics
 
 ## 1.3 Phase 3
