@@ -1,0 +1,103 @@
+{% extends '_partials/base.html' %}
+
+{% load static %}
+
+{% block title %}
+About | ActiveNUS
+{% endblock title %}
+
+{% block css %}
+
+{% endblock css %}
+
+{% block contentdiv1 %}
+<h1 style='padding: 2rem'>
+    About
+</h1>
+
+<div class="description" style='padding-left: 2rem; padding-right: 2rem'>
+    <p>ActiveNUS is a web-based application promoting efficient study methods and time management techniques, namely
+        active recall and spaced repetition.
+    </p>
+
+    <p>
+        To know more about the system, please refer to the <a href='https://nvbinh15.github.io/ActiveNUS/'
+            target="_blank">documentation</a>.
+    </p>
+
+    <p>
+        You can also watch our Introduction and Demo videos below for more details.
+    </p>
+</div>
+
+
+<div class="ui segment" style='text-align: center; margin: 2rem'>
+    <div class="ui two column very relaxed grid">
+        <div class="column">
+            <iframe width="358px" height="201px" src="https://www.youtube.com/embed/ZSS92-gmpTY"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+
+        </div>
+        <div class="column">
+            <iframe width="358px" height="201px" src="https://www.youtube.com/embed/QgBkij0k48A"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+
+        </div>
+    </div>
+
+</div>
+{% endblock contentdiv1 %}
+
+
+
+{% block contentdiv2 %}
+<h1 style='padding: 2rem'>
+    Developers
+</h1>
+
+<div>
+    <div class="ui centered card">
+        <div class="content">
+            <div class="header">Tran Thi Phuong Thao</div>
+            <div class="meta">
+                <span class="category">National University of Singapore</span>
+            </div>
+            <div class="description" style='font-size: 1.1rem;'>
+                <p><a href='mailto:e0550438@u.nus.edu' target="_blank"><i class="envelope icon"></i>e0550438@u.nus.edu</a></p>
+                <p><a href='https://github.com/thaotran27' target="_blank"><i class="github icon"></i>thaotran27</a></p>
+                <p><a href='https://www.linkedin.com/in/thaotran888/' target="_blank"><i class="linkedin icon"></i>Thao Tran</a></p>
+            </div>
+        </div>
+        <div class="extra content">
+            <div class="right floated author">
+                <img class="ui avatar image" src={% static 'img/about/thao.png' %}>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="ui centered card">
+        <div class="content">
+            <div class="header">Nguyen Van Binh</div>
+            <div class="meta">
+                <span class="category">National University of Singapore</span>
+            </div>
+            <div class="description" style='font-size: 1.1rem;'>
+                <p><a href='mailto:e0550453@u.nus.edu' target="_blank"><i class="envelope icon"></i>e0550453@u.nus.edu</a></p>
+                <p><a href='https://github.com/nvbinh15' target="_blank"><i class="github icon"></i>nvbinh15</a></p>
+                <p><a href='https://www.linkedin.com/in/nvbinh/' target="_blank"><i class="linkedin icon"></i>Van Binh Nguyen</a></p>
+            </div>
+        </div>
+        <div class="extra content">
+            <div class="right floated author">
+                <img class="ui avatar image" src={% static 'img/about/binh.png' %}>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock contentdiv2 %}

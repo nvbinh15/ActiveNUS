@@ -7,6 +7,15 @@ from django.urls import reverse
 
 # Create your views here.
 @login_required
+def about(request):
+    return render(request, 'dashboard/about.html')
+
+@login_required
+def account(request):
+    return render(request, 'dashboard/account.html')
+
+
+@login_required
 def home(request):
     return render(request, 'dashboard/home.html')
 

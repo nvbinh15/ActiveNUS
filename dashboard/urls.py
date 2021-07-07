@@ -6,6 +6,8 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('pomodoro', views.pomodoro, name='pomodoro'),
+    path('about', views.about, name='about'),
+    path('account', views.account, name='account'),
     # path('calendar', views.calendar, name='calendar'),
     re_path('flashcard', views.flashcard, name='flashcard'),
     re_path('^calendar', views.calendar, name='calendar'),

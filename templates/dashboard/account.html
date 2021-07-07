@@ -1,0 +1,51 @@
+{% extends '_partials/base.html' %}
+
+{% load static %}
+
+{% block title %}
+Account | ActiveNUS
+{% endblock title %}
+
+{% block css %}
+
+{% endblock css %}
+
+{% block contentdiv1 %}
+<h1 style='padding: 2rem'>
+    Account
+</h1>
+
+<div style="padding-left: 2rem; padding-right: 2rem;">
+
+    <h3 class="ui header">Name</h3>
+    <div> {{ request.user.username }} </div>
+
+    <div class="ui section divider"></div>
+
+    <h3 class="ui header">Email</h3>
+    <div> {{ request.user.email }} </div>
+
+    <div class="ui section divider"></div>
+    <!-- <h3 class="ui header">Change Password</h3>
+
+    <form class="ui form">
+        <div class="field">
+          <label>New Password</label>
+          <input type="text" name="first-name" placeholder="New Password">
+        </div>
+        <div class="field">
+          <label>Confirm Password</label>
+          <input type="text" name="last-name" placeholder="Confirm Password">
+        </div>
+        <button class="ui button" type="submit">Submit</button>
+      </form> -->
+</div>
+
+{% endblock contentdiv1 %}
+
+
+
+{% block contentdiv2 %}
+
+
+{% endblock contentdiv2 %}
