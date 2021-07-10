@@ -15,91 +15,15 @@ ActiveNUS
 <h1 style='padding: 2rem'>
     Progress
 </h1>
-<div class='progress-card' style='float:left;
-width: 230px;
-height: 147px;
-margin: 30px;
-padding: 1rem;
-background: #FF724F;
-box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-border-radius: 20px;'>
-    <div class="progress_title">Orbital Workshop</div>
-
-    <div style='margin-top: 2rem' class="ui small indicating progress">
-        <div class="bar"></div>
-        <div class="label">Progress</div>
-    </div>
-    <div class="ui icon buttons">
-        <div class="decrement ui basic button icon"><i class="minus icon"></i></div>
-        <div class="increment ui basic button icon"><i class="plus icon"></i></div>
-        <div class="ui basic button icon"><i class="edit outline icon"></i></div>
-      </div>
-</div>
-
-<div class='progress-card' style=' float: left;
-width: 230px;
-height: 147px;
-margin: 30px;
-padding: 1rem;
-background: #9ABBD9;
-box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-border-radius: 20px;'>
-    <div class="progress_title">Linear Algebra</div>
-
-    <div style='margin-top: 2rem' class="ui small indicating progress">
-        <div class="bar"></div>
-        <div class="label">Progress</div>
-    </div>
-    <div class="ui icon buttons">
-        <div class="decrement ui basic button icon"><i class="minus icon"></i></div>
-        <div class="increment ui basic button icon"><i class="plus icon"></i></div>
-        <div class="ui basic button icon"><i class="edit outline icon"></i></div>
-      </div>
-</div>
-
-<div class='progress-card' style=' float: left;
-width: 230px;
-height: 147px;
-margin: 30px;
-padding: 1rem;
-background: #FEF5DA;
-box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-border-radius: 20px;'>
-    <div class="progress_title">Calculus</div>
-
-    <div style='margin-top: 2rem' class="ui small indicating progress">
-        <div class="bar"></div>
-        <div class="label">Progress</div>
-    </div>
-    <div class="ui icon buttons">
-        <div class="decrement ui basic button icon"><i class="minus icon"></i></div>
-        <div class="increment ui basic button icon"><i class="plus icon"></i></div>
-        <div class="ui basic button icon"><i class="edit outline icon"></i></div>
-      </div>
-</div>
-
-<div class='progress-card' style=' float: left;
-width: 230px;
-height: 147px;
-margin: 30px;
-padding: 1rem;
-background: #FEF5DA;
-box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-border-radius: 20px;'>
-    <div class="progress_title">Milestone 2</div>
-
-    <div style='margin-top: 2rem' class="ui small indicating progress">
-        <div class="bar"></div>
-        <div class="label">Progress</div>
-    </div>
-    <div class="ui icon buttons">
-        <div class="decrement ui basic button icon"><i class="minus icon"></i></div>
-        <div class="increment ui basic button icon"><i class="plus icon"></i></div>
-        <div class="ui basic button icon"><i class="edit outline icon"></i></div>
-      </div>
-</div>
-
-
+<div id="progress">
+        <progres
+  v-for="card in cards"
+  v-bind:key="card.id"
+  v-bind:title="card.title"
+  v-bind:count="card.count"
+  v-bind:backgroundColor="card.backgroundColor"
+></progres>
+<a href="{% url 'calendar' %}">
 <div class='progress-card' style='float: left;
 width: 230px;
 height: 147px;
@@ -108,18 +32,12 @@ padding: 1rem;
 background: #FDB92E;
 box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 border-radius: 20px;'>
-    <div class="progress_title">Machine Learning</div>
-
-    <div style='margin-top: 2rem' class="ui small indicating progress">
-        <div class="bar"></div>
-        <div class="label">Progress</div>
-    </div>
-    <div class="ui icon buttons">
-        <div class="decrement ui basic button icon"><i class="minus icon"></i></div>
-        <div class="increment ui basic button icon"><i class="plus icon"></i></div>
-        <div class="ui basic button icon"><i class="edit outline icon"></i></div>
-      </div>
+    <div style="font-size: 100px; padding-top: 45px; color: #fff">+</div>
 </div>
+</a>
+
+</div>
+
 
 {% endblock contentdiv1 %}
 

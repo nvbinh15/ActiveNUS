@@ -1,9 +1,34 @@
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .models import Events
+from .models import Events, Folder
+from authentication.models import User
 from django.http import JsonResponse
 from django.urls import reverse
+from django import forms
+from datetime import datetime, timedelta
+from helpers.calendar import date_end
+
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+class NameForm(forms.Form):
+    prog_name = forms.CharField(label='Progress Name', max_length=100)
+    description = forms.CharField(label='Description', max_length=1000)
+    start_date = forms.DateField(label='Start Date', widget=forms.widgets.DateInput(attrs={'type': 'date'}))
+    end_date = forms.DateField(label='End Date', widget=forms.widgets.DateInput(attrs={'type': 'date'}))
+    expected_hour = forms.IntegerField(label='Expected Workload')
+    expected_iteration = forms.IntegerField(label='Expected Iterations')
+    widgets = {
+            'start_date': DateInput(),
+            'end_date': DateInput(),
+        }
+
+class FlashcardFolderForm(forms.Form):
+    folder_name = forms.CharField(label='Folder Name', max_length=100)
+    description = forms.CharField(label='Description', max_length=1000)
+
 
 # Create your views here.
 @login_required
@@ -25,17 +50,56 @@ def pomodoro(request):
 
 @login_required
 def flashcard(request):
-    return render(request, 'dashboard/flashcard.html')
+    current_user = request.user
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = FlashcardFolderForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            folder_name = form.cleaned_data['folder_name']
+            description = form.cleaned_data['description']
+            folder = Folder(name=folder_name, description=description, user=current_user)
+            folder.save()
+            # redirect to a new URL:
+            return HttpResponseRedirect(reverse('flashcard'))
+            # if a GET (or any other method) we'll create a blank form
+    else:
+        form = FlashcardFolderForm()  
+    context = {
+        'form': form
+    }      
+
+    return render(request, 'dashboard/flashcardfolder.html',context)
+
+
 
 @login_required
 def calendar(request):
-    return render(request, 'dashboard/calendar.html')
-    
-@login_required
-def calendar(request):
-    all_events = Events.objects.all()
+    current_user = request.user
+    all_events = current_user.events.all()
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = NameForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            prog_name = form.cleaned_data['prog_name']
+            description = form.cleaned_data['description']
+            ex_hour = form.cleaned_data['expected_hour']
+            ex_iteration = form.cleaned_data['expected_iteration']
+            start = form.cleaned_data['start_date']
+            end = form.cleaned_data['end_date']
+            event = Events(name=prog_name, start=start, end=date_end(start,5), user=current_user)
+            event.save()
+            # redirect to a new URL:
+            return HttpResponseRedirect(reverse('calendar', ))
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = NameForm()
     context = {
         "events":all_events,
+        'form': form
     }
     return render(request,'dashboard/calendar.html',context)
 

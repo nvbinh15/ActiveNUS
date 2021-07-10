@@ -1,0 +1,206 @@
+{% extends '_partials/base.html' %}
+{% load static %}
+
+{% block title %}
+Flashcard | ActiveNUS
+{% endblock title %}
+
+{% block css %}
+<!-- <link rel='stylesheet' href={% static 'css/dashboard/home.css' %}> -->
+<link rel='stylesheet' href="{% static 'css/dashboard/flashcardfolder.css' %}?{% now 'U' %}">
+{% endblock css %}
+
+
+{% block contentdiv1 %}
+<!-- <h1 style='padding: 2rem'>
+  Flashcard
+</h1>
+
+
+<div class="flashcard-container" id="fc">
+
+  <div class="flashcard hidden-xs hidden-sm" id="big-container">
+    <div class="card-flipper" @click="flip(card)">
+      <div class="card-question" v-bind:class="{ 'reveal-answer' : flipped }">
+        <span v-if="!card.startcard">[[ card.key ]] [[card.number]]</span>
+        <div v-if="card.startcard">
+          <span>Click me!</span>
+        </div>
+      </div>
+      <div class="card-answer" v-bind:class="{ 'reveal-answer' : flipped }">
+
+        <span v-if="!card.startcard" v-bind:class="{'noshow' : !flipped }"><small>30 April 1975</small></span>
+        <div v-if="card.startcard">
+          <span>Deck: [[title]]</span>
+          <span><small>Click next to start learning</small></span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="button-container" id="command" v-bind:class="{'noshow' : !flipped }">
+
+      <button class="ui button" id="next" @click="forward">Hard</button>
+      <button v-if="!card.startcard" class="ui button" id="previous" @click="previous">Medium</button>
+      <button class="ui button" id="next" @click="forward" style='background-color:#C7FFD3; color:#3D804C'>Easy</button>
+    </div>
+
+  </div>
+
+  <form v-if="!card.startcard" @submit.prevent="addCard" id="new-card-form">
+
+
+  </form>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="{% static 'js/dashboard/flashcard.js' %}?{% now 'U' %}"></script> -->
+
+
+
+<h1 style='padding: 2rem'>
+  Flashcard
+</h1>
+
+
+<div class='progress-card' style=' float: left;
+width: 230px;
+height: 147px;
+margin: 30px;
+padding: 1rem;
+background: #9ABBD9;
+box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+border-radius: 20px;
+text-align: center;'>
+    <div class="progress_title" style='font-size:1.5rem; margin-top:2rem; margin-bottom:2rem;'>GRE Vocabs</div>
+
+    <div class="ui horizontal label">150 items</div>
+
+    <div class="ui icon buttons">
+        <div class="ui basic button icon"><i class="play icon"></i></div>
+        <div class="ui basic button icon"><i class="edit icon"></i></div>
+      </div>
+</div>
+
+<div class='progress-card' style=' float: left;
+width: 230px;
+height: 147px;
+margin: 30px;
+padding: 1rem;
+background: #FF724F;
+box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+border-radius: 20px;
+text-align: center;'>
+    <div class="progress_title" style='font-size:1.5rem; margin-top:2rem; margin-bottom:2rem;'>Vietnam War</div>
+
+    <div class="ui horizontal label">45 items</div>
+
+    <div class="ui icon buttons">
+        <div class="ui basic button icon"><i class="play icon"></i></div>
+        <div class="ui basic button icon"><i class="edit icon"></i></div>
+      </div>
+</div>
+
+
+<div class='progress-card' style=' float: left;
+width: 230px;
+height: 147px;
+margin: 30px;
+padding: 1rem;
+background: #FEF5DA;
+box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+border-radius: 20px;
+text-align: center;'>
+    <div class="progress_title" style='font-size:1.5rem; margin-top:2rem; margin-bottom:2rem;'>HSK 3 Vocab</div>
+
+    <div class="ui horizontal label">16 items</div>
+    
+    <div class="ui icon buttons">
+        <div class="ui basic button icon"><i class="play icon"></i></div>
+        <div class="ui basic button icon"><i class="edit icon"></i></div>
+      </div>
+</div>
+
+
+<div class='progress-card' style=' float: left;
+width: 230px;
+height: 147px;
+margin: 30px;
+padding: 1rem;
+background: #FDB92E;
+box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+border-radius: 20px;
+text-align: center;'>
+    <div class="progress_title" style='font-size:1.5rem; margin-top:2rem; margin-bottom:2rem;'>Vietnamese</div>
+
+    <div class="ui horizontal label">256 items</div>
+
+    <div class="ui icon buttons">
+        <div class="ui basic button icon"><i class="play icon"></i></div>
+        <div class="ui basic button icon"><i class="edit icon"></i></div>
+      </div>
+</div>
+
+{% endblock contentdiv1 %}
+
+
+{% block contentdiv2 %}
+<h3 style='padding:3rem 0 0 2rem'>
+  Add Folder
+</h3>
+
+<form id="new-folder" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input class="ui button" type="submit" value="Submit">
+</form>
+
+
+<!-- 
+<div style='padding:2rem 1rem 1rem 1rem'>
+
+  <h3>Vietnam War</h3>
+  <p><i>Collection of the most important events in the Vietnam War (1954 – 1975)</i></p>
+
+
+  <div class="ui two column grid" style='padding-top:2rem'>
+    <div class="column">
+  
+      <form class="ui form">
+        <div class="field">
+          <input type="text" name="term" placeholder="Term">
+        </div>
+      </form>
+  
+    </div>
+    <div class="column">
+  
+      <form class="ui form">
+        <div class="field">
+          <input type="text" name="definition" placeholder="Definition">
+        </div>
+      </form>
+  
+    </div>
+  </div>
+  
+  
+  <div style='text-align: center; margin-top: 1rem;'>
+    <button class="ui basic button">
+      <i class="plus icon"></i>
+      Add Card
+    </button>
+  </div>
+
+</div> -->
+
+
+{% endblock contentdiv2 %}
+
+
+{% block js %}
+
+
+<!-- <script src="{% static 'js/dashboard/flashcard.js' %}?{% now 'U' %}"></script> -->
+{% endblock js %}

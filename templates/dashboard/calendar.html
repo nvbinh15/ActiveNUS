@@ -21,6 +21,19 @@ Calendar | ActiveNUS
 </div>
 {% endblock contentdiv1 %}
 
+{% block contentdiv2 %} 
+<div id="new-progress">
+<h1 style='padding: 2rem'>
+    Add a new progress
+</h1>
+<form id="new-progress" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input id="new-submit" class="ui button" type="submit" value="Submit">
+</form>
+</div>
+{% endblock contentdiv2 %} 
+
 {% block js %} 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -50,7 +63,7 @@ Calendar | ActiveNUS
       editable: true,
       eventLimit: true,
       select: function (start, end, allDay) {
-          var title = prompt("Enter Event Title").replace(/['"]+/g, '');
+          var title = prompt("Enter Event Title");
           if (title) {
               var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
               var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
