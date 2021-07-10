@@ -115,16 +115,18 @@ def calendar(request):
 #             return render(request,'dashboard/calendar.html',{'events':all_sunday_in_2020})
 @login_required
 def add_event(request):
+    current_user = request.user
     start = request.GET.get("start", None)
     end = request.GET.get("end", None)
     title = request.GET.get("title", None)
-    event = Events(name=str(title), start=start, end=end)
+    event = Events(name=str(title), start=start, end=end, user=current_user)
     event.save()
     data = {}
     # return HttpResponseRedirect(reverse("calendar"))
 
 @login_required
 def update(request):
+    current_user = request.user
     start = request.GET.get("start", None)
     end = request.GET.get("end", None)
     title = request.GET.get("title", None)
@@ -133,6 +135,7 @@ def update(request):
     event.start = start
     event.end = end
     event.name = title
+    event.user = current_user
     event.save()
     data = {}
     return JsonResponse(data)
