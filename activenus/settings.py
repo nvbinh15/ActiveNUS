@@ -36,8 +36,8 @@ LOGIN_URL = "auth/login"
 # Application definition
 
 INSTALLED_APPS = [
-    'dashboard',
-    'authentication',
+    'dashboard.apps.DashboardConfig',
+    'authentication.apps.AuthenticationConfig',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -116,13 +116,14 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Singapore'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+# USE_TZ = True
+USE_TZ = False #set to false for testing
 
 # EMAIL CONFIG
 
