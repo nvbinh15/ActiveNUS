@@ -22,15 +22,15 @@ Flashcard | ActiveNUS
   <div class="flashcard hidden-xs hidden-sm" id="big-container">
     <div class="card-flipper" @click="flip(card)">
       <div class="card-question" v-bind:class="{ 'reveal-answer' : flipped }">
-        <span v-if="!card.startcard">[[ card.key ]] [[card.number]]</span>
+        <span v-if="!card.startcard">[[ card.fields.question ]]</span>
         <div v-if="card.startcard">
           <span>Click me!</span>
         </div>
       </div>
       <div class="card-answer" v-bind:class="{ 'reveal-answer' : flipped }">
-        <span v-if="!card.startcard" v-bind:class="{'noshow' : !flipped }"><small>[[ card.val ]]</small></span>
+        <span v-if="!card.startcard" v-bind:class="{'noshow' : !flipped }"><small>[[ card.fields.answer ]]</small></span>
         <div v-if="card.startcard">
-          <span>Deck: [[title]]</span>
+          <span>Deck: {{folder.name}}</span>
           <span><small>Click next to start learning</small></span>
         </div>
       </div>
@@ -44,23 +44,75 @@ Flashcard | ActiveNUS
 
   </div>
 
-  <form v-if="!card.startcard" @submit.prevent="addCard" id="new-card-form">
-
-    <div class="ui input">
-      <input type="text" placeholder="Question" :maxlength="max" v-model="newCard.key">
-      <input type="text" placeholder="Answer" :maxlength="max" v-model="newCard.val">
-    </div>
-    <button class="ui button" @click="addCard">Add Card</button>
-  </form>
 </div>
 
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-<script src="{% static 'js/dashboard/flashcard.js' %}?{% now 'U' %}"></script>
+<script type="text/javascript">
+var deck1 = {{cards|safe}};
+console.log(deck1);
+
+
+const fc = new Vue({
+    delimiters: ["[[", "]]"],
+	el: '#fc',
+	data: {
+		deck: [],
+		title: "Olympian Gods",
+		current: 0,
+		card: {  
+			"model":"dashboard.flashcard",
+			"pk":4,
+			"startcard": true,
+			"fields":{question: "Hello", answer: "Its me", folder: 2, user: 6}
+   	},
+		flipped:true,
+	},
+
+
+
+	methods: {
+		flip: function(card){
+			this.flipped = !this.flipped;
+		},
+
+		
+		previous: function(){
+			this.flipped = false;
+			this.card.number++;
+			this.card = this.deck[Math.floor(Math.random() * this.deck.length)];
+			
+		},
+
+		forward: function(){
+			if(!this.card.startcard){
+				this.flipped = false;
+				this.card.number++;
+				this.card = this.deck[Math.floor(Math.random() * this.deck.length)];
+
+			}
+
+			else {
+				this.deck = deck1;
+				this.flipped = false;
+				this.card = this.deck[Math.floor(Math.random() * this.deck.length)];
+			}
+			
+		},
+
+	}	
+})
+</script>
 {% endblock contentdiv1 %}
 
 
 {% block contentdiv2 %}
+
+<form id="new-card" method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input class="ui button" type="submit" value="Submit">
+</form>
 
 {% endblock contentdiv2 %}
 
@@ -68,5 +120,4 @@ Flashcard | ActiveNUS
 {% block js %}
 
 
-<!-- <script src="{% static 'js/dashboard/flashcard.js' %}?{% now 'U' %}"></script> -->
 {% endblock js %}

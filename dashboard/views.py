@@ -1,9 +1,11 @@
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .models import Events, Folder
+from .models import Events, Folder, Flashcard
 from authentication.models import User
 from django.http import JsonResponse
+from django.core.serializers.json import DjangoJSONEncoder
+from django.core import serializers
 from django.urls import reverse
 from django import forms
 from datetime import datetime, timedelta
@@ -29,6 +31,9 @@ class FlashcardFolderForm(forms.Form):
     folder_name = forms.CharField(label='Folder Name', max_length=100)
     description = forms.CharField(label='Description', max_length=1000)
 
+class NewcardForm(forms.Form):
+    card_question = forms.CharField(label='Question', max_length=100)
+    card_ans = forms.CharField(label='Answer', max_length=1000)
 
 # Create your views here.
 @login_required
@@ -51,6 +56,10 @@ def pomodoro(request):
 @login_required
 def flashcard(request):
     current_user = request.user
+    all_folder = []
+    for i in current_user.flashcard_folders.all():
+        no_of_cards = len(i.cards.all())
+        all_folder.append((no_of_cards, i))
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         form = FlashcardFolderForm(request.POST)
@@ -66,7 +75,8 @@ def flashcard(request):
     else:
         form = FlashcardFolderForm()  
     context = {
-        'form': form
+        'form': form,
+        "folders": all_folder
     }      
 
     return render(request, 'dashboard/flashcardfolder.html',context)
@@ -147,3 +157,33 @@ def remove(request):
     event.delete()
     data = {}
     return JsonResponse(data)
+
+@login_required
+def flashcarddeck(request, folder_id):
+    current_user = request.user
+    folder = Folder.objects.get(id=int(folder_id))
+    all_cards = serializers.serialize("json", folder.cards.all(),cls=DjangoJSONEncoder)
+
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = NewcardForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            question = form.cleaned_data['card_question']
+            answer = form.cleaned_data['card_ans']
+            card = Flashcard(question=question, answer=answer, user=current_user, folder=folder)
+            card.save()
+            # redirect to a new URL:
+            return HttpResponseRedirect(reverse('flashcarddeck', args=[folder_id]))
+            # if a GET (or any other method) we'll create a blank form
+    else:
+        form = NewcardForm()
+  
+    
+    context = {
+        'folder': folder,
+        'form': form,
+        "cards": all_cards
+    }      
+
+    return render(request, 'dashboard/flashcard.html',context)
