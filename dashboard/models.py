@@ -14,12 +14,17 @@ class Events(models.Model):
     def __str__(self):
         return f"{self.name} ({self.id})"
 
-class Folder(models.Model):
+class Progress(models.Model):
     id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=255,null=True,blank=True)
+    percent = models.IntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='progresses')
+
+class Folder(models.Model):
     name = models.CharField(max_length=255,null=True,blank=True)
     description = models.CharField(max_length=1000,null=True,blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='flashcard_folders')
-
+    
     def __str__(self):
         return f"{self.name} ({self.id})"
 
@@ -27,6 +32,7 @@ class Flashcard(models.Model):
     id = models.AutoField(primary_key=True)
     question = models.CharField(max_length=255,null=True,blank=True)
     answer = models.CharField(max_length=1000,null=True,blank=True)
+    startcard = models.BooleanField(default=False)
     folder = models.ForeignKey(Folder, on_delete=models.CASCADE, null=True, related_name='cards')
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='cards')
 

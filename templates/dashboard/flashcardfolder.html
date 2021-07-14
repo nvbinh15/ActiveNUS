@@ -12,59 +12,14 @@ Flashcard | ActiveNUS
 
 
 {% block contentdiv1 %}
-<!-- <h1 style='padding: 2rem'>
-  Flashcard
-</h1>
-
-
-<div class="flashcard-container" id="fc">
-
-  <div class="flashcard hidden-xs hidden-sm" id="big-container">
-    <div class="card-flipper" @click="flip(card)">
-      <div class="card-question" v-bind:class="{ 'reveal-answer' : flipped }">
-        <span v-if="!card.startcard">[[ card.key ]] [[card.number]]</span>
-        <div v-if="card.startcard">
-          <span>Click me!</span>
-        </div>
-      </div>
-      <div class="card-answer" v-bind:class="{ 'reveal-answer' : flipped }">
-
-        <span v-if="!card.startcard" v-bind:class="{'noshow' : !flipped }"><small>30 April 1975</small></span>
-        <div v-if="card.startcard">
-          <span>Deck: [[title]]</span>
-          <span><small>Click next to start learning</small></span>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="button-container" id="command" v-bind:class="{'noshow' : !flipped }">
-
-      <button class="ui button" id="next" @click="forward">Hard</button>
-      <button v-if="!card.startcard" class="ui button" id="previous" @click="previous">Medium</button>
-      <button class="ui button" id="next" @click="forward" style='background-color:#C7FFD3; color:#3D804C'>Easy</button>
-    </div>
-
-  </div>
-
-  <form v-if="!card.startcard" @submit.prevent="addCard" id="new-card-form">
-
-
-  </form>
-</div>
-
-
-<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-<script src="{% static 'js/dashboard/flashcard.js' %}?{% now 'U' %}"></script> -->
-
-
 
 <h1 style='padding: 2rem'>
   Flashcard
 </h1>
-
-
-<div class='progress-card' style=' float: left;
+<div id="flashcardfolder">
+  {% for i, folder in folders %} 
+  
+  <div class='progress-card' style=' float: left;
 width: 230px;
 height: 147px;
 margin: 30px;
@@ -73,73 +28,18 @@ background: #9ABBD9;
 box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 border-radius: 20px;
 text-align: center;'>
-    <div class="progress_title" style='font-size:1.5rem; margin-top:2rem; margin-bottom:2rem;'>GRE Vocabs</div>
+    <div class="progress_title" style='font-size:1.5rem; margin-top:2rem; margin-bottom:2rem;'>{{folder.name}}</div>
 
-    <div class="ui horizontal label">150 items</div>
+    <div class="ui horizontal label">{{i}} items</div>
 
     <div class="ui icon buttons">
-        <div class="ui basic button icon"><i class="play icon"></i></div>
+      <a href="{% url 'flashcarddeck' folder.id %}">
+        <div class="ui basic button icon"><i class="play icon"></i></div></a>
         <div class="ui basic button icon"><i class="edit icon"></i></div>
       </div>
 </div>
 
-<div class='progress-card' style=' float: left;
-width: 230px;
-height: 147px;
-margin: 30px;
-padding: 1rem;
-background: #FF724F;
-box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-border-radius: 20px;
-text-align: center;'>
-    <div class="progress_title" style='font-size:1.5rem; margin-top:2rem; margin-bottom:2rem;'>Vietnam War</div>
-
-    <div class="ui horizontal label">45 items</div>
-
-    <div class="ui icon buttons">
-        <div class="ui basic button icon"><i class="play icon"></i></div>
-        <div class="ui basic button icon"><i class="edit icon"></i></div>
-      </div>
-</div>
-
-
-<div class='progress-card' style=' float: left;
-width: 230px;
-height: 147px;
-margin: 30px;
-padding: 1rem;
-background: #FEF5DA;
-box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-border-radius: 20px;
-text-align: center;'>
-    <div class="progress_title" style='font-size:1.5rem; margin-top:2rem; margin-bottom:2rem;'>HSK 3 Vocab</div>
-
-    <div class="ui horizontal label">16 items</div>
-    
-    <div class="ui icon buttons">
-        <div class="ui basic button icon"><i class="play icon"></i></div>
-        <div class="ui basic button icon"><i class="edit icon"></i></div>
-      </div>
-</div>
-
-
-<div class='progress-card' style=' float: left;
-width: 230px;
-height: 147px;
-margin: 30px;
-padding: 1rem;
-background: #FDB92E;
-box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-border-radius: 20px;
-text-align: center;'>
-    <div class="progress_title" style='font-size:1.5rem; margin-top:2rem; margin-bottom:2rem;'>Vietnamese</div>
-
-    <div class="ui horizontal label">256 items</div>
-
-    <div class="ui icon buttons">
-        <div class="ui basic button icon"><i class="play icon"></i></div>
-        <div class="ui basic button icon"><i class="edit icon"></i></div>
-      </div>
+  {% endfor %}
 </div>
 
 {% endblock contentdiv1 %}
@@ -157,50 +57,121 @@ text-align: center;'>
 </form>
 
 
-<!-- 
-<div style='padding:2rem 1rem 1rem 1rem'>
 
-  <h3>Vietnam War</h3>
-  <p><i>Collection of the most important events in the Vietnam War (1954 – 1975)</i></p>
-
-
-  <div class="ui two column grid" style='padding-top:2rem'>
-    <div class="column">
-  
-      <form class="ui form">
-        <div class="field">
-          <input type="text" name="term" placeholder="Term">
-        </div>
-      </form>
-  
-    </div>
-    <div class="column">
-  
-      <form class="ui form">
-        <div class="field">
-          <input type="text" name="definition" placeholder="Definition">
-        </div>
-      </form>
-  
-    </div>
-  </div>
-  
-  
-  <div style='text-align: center; margin-top: 1rem;'>
-    <button class="ui basic button">
-      <i class="plus icon"></i>
-      Add Card
-    </button>
-  </div>
-
-</div> -->
 
 
 {% endblock contentdiv2 %}
 
 
 {% block js %}
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<script>
+
+  Vue.component('flashcardfolder', {
+    props: ['name', 'card_nbr', 'backgroundcolor', 'id'],
+    template: `<a :href="linktodeck"><div class='progress-card' :style="filterStyleCard">
+        <div class="progress_title" style='font-size:1.5rem; margin-top:2rem; margin-bottom:2rem;' v-html="foldername"></div>
+    
+        <div class="ui horizontal label" v-html="cardcount"></div>
+    
+        <div class="ui icon buttons">
+            <div class="ui basic button icon"><i class="play icon"></i></div>
+            <div class="ui basic button icon" @click="editTitle"><i class="edit icon"></i></div>
+            <div class="ui basic button icon ui right dropdown simple item"><i class="tint icon"></i>
+              <div class="menu">
+                <div class="item" @click="backgroundRed">
+                <i class="circle icon" style="color: #ff714f"></i></div>
+                <div class="item" @click="backgroundBlue">
+                <i class="circle icon" style="color: #91b3cf"></i></div>
+                <div class="item" @click="backgroundYellow">
+                <i class="circle icon" style="color: #fdba2e"></i></div>
+                <div class="item" @click="backgroundCream">
+                <i class="circle icon" style="color: #fef4d9"></i></div>
+              </div>
+          </div>
+          </div>
+    </div></a>`,
+
+    computed: {
+      linktodeck: function(){
+        let str1 = "{% url 'flashcarddeck' ";
+        let str2 = " %}";
+        let str3 = this.id.toString();
+        let res = str1.concat(str3, str2);
+        console.log(res);
+        return res;
+      },
+
+      foldername: function() {
+        return this.name;
+      },
+
+      cardcount: function() {
+      return this.card_nbr.toString() + ' items' + this.id.toString() ;
+      },
 
 
-<!-- <script src="{% static 'js/dashboard/flashcard.js' %}?{% now 'U' %}"></script> -->
+    
+      filterStyleCard() {
+        return {
+            float: 'left',
+            width: '230px',
+            height: '147px',
+            margin: '30px',
+            padding: '1rem',
+            background: this.backgroundcolor,
+            boxShadow: 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px',
+            borderRadius: '20px',
+            textAlign: 'center'
+      }
+    }
+
+
+    },
+
+    methods: {
+
+      backgroundRed: function() {
+        this.backgroundcolor = "#ff714f";
+      },
+
+      backgroundBlue: function() {
+        this.backgroundcolor = "#91b3cf";
+      },
+
+      backgroundCream: function() {
+        this.backgroundcolor = "#fef4d9";
+      },
+
+      backgroundYellow: function() {
+        this.backgroundcolor = "#fdba2e";
+      },
+
+      editTitle: function() {
+        var name = prompt("Change progress title: ");
+        if(name) {
+          this.name = name;
+        }
+      }
+    }
+  });
+
+  var app = new Vue({
+    el: '#flashcardfolder',
+    data: {
+      cards: [
+      {% for folder in folders %}
+            {
+            name: "{{ folder.name}}",
+            backgroundColor: "#91b3cf",
+            id: "{{folder.id}}",
+            card_nbr: 133
+            },
+        {% endfor %}
+      ],
+    },
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
 {% endblock js %}

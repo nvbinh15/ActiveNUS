@@ -1,34 +1,5 @@
-var deck1 = [{
-	"val": "Goddess of love, beauty, desire, sex and pleasure",
-	"key": "Aphrodite",
-	"startcard": false,
-	"number": 0
-}, {
-	"val": "God of music, arts, knowledge, healing, plague, prophecy, poetry, manly beauty, archery, and the sun",
-	"key": "Apollo",
-	"startcard": false,
-	"number": 0
-}, {
-	"val": "King of the underworld and the dead, and god of regret.",
-	"key": "Hades",
-	"startcard": false,
-	"number": 0
-}, {
-	"val": "Crippled god of fire, metalworking, and crafts",
-	"key": "Hephaestus",
-	"startcard": false,
-	"number": 0
-}, {
-	"val": "Queen of the gods and goddess of marriage, women, childbirth, heirs, kings, and empires",
-	"key": "Hera",
-	"startcard": false,
-	"number": 0
-}, {
-	"val": "King and father of the gods, the ruler of Mount Olympus and the god of the sky, weather, thunder, lightning, law, order, and justice",
-	"key": "Zeus",
-	"startcard": false,
-	"number": 0
-}];
+var deck1 = "{{all_cards | safe}}";
+console.log(deck1);
 
 
 const fc = new Vue({
@@ -50,20 +21,6 @@ const fc = new Vue({
 			"number": 0},
 	},
 
-	mounted() {
-		if (localStorage.getItem('deck')) {
-		  try {
-			this.deck = JSON.parse(localStorage.getItem('deck'));
-		  } catch(e) {
-			localStorage.removeItem('deck');
-		  }
-		} else {
-			let parsed = JSON.stringify(deck1);
-			localStorage.setItem('deck', parsed);
-			this.deck = JSON.parse(localStorage.getItem('deck'));
-		}
-		
-	  },
 
 
 	methods: {
@@ -80,18 +37,13 @@ const fc = new Vue({
 				"key": '',
 				"startcard": false,
 				"number": 0};
-			let parsed = JSON.stringify(this.deck);
-			localStorage.setItem('deck', parsed);
-			console.log('It landed to addcard func!');
 		  },
 
 		previous: function(){
 			this.flipped = false;
 			this.card.number++;
 			this.card = this.deck[Math.floor(Math.random() * this.deck.length)];
-			let parsed = JSON.stringify(this.deck);
-			localStorage.setItem('deck', parsed);
-			// this.current = this.getPrev;
+			
 		},
 
 		forward: function(){
@@ -99,9 +51,7 @@ const fc = new Vue({
 				this.flipped = false;
 				this.card.number++;
 				this.card = this.deck[Math.floor(Math.random() * this.deck.length)];
-				let parsed = JSON.stringify(this.deck);
-				localStorage.setItem('deck', parsed);
-				// this.current = this.getNext;
+
 			}
 
 			else {
