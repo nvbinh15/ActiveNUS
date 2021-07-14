@@ -47,7 +47,15 @@ def account(request):
 
 @login_required
 def home(request):
-    return render(request, 'dashboard/home.html')
+    current_user = request.user
+    all_progresses = current_user.progresses.all()
+
+    context = {
+        "progresses": all_progresses
+    }      
+
+
+    return render(request, 'dashboard/home.html', context)
 
 @login_required
 def pomodoro(request):
@@ -101,6 +109,8 @@ def calendar(request):
             end = form.cleaned_data['end_date']
             event = Events(name=prog_name, start=start, end=date_end(start,5), user=current_user)
             event.save()
+            progress = Events(name=prog_name, percent=0, user=current_user)
+            progress.save()
             # redirect to a new URL:
             return HttpResponseRedirect(reverse('calendar', ))
 

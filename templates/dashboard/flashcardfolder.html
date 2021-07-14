@@ -55,13 +55,7 @@ text-align: center;'>
     {{ form.as_p }}
     <input class="ui button" type="submit" value="Submit">
 </form>
-<div>
-  {% for i,folder in folders %}
-  <a href="{% url 'flashcarddeck' folder.id %}">
-    <div>{{folder.name}}</div>
-  </a>
-  {% endfor %}
-</div>
+
 
 
 
