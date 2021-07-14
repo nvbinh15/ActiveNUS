@@ -38,8 +38,10 @@ Flashcard | ActiveNUS
     </div>
 
     <div class="button-container" id="command" v-bind:class="{'noshow' : !flipped }">
-      <button v-if="!card.startcard" class="ui button" id="previous" @click="previous">Previous</button>
-      <button class="ui button" id="next" @click="forward">Next</button>
+      <button v-if="!card.startcard" class="ui button" id="easy" @click="easy">Easy</button>
+      <button v-if="!card.startcard" class="ui button" id="medium" @click="medium">Medium</button>
+	  <button v-if="!card.startcard" class="ui button" id="hard" @click="hard">Hard</button>
+	  <button v-if="card.startcard"  class="ui button" id="next" @click="forward">Next</button>
     </div>
 
   </div>
@@ -51,14 +53,14 @@ Flashcard | ActiveNUS
 <script type="text/javascript">
 var deck1 = {{cards|safe}};
 console.log(deck1);
-
+var please;
 
 const fc = new Vue({
     delimiters: ["[[", "]]"],
 	el: '#fc',
 	data: {
-		deck: [],
-		title: "Olympian Gods",
+		deck: deck1,
+		title: " ",
 		current: 0,
 		card: {  
 			"model":"dashboard.flashcard",
@@ -77,27 +79,79 @@ const fc = new Vue({
 		},
 
 		
-		previous: function(){
+		easy: function(){
 			this.flipped = false;
-			this.card.number++;
-			this.card = this.deck[Math.floor(Math.random() * this.deck.length)];
+			$.ajax({
+                  type: "GET",
+                  url: '/easycard',
+                  data: {'id': this.card.pk, 'folder_id': this.card.fields.folder},
+                  dataType: "json",
+                  success: function (data) {
+                      console.log('ok easy');
+					  please = JSON.parse(data["all_cards"]);
+                  },
+                  failure: function (data) {
+                      console.log('oh no easy');
+                  }
+              });
+			  this.deck = please;
+			console.log(this.deck);
+			this.card = this.deck[0];
+			console.log(this.card);
+			console.log(this.card.fields.question);	
+		},
+
+		medium: function(){
+			this.flipped = false;
+			$.ajax({
+                  type: "GET",
+                  url: '/mediumcard',
+                  data: {'id': this.card.pk, 'folder_id': this.card.fields.folder},
+                  dataType: "json",
+                  success: function (data) {
+                      console.log('ok medium');
+					  please = JSON.parse(data["all_cards"]);
+                  },
+                  failure: function (data) {
+                      console.log('oh no medium');
+                  }
+              });
+			  this.deck = please;
+			console.log(this.deck);
+			this.card = this.deck[0];
+			console.log(this.card);
+			console.log(this.card.fields.question);	
+			
+		},
+
+		hard: function(){
+			this.flipped = false;
+			$.ajax({
+                  type: "GET",
+                  url: '/hardcard',
+                  data: {'id': this.card.pk, 'folder_id': this.card.fields.folder},
+                  dataType: "json",
+                  success: function (data) {
+                      console.log('ok hard');
+					  please = JSON.parse(data["all_cards"]);
+                  },
+                  failure: function (data) {
+                      console.log('oh no hard');
+                  }
+              });
+			  this.deck = please
+			  console.log(this.deck);
+			this.card = this.deck[0];
+			console.log(this.card);
+			console.log(this.card.fields.question);	
+			
 			
 		},
 
 		forward: function(){
-			if(!this.card.startcard){
-				this.flipped = false;
-				this.card.number++;
-				this.card = this.deck[Math.floor(Math.random() * this.deck.length)];
-
-			}
-
-			else {
 				this.deck = deck1;
 				this.flipped = false;
 				this.card = this.deck[Math.floor(Math.random() * this.deck.length)];
-			}
-			
 		},
 
 	}	

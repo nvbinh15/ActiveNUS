@@ -197,3 +197,48 @@ def flashcarddeck(request, folder_id):
     }      
 
     return render(request, 'dashboard/flashcard.html',context)
+
+@login_required
+def easycard(request):
+    current_user = request.user
+    id = request.GET.get("id", None)
+    card = Flashcard.objects.get(id=id)
+    card.score = (card.score * card.attempts + 3) / (card.attempts + 1)
+    card.attempts += 1
+    card.save()
+    folder = Folder.objects.get(id=request.GET.get("folder_id", None))
+    all_cards = folder.cards.all()
+    all_cards = sorted(all_cards, key=lambda x: x.score, reverse=False)
+    all_cards = serializers.serialize("json", all_cards,cls=DjangoJSONEncoder)
+    data = {"all_cards": all_cards}
+    return JsonResponse(data)
+
+@login_required
+def mediumcard(request):
+    current_user = request.user
+    id = request.GET.get("id", None)
+    card = Flashcard.objects.get(id=id)
+    card.score = (card.score * card.attempts + 2) / (card.attempts + 1)
+    card.attempts += 1
+    card.save()
+    folder = Folder.objects.get(id=request.GET.get("folder_id", None))
+    all_cards = folder.cards.all()
+    all_cards = sorted(all_cards, key=lambda x: x.score, reverse=False)
+    all_cards = serializers.serialize("json", all_cards,cls=DjangoJSONEncoder)
+    data = {"all_cards": all_cards}
+    return JsonResponse(data)
+
+@login_required
+def hardcard(request):
+    current_user = request.user
+    id = request.GET.get("id", None)
+    card = Flashcard.objects.get(id=id)
+    card.score = (card.score * card.attempts + 1) / (card.attempts + 1)
+    card.attempts += 1
+    card.save()
+    folder = Folder.objects.get(id=request.GET.get("folder_id", None))
+    all_cards = folder.cards.all()
+    all_cards = sorted(all_cards, key=lambda x: x.score, reverse=False)
+    all_cards = serializers.serialize("json", all_cards,cls=DjangoJSONEncoder)
+    data = {"all_cards": all_cards}
+    return JsonResponse(data)
