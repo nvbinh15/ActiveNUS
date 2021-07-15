@@ -1,5 +1,5 @@
 from django.core.serializers import json
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Events, Folder, Flashcard, Task
@@ -11,6 +11,8 @@ from django.urls import reverse
 from django import forms
 from datetime import datetime, timedelta
 from helpers.calendar import date_end
+from django.shortcuts import get_object_or_404
+
 
 
 class DateInput(forms.DateInput):
@@ -90,65 +92,32 @@ def home(request):
     return render(request, 'dashboard/home.html', context)
 
 @login_required
-def add_task(request):
-    pass
+def addtask(request):
+    current_user = request.user
+    label = request.GET.get("label", None)
+    task = Task.objects.create(label=label, user=current_user)
+    task.save
+    data = {}
+    return HttpResponse(data)
 
 
 @login_required
 def mark_task(request):
-    current_user = request.user
     id = request.GET.get("id", None)
     task = Task.objects.get(id=id)
     task.done = not task.done
     task.save()
-    # all_task = Task.objects.get(user=current_user)
-    # all_task = serializers.serialize("json", all_task, cls=DjangoJSONEncoder)
-    # data = {"all_task": all_task}
-
-    # all_task = current_user.task.all()
-    # todolist = []
-    # for task in all_task:
-    #     t = dict()
-    #     t['label'] = task.label
-    #     t['done'] = task.done
-    #     t['id'] = task.id
-    #     todolist.append(t)
+    data = {}
+    return HttpResponse(data)
     
-    # todoJSON = dumps(todolist)
-
-    # return JsonResponse(todolist)
-
 
 @login_required
-def remove_task(request):
-    current_user = request.user
+def deletetask(request):
     id = request.GET.get("id", None)
     task = Task.objects.get(id=id)
     task.delete()
-
-    # current_user = request.user
-    # id = request.GET.get("id", None)
-    # task = Task.objects.get(id=id)
-    # task.done = not task.done
-    # task.save()
-
-    # all_task = Task.objects.get(user=current_user)
-    # all_task = serializers.serialize("json", all_task, cls=DjangoJSONEncoder)
-    # data = {"all_task": all_task}
-    # return JsonResponse(data)
-
-    # all_task = current_user.task.all()
-    # todolist = []
-    # for task in all_task:
-    #     t = dict()
-    #     t['label'] = task.label
-    #     t['done'] = task.done
-    #     t['id'] = task.id
-    #     todolist.append(t)
-    
-    # todoJSON = dumps(todolist)
-
-    # return JsonResponse(todolist)
+    data = {}
+    return HttpResponse(data)
 
 
 @login_required

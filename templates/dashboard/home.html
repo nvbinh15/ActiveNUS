@@ -108,13 +108,14 @@ Vue.component('togglebutton', {
                 <div class="actions">
                     <button class="btn-picto" type="button" v-on:click="markAsDoneOrUndone(item)"
                         v-bind:title="item.done ? 'Undone' : 'Done'">
-
+                        <!-- {{ csrf_token }} -->
                         <span v-if='!item.done'><i class="circle outline icon"></i></span>
                         <span v-else><i class="check circle outline icon"></i></span>
 
                     </button>
                     <button class="btn-picto" type="button" v-on:click="deleteItemFromList(item)" aria-label="Delete"
                         title="Delete">
+                        <!-- {{ csrf_token }} -->
                         <i class="trash icon"></i>
                     </button>
                 </div>
@@ -201,9 +202,16 @@ var todolist = new Vue({
 
   methods: {
     addItem: function() {
-      this.todo.push({id: Math.floor(Math.random() * 9999) + 10, label: this.newitem, done: false});
+      this.todo.push({id: Math.floor(Math.random() * 9999) + 10, label: this.newitem, done: false});  
+      $.ajax({
+        type: "GET",
+        url: '/addtask',
+        data: {'label': this.newitem},
+        dataType: "json"
+      });
       this.newitem = '';
     },
+
     markAsDoneOrUndone: function(item) {
       item.done = !item.done;
       $.ajax({
@@ -211,11 +219,6 @@ var todolist = new Vue({
         url: '/mark_task',
         data: {'id': item.id},
         dataType: "json",
-        // success: function (data) {
-        //   console.log("success mark");
-        //   request_result = JSON.parse(data);
-        //   console.log(request_result);
-        // }
       });
     },
 
@@ -224,7 +227,7 @@ var todolist = new Vue({
       this.todo.splice(index, 1);
       $.ajax({
         type: "GET",
-        url: '/remove_task',
+        url: '/deletetask',
         data: {'id': item.id},
         dataType: "json",
       });

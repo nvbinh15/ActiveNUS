@@ -17,7 +17,7 @@ urlpatterns = [
     re_path('^remove', views.remove, name='remove'),
 
     # flashcards
-    re_path('^add_task', views.add_task, name='add_task'),
+    re_path('^addtask', views.addtask, name='addtask'),
     re_path('^mark_task', views.mark_task, name='mark_task'),
-    re_path('^remove_task', views.remove_task, name='remove_task'),
+    re_path('^deletetask', views.deletetask, name='deletetask'),
 ]
