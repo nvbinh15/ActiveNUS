@@ -53,7 +53,7 @@ Flashcard | ActiveNUS
 <script type="text/javascript">
 var deck1 = {{cards|safe}};
 console.log(deck1);
-var please;
+var please = deck1;
 
 const fc = new Vue({
     delimiters: ["[[", "]]"],
@@ -80,8 +80,7 @@ const fc = new Vue({
 
 		
 		easy: function(){
-			this.flipped = false;
-			$.ajax({
+      $.ajax({
                   type: "GET",
                   url: '/easycard',
                   data: {'id': this.card.pk, 'folder_id': this.card.fields.folder},
@@ -94,16 +93,21 @@ const fc = new Vue({
                       console.log('oh no easy');
                   }
               });
+      if(deck1.length < 2){
+        alert("Please add more cards!");
+      }
+      else {
+			this.flipped = false;
 			  this.deck = please;
 			console.log(this.deck);
 			this.card = this.deck[0];
 			console.log(this.card);
 			console.log(this.card.fields.question);	
+            }
 		},
 
 		medium: function(){
-			this.flipped = false;
-			$.ajax({
+      $.ajax({
                   type: "GET",
                   url: '/mediumcard',
                   data: {'id': this.card.pk, 'folder_id': this.card.fields.folder},
@@ -116,42 +120,56 @@ const fc = new Vue({
                       console.log('oh no medium');
                   }
               });
+      if(deck1.length < 2){
+        alert("Please add more cards!");
+      }
+      else {
+			this.flipped = false;
 			  this.deck = please;
 			console.log(this.deck);
 			this.card = this.deck[0];
 			console.log(this.card);
 			console.log(this.card.fields.question);	
-			
+            }
 		},
 
 		hard: function(){
-			this.flipped = false;
-			$.ajax({
+      $.ajax({
                   type: "GET",
-                  url: '/hardcard',
+                  url: '/mediumcard',
                   data: {'id': this.card.pk, 'folder_id': this.card.fields.folder},
                   dataType: "json",
                   success: function (data) {
-                      console.log('ok hard');
+                      console.log('ok medium');
 					  please = JSON.parse(data["all_cards"]);
                   },
                   failure: function (data) {
-                      console.log('oh no hard');
+                      console.log('oh no medium');
                   }
               });
+      if(deck1.length < 2){
+        alert("Please add more cards!");
+      }
+      else {
+			this.flipped = false;
 			  this.deck = please
 			  console.log(this.deck);
 			this.card = this.deck[0];
 			console.log(this.card);
 			console.log(this.card.fields.question);	
-			
+            }
 			
 		},
 
 		forward: function(){
+      if(this.deck.length == 0){
+        alert("Please add card!");
+      }
+      else{
 				this.deck = deck1;
 				this.flipped = false;
 				this.card = this.deck[Math.floor(Math.random() * this.deck.length)];
+      }
 		},
 
 	}	
