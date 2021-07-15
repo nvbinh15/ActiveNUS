@@ -40,20 +40,22 @@ class Flashcard(models.Model):
         return f"{self.question} ({self.id})"
 
 
-class IntegerRangeField(models.IntegerField):
-    def __init__(self, verbose_name=None, name=None, min_value=None, max_value=None, **kwargs):
-        self.min_value, self.max_value = min_value, max_value
-        models.IntegerField.__init__(self, verbose_name, name, **kwargs)
-    def formfield(self, **kwargs):
-        defaults = {'min_value': self.min_value, 'max_value':self.max_value}
-        defaults.update(kwargs)
-        return super(IntegerRangeField, self).formfield(**defaults)
+# class IntegerRangeField(models.IntegerField):
+#     def __init__(self, verbose_name=None, name=None, min_value=None, max_value=None, **kwargs):
+#         self.min_value, self.max_value = min_value, max_value
+#         models.IntegerField.__init__(self, verbose_name, name, **kwargs)
+#     def formfield(self, **kwargs):
+#         defaults = {'min_value': self.min_value, 'max_value':self.max_value}
+#         defaults.update(kwargs)
+#         return super(IntegerRangeField, self).formfield(**defaults)
+
 
 class Task(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=200)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='progress')
-    completion_level = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
+    label = models.CharField(max_length=200)
+    done = models.BooleanField(null=True, blank=True, default=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='task')
+    # completion_level = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
 
     def __str__(self):
-        return f"{self.name} ({self.id})"
+        return f"{self.label} ({self.id})"

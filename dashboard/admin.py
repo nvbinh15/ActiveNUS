@@ -21,5 +21,5 @@ class FlashcardAdmin(admin.ModelAdmin):
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'user', 'completion_level']
+    list_display = ['id', 'label', 'user', 'done']
 

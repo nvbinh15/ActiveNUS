@@ -1,7 +1,8 @@
+from django.core.serializers import json
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .models import Events, Folder, Flashcard
+from .models import Events, Folder, Flashcard, Task
 from authentication.models import User
 from django.http import JsonResponse
 from django.core.serializers.json import DjangoJSONEncoder
@@ -35,6 +36,9 @@ class NewcardForm(forms.Form):
     card_question = forms.CharField(label='Question', max_length=100)
     card_ans = forms.CharField(label='Answer', max_length=1000)
 
+class TodoForm(forms.Form):
+    label = forms.CharField(label='Task', max_length=100)
+
 # Create your views here.
 @login_required
 def about(request):
@@ -45,17 +49,107 @@ def account(request):
     return render(request, 'dashboard/account.html')
 
 
+from json import dump, dumps
+
 @login_required
 def home(request):
     current_user = request.user
     all_progresses = current_user.progresses.all()
 
+    all_task = current_user.task.all()
+    # all_task = serializers.serialize("json", all_task, cls=DjangoJSONEncoder)
+    todolist = []
+    for task in all_task:
+        t = dict()
+        t['label'] = task.label
+        t['done'] = task.done
+        t['id'] = task.id
+        todolist.append(t)
+    
+    todoJSON = dumps(todolist)
+
+    if request.method == "POST":
+        form = TodoForm(request.POST)
+
+        if form.is_valid():
+            label = form.cleaned_data['label']
+            task = Task(label=label, user=current_user)
+            task.save()
+            return HttpResponseRedirect(reverse('home'))
+        
+    else:
+        form = TodoForm()
+
     context = {
-        "progresses": all_progresses
+        "progresses": all_progresses,
+        # 'todolist': all_task,
+        'todolist': todoJSON,
+        'form': form,
     }      
 
-
     return render(request, 'dashboard/home.html', context)
+
+@login_required
+def add_task(request):
+    pass
+
+
+@login_required
+def mark_task(request):
+    current_user = request.user
+    id = request.GET.get("id", None)
+    task = Task.objects.get(id=id)
+    task.done = not task.done
+    task.save()
+    # all_task = Task.objects.get(user=current_user)
+    # all_task = serializers.serialize("json", all_task, cls=DjangoJSONEncoder)
+    # data = {"all_task": all_task}
+
+    # all_task = current_user.task.all()
+    # todolist = []
+    # for task in all_task:
+    #     t = dict()
+    #     t['label'] = task.label
+    #     t['done'] = task.done
+    #     t['id'] = task.id
+    #     todolist.append(t)
+    
+    # todoJSON = dumps(todolist)
+
+    # return JsonResponse(todolist)
+
+
+@login_required
+def remove_task(request):
+    current_user = request.user
+    id = request.GET.get("id", None)
+    task = Task.objects.get(id=id)
+    task.delete()
+
+    # current_user = request.user
+    # id = request.GET.get("id", None)
+    # task = Task.objects.get(id=id)
+    # task.done = not task.done
+    # task.save()
+
+    # all_task = Task.objects.get(user=current_user)
+    # all_task = serializers.serialize("json", all_task, cls=DjangoJSONEncoder)
+    # data = {"all_task": all_task}
+    # return JsonResponse(data)
+
+    # all_task = current_user.task.all()
+    # todolist = []
+    # for task in all_task:
+    #     t = dict()
+    #     t['label'] = task.label
+    #     t['done'] = task.done
+    #     t['id'] = task.id
+    #     todolist.append(t)
+    
+    # todoJSON = dumps(todolist)
+
+    # return JsonResponse(todolist)
+
 
 @login_required
 def pomodoro(request):
@@ -197,3 +291,4 @@ def flashcarddeck(request, folder_id):
     }      
 
     return render(request, 'dashboard/flashcard.html',context)
+
