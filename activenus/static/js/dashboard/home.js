@@ -11,7 +11,13 @@ Vue.component('progres', {
       <div class="ui icon buttons">
           <div class="decrement ui basic button icon"  @click="decrease"><i class="minus icon"></i></div>
           <div class="increment ui basic button icon"  @click="increase"><i class="plus icon"></i></div>
-          <div class="ui basic button icon" @click="editTitle"><i class="edit outline icon"></i></div>
+          <div class="ui basic button icon ui right dropdown simple item"><i class="edit outline icon"></i>
+            <div class="menu">
+              <div class="item" @click="removeProgress"><i class="trash icon"></i></div>
+              <div class="item" @click="editTitle"><i class="pencil alternate icon"></i></div>
+            </div>
+          </div>
+
           <div class="ui basic button icon ui right dropdown simple item"><i class="tint icon"></i>
             <div class="menu">
               <div class="item" @click="backgroundRed">
@@ -126,10 +132,20 @@ Vue.component('progres', {
           dataType: "json",
         });
       }
+    },
+
+    removeProgress: function() {
+      var id = this.id;
+      console.log(id);
+      $.ajax({
+        type: "GET",
+        url: '/deleteprogress',
+        data: {'id': id},
+        dataType: "json",
+      });
+      window.location.reload();
     }
   }
-
-
 });
 
 

@@ -304,3 +304,10 @@ def renameprogress(request):
     progress.name = new_name
     progress.save()
     return HttpResponse({})
+
+@login_required
+def deleteprogress(request):
+    id = request.GET.get("id", None)
+    progress = Progress.objects.get(id=id)
+    progress.delete()
+    return HttpResponse({})

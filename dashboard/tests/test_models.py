@@ -1,5 +1,5 @@
 from django.test import TestCase
-from dashboard.models import Events, Flashcard, Folder, Task
+from dashboard.models import Events, Flashcard, Folder, Task, Progress
 import datetime
 
 class EventsModelTest(TestCase):
@@ -72,12 +72,35 @@ class FolderModelTest(TestCase):
         description = folder.description
         self.assertEqual(description, 'information about orbital projects')
 
-# class TaskModelTest(TestCase):
-#     @classmethod
-#     def setUpTestData(cls) -> None:
-#         Task.objects.create(name='writing tests', completion_level=20)
+
+class ProgressModelTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        Progress.objects.create(name="Orbital")
     
-#     def test_create_task(self):
-#         task = Task.objects.get(id=1)
-#         self.assertEqual(str(task), "writing tests (1)")
+    def test_create_progress(self):
+        progress = Progress.objects.get(id=1)
+        self.assertEqual(str(progress), "Orbital (1)")
     
+    def test_progress_default_percent_is_zero(self):
+        progress = Progress.objects.get(id=1)
+        self.assertEqual(progress.percent, 0)
+
+
+class TaskModelTest(TestCase):
+    @classmethod
+    def setUp(cls):
+        Task.objects.create(label='Write test cases')
+    
+    def test_create_task(self):
+        task = Task.objects.get(id=1)
+        self.assertEqual(str(task), "Write test cases (1)")
+    
+    def test_task_default_done_equals_false(self):
+        task = Task.objects.get(id=1)
+        self.assertFalse(task.done)
+    
+    def test_task_done_(self):
+        task = Task.objects.get(id=1)
+        task.done = True
+        self.assertTrue(task.done)

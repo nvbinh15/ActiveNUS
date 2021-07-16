@@ -29,5 +29,6 @@ urlpatterns = [
     
     re_path('^increaseprogress', views.increaseprogress, name='increaseprogress'),
     re_path('^decreaseprogress', views.decreaseprogress, name='decreaseprogress'),
-    re_path('^renameprogress', views.renameprogress, name='renameprogress')
+    re_path('^renameprogress', views.renameprogress, name='renameprogress'),
+    re_path('^deleteprogress', views.deleteprogress, name='deleteprogress'),
 ]
