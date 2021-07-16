@@ -1,7 +1,8 @@
-from django.http.response import HttpResponseRedirect
+from django.core.serializers import json
+from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .models import Events, Folder, Flashcard
+from .models import Events, Folder, Flashcard, Progress, Task
 from authentication.models import User
 from django.http import JsonResponse
 from django.core.serializers.json import DjangoJSONEncoder
@@ -10,6 +11,8 @@ from django.urls import reverse
 from django import forms
 from datetime import datetime, timedelta
 from helpers.calendar import date_end
+from django.shortcuts import get_object_or_404
+
 
 
 class DateInput(forms.DateInput):
@@ -35,6 +38,7 @@ class NewcardForm(forms.Form):
     card_question = forms.CharField(label='Question', max_length=100)
     card_ans = forms.CharField(label='Answer', max_length=1000)
 
+
 # Create your views here.
 @login_required
 def about(request):
@@ -45,17 +49,70 @@ def account(request):
     return render(request, 'dashboard/account.html')
 
 
+from json import dumps
+
 @login_required
 def home(request):
     current_user = request.user
-    all_progresses = current_user.progresses.all()
+
+    all_progresses = current_user.progress.all()
+    progresses = []
+    for progress in all_progresses:
+        p = dict()
+        p['id'] = progress.id
+        p['title'] = progress.name
+        p['count'] = progress.percent
+        p['backgroundcolor'] = progress.color
+        progresses.append(p)
+    
+    progressJSON = dumps(progresses)
+
+    all_task = current_user.task.all()
+    todolist = []
+    for task in all_task:
+        t = dict()
+        t['label'] = task.label
+        t['done'] = task.done
+        t['id'] = task.id
+        todolist.append(t)
+    
+    todoJSON = dumps(todolist)
 
     context = {
-        "progresses": all_progresses
+        "progresses": progressJSON,
+        'todolist': todoJSON,
     }      
 
-
     return render(request, 'dashboard/home.html', context)
+
+@login_required
+def addtask(request):
+    current_user = request.user
+    label = request.GET.get("label", None)
+    task = Task.objects.create(label=label, user=current_user)
+    task.save
+    data = {}
+    return HttpResponse(data)
+
+
+@login_required
+def mark_task(request):
+    id = request.GET.get("id", None)
+    task = Task.objects.get(id=id)
+    task.done = not task.done
+    task.save()
+    data = {}
+    return HttpResponse(data)
+    
+
+@login_required
+def deletetask(request):
+    id = request.GET.get("id", None)
+    task = Task.objects.get(id=id)
+    task.delete()
+    data = {}
+    return HttpResponse(data)
+
 
 @login_required
 def pomodoro(request):
@@ -109,7 +166,8 @@ def calendar(request):
             end = form.cleaned_data['end_date']
             event = Events(name=prog_name, start=start, end=date_end(start,5), user=current_user)
             event.save()
-            progress = Events(name=prog_name, percent=0, user=current_user)
+
+            progress = Progress(name=prog_name, percent=0, user=current_user)
             progress.save()
             # redirect to a new URL:
             return HttpResponseRedirect(reverse('calendar', ))
@@ -123,16 +181,6 @@ def calendar(request):
     }
     return render(request,'dashboard/calendar.html',context)
 
-# def calendar(request):
-#         from datetime import date, timedelta
-#         d = date(2020, 1, 1)
-#         d += timedelta(days=6 - d.weekday()) # First Sunday
-#         all_sunday_in_2020 = []
-#         while d.year != 2021:
-#             all_sunday_in_2020.append({'name': 'my-title', 'start': d, 'end': d 
-#             + timedelta(days=1)})
-#             d += timedelta(days=7)
-#             return render(request,'dashboard/calendar.html',{'events':all_sunday_in_2020})
 @login_required
 def add_event(request):
     current_user = request.user
@@ -197,3 +245,62 @@ def flashcarddeck(request, folder_id):
     }      
 
     return render(request, 'dashboard/flashcard.html',context)
+
+@login_required
+def setblue(request):
+    id = request.GET.get("id", None)
+    progress = Progress.objects.get(id=id)
+    progress.color = "#91b3cf"
+    progress.save()
+    return HttpResponse({})
+
+@login_required
+def setyellow(request):
+    id = request.GET.get("id", None)
+    progress = Progress.objects.get(id=id)
+    progress.color = "#fdba2e"
+    progress.save()
+    return HttpResponse({})
+
+@login_required
+def setred(request):
+    id = request.GET.get("id", None)
+    progress = Progress.objects.get(id=id)
+    progress.color = "#ff714f"
+    progress.save()
+    return HttpResponse({})
+
+@login_required
+def setcream(request):
+    id = request.GET.get("id", None)
+    progress = Progress.objects.get(id=id)
+    progress.color = "#fef4d9"
+    progress.save()
+    return HttpResponse({})
+
+
+@login_required
+def increaseprogress(request):
+    id = request.GET.get("id", None)
+    progress = Progress.objects.get(id=id)
+    progress.percent +=5
+    progress.save()
+    return HttpResponse({})    
+
+@login_required
+def decreaseprogress(request):
+    id = request.GET.get("id", None)
+    progress = Progress.objects.get(id=id)
+    progress.percent -=5
+    progress.save()
+    return HttpResponse({})
+
+@login_required
+def renameprogress(request):
+    # current_user = request.user
+    new_name = request.GET.get("title", None)
+    id = request.GET.get("id", None)
+    progress = Progress.objects.get(id=id)
+    progress.name = new_name
+    progress.save()
+    return HttpResponse({})

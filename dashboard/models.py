@@ -17,8 +17,9 @@ class Events(models.Model):
 class Progress(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255,null=True,blank=True)
-    percent = models.IntegerField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='progresses')
+    percent = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)], blank=True, null=True, default=0)
+    color = models.CharField(max_length=7, default='#ffffff', null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='progress')
 
 class Folder(models.Model):
     name = models.CharField(max_length=255,null=True,blank=True)
@@ -40,20 +41,22 @@ class Flashcard(models.Model):
         return f"{self.question} ({self.id})"
 
 
-class IntegerRangeField(models.IntegerField):
-    def __init__(self, verbose_name=None, name=None, min_value=None, max_value=None, **kwargs):
-        self.min_value, self.max_value = min_value, max_value
-        models.IntegerField.__init__(self, verbose_name, name, **kwargs)
-    def formfield(self, **kwargs):
-        defaults = {'min_value': self.min_value, 'max_value':self.max_value}
-        defaults.update(kwargs)
-        return super(IntegerRangeField, self).formfield(**defaults)
+# class IntegerRangeField(models.IntegerField):
+#     def __init__(self, verbose_name=None, name=None, min_value=None, max_value=None, **kwargs):
+#         self.min_value, self.max_value = min_value, max_value
+#         models.IntegerField.__init__(self, verbose_name, name, **kwargs)
+#     def formfield(self, **kwargs):
+#         defaults = {'min_value': self.min_value, 'max_value':self.max_value}
+#         defaults.update(kwargs)
+#         return super(IntegerRangeField, self).formfield(**defaults)
+
 
 class Task(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=200)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='progress')
-    completion_level = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
+    label = models.CharField(max_length=200)
+    done = models.BooleanField(null=True, blank=True, default=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='task')
+    # completion_level = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
 
     def __str__(self):
-        return f"{self.name} ({self.id})"
+        return f"{self.label} ({self.id})"

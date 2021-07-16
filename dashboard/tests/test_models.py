@@ -72,12 +72,12 @@ class FolderModelTest(TestCase):
         description = folder.description
         self.assertEqual(description, 'information about orbital projects')
 
-class TaskModelTest(TestCase):
-    @classmethod
-    def setUpTestData(cls) -> None:
-        Task.objects.create(name='writing tests', completion_level=20)
+# class TaskModelTest(TestCase):
+#     @classmethod
+#     def setUpTestData(cls) -> None:
+#         Task.objects.create(name='writing tests', completion_level=20)
     
-    def test_create_task(self):
-        task = Task.objects.get(id=1)
-        self.assertEqual(str(task), "writing tests (1)")
+#     def test_create_task(self):
+#         task = Task.objects.get(id=1)
+#         self.assertEqual(str(task), "writing tests (1)")
     
