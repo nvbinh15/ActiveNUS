@@ -17,8 +17,9 @@ class Events(models.Model):
 class Progress(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255,null=True,blank=True)
-    percent = models.IntegerField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='progresses')
+    percent = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)], blank=True, null=True, default=0)
+    color = models.CharField(max_length=7, default='#ffffff', null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='progress')
 
 class Folder(models.Model):
     name = models.CharField(max_length=255,null=True,blank=True)

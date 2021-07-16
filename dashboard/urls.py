@@ -16,8 +16,18 @@ urlpatterns = [
     re_path('^update$', views.update, name='update'),
     re_path('^remove', views.remove, name='remove'),
 
-    # flashcards
+    # todolist
     re_path('^addtask', views.addtask, name='addtask'),
     re_path('^mark_task', views.mark_task, name='mark_task'),
     re_path('^deletetask', views.deletetask, name='deletetask'),
+
+    # progress
+    re_path('^setblue', views.setblue, name='setblue'),
+    re_path('^setyellow', views.setyellow, name='setyellow'),
+    re_path('^setred', views.setred, name='setred'),
+    re_path('^setcream', views.setcream, name='setcream'),
+    
+    re_path('^increaseprogress', views.increaseprogress, name='increaseprogress'),
+    re_path('^decreaseprogress', views.decreaseprogress, name='decreaseprogress'),
+    re_path('^renameprogress', views.renameprogress, name='renameprogress')
 ]
