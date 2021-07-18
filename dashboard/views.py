@@ -1,7 +1,7 @@
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .models import Events, Folder, Flashcard
+from .models import Events, Folder, Flashcard, Pomodoro
 from authentication.models import User
 from django.http import JsonResponse
 from django.core.serializers.json import DjangoJSONEncoder
@@ -58,7 +58,23 @@ def home(request):
 
 @login_required
 def pomodoro(request):
-    return render(request, 'dashboard/pomodoro.html')
+    current_user = request.user
+    pomolist = current_user.pomodoro.all()
+    context = {
+        "pomolist": pomolist,
+        "pomocount": len(pomolist)
+    } 
+    return render(request, 'dashboard/pomodoro.html', context)
+
+@login_required
+def finishpomodoro(request):
+    current_user = request.user
+    add = request.GET.get("add", None)
+    if add:
+        pomodoro = Pomodoro(user=current_user)
+        pomodoro.save()
+    data = {}
+    return JsonResponse(data)
 
 @login_required
 def flashcard(request):

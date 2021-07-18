@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Events, Folder, Flashcard, Task
+from .models import Events, Folder, Flashcard, Task, Pomodoro
 
 # Register your models here.
 # admin.site.register(Events)
@@ -22,4 +22,9 @@ class FlashcardAdmin(admin.ModelAdmin):
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'user', 'completion_level']
+
+@admin.register(Pomodoro)
+class PomodoroAdmin(admin.ModelAdmin):
+    list_display = ['user']
+    
 

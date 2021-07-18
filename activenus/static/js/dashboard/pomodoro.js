@@ -106,12 +106,28 @@ const pomo = new Vue({
     },
     countdownTimer() {
       if(this.totalTime <= 0){
+        if(this.isFocused){
+        $.ajax({
+          type: "GET",
+          url: '/finishpomodoro',
+          data: {'add': this.isFocused},
+          dataType: "json",
+          success: function (data) {
+              console.log('Success Pomodoro');
+              
+          },
+          failure: function (data) {
+            console.log('Fail Pomodoro');
+          }
+      });
+    }
           notifyMe();
           if(this.isFocused){
               this.timerShortBreak();
           } else {
               this.timerReset();
           }
+          location.reload();
       } else {
           if (this.timerRunning == true) {
           this.totalTime--;

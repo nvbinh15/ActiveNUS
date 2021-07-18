@@ -10,6 +10,7 @@ Pomodoro | ActiveNUS
 <link rel="stylesheet" href="{% static 'css/dashboard/pomodoro.css' %}?{% now 'U' %}">
 {% endblock css %}
 
+
 {% block contentdiv1%}
 <h1 style='padding: 2rem'>
   Pomodoro Timer
@@ -49,16 +50,12 @@ Pomodoro | ActiveNUS
   Reward
 </h1>
 
-<div style='margin:1rem'>
-  <img src={% static 'img/dashboard/tomato.png' %} style='width:3rem; margin: 0 0.5rem 1rem 0.5rem'>
-  <img src={% static 'img/dashboard/tomato.png' %} style='width:3rem; margin: 0 0.5rem 1rem 0.5rem'>
-  <img src={% static 'img/dashboard/tomato.png' %} style='width:3rem; margin: 0 0.5rem 1rem 0.5rem'>
-  <img src={% static 'img/dashboard/tomato.png' %} style='width:3rem; margin: 0 0.5rem 1rem 0.5rem'>
-  <img src={% static 'img/dashboard/tomato.png' %} style='width:3rem; margin: 0 0.5rem 1rem 0.5rem'>
 
-  <img src={% static 'img/dashboard/pizza.png' %} style='width:3rem; margin: 0 0.5rem 1rem 0.5rem'>
-  <img src={% static 'img/dashboard/pizza.png' %} style='width:3rem; margin: 0 0.5rem 1rem 0.5rem'>
-  <img src={% static 'img/dashboard/pizza.png' %} style='width:3rem; margin: 0 0.5rem 1rem 0.5rem'>
+<div style='margin:1rem'>
+  <p>You currently have {{pomocount}} successful focus cycle(s)!</p>
+  {% for each in pomolist%}
+  <img src={% static 'img/dashboard/tomato.png' %} style='width:3rem; margin: 0 0.5rem 1rem 0.5rem'>
+  {% endfor %}
 </div>
 {% endblock contentdiv2 %}
 

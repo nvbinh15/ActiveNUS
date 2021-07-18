@@ -6,6 +6,7 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('pomodoro', views.pomodoro, name='pomodoro'),
+    re_path('^finishpomodoro', views.finishpomodoro, name='finishpomodoro'),
     path('about', views.about, name='about'),
     path('account', views.account, name='account'),
     # path('calendar', views.calendar, name='calendar'),

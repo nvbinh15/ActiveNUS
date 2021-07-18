@@ -60,3 +60,10 @@ class Task(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.id})"
+
+class Pomodoro(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='pomodoro')
+
+    def __str__(self):
+        return f"{self.user}"
