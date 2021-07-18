@@ -35,12 +35,35 @@ text-align: center;'>
     <div class="ui icon buttons">
       <a href="{% url 'flashcarddeck' folder.id %}">
         <div class="ui basic button icon"><i class="play icon"></i></div></a>
-        <div class="ui basic button icon"><i class="edit icon"></i></div>
+        <div class="ui basic button icon" onclick="submit_delete({{ folder.id }})" ><i class="trash icon"></i></div>
       </div>
 </div>
 
   {% endfor %}
 </div>
+<script>
+  function submit_delete(id) {
+  var pleaze = id;
+  console.log(pleaze);
+    if (confirm("Are you sure you want to delete it?")) {
+              $.ajax({
+                type: "GET",
+                url: '/deletefolder',
+                data: {'id': pleaze},
+                dataType: "json",
+                success: function (data) {
+                  console.log('ok successfully deleted');
+                  location.reload();
+                },
+                failure: function (data) {
+                  console.log('oh no');
+                }
+              });
+              location.reload();
+            //   calendar.fullCalendar( 'removeEvents', id );
+          }
+  }
+</script>
 
 {% endblock contentdiv1 %}
 
@@ -52,7 +75,9 @@ text-align: center;'>
 
 <form id="new-folder" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    <!-- {{ form.as_p }} -->
+    <p>Folder Name: </p>
+    <div class="ui input">{{ form.folder_name }} </div>
     <input class="ui button" type="submit" value="Submit">
 </form>
 
@@ -64,114 +89,6 @@ text-align: center;'>
 
 
 {% block js %}
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-<script>
-
-  Vue.component('flashcardfolder', {
-    props: ['name', 'card_nbr', 'backgroundcolor', 'id'],
-    template: `<a :href="linktodeck"><div class='progress-card' :style="filterStyleCard">
-        <div class="progress_title" style='font-size:1.5rem; margin-top:2rem; margin-bottom:2rem;' v-html="foldername"></div>
-    
-        <div class="ui horizontal label" v-html="cardcount"></div>
-    
-        <div class="ui icon buttons">
-            <div class="ui basic button icon"><i class="play icon"></i></div>
-            <div class="ui basic button icon" @click="editTitle"><i class="edit icon"></i></div>
-            <div class="ui basic button icon ui right dropdown simple item"><i class="tint icon"></i>
-              <div class="menu">
-                <div class="item" @click="backgroundRed">
-                <i class="circle icon" style="color: #ff714f"></i></div>
-                <div class="item" @click="backgroundBlue">
-                <i class="circle icon" style="color: #91b3cf"></i></div>
-                <div class="item" @click="backgroundYellow">
-                <i class="circle icon" style="color: #fdba2e"></i></div>
-                <div class="item" @click="backgroundCream">
-                <i class="circle icon" style="color: #fef4d9"></i></div>
-              </div>
-          </div>
-          </div>
-    </div></a>`,
-
-    computed: {
-      linktodeck: function(){
-        let str1 = "{% url 'flashcarddeck' ";
-        let str2 = " %}";
-        let str3 = this.id.toString();
-        let res = str1.concat(str3, str2);
-        console.log(res);
-        return res;
-      },
-
-      foldername: function() {
-        return this.name;
-      },
-
-      cardcount: function() {
-      return this.card_nbr.toString() + ' items' + this.id.toString() ;
-      },
-
-
-    
-      filterStyleCard() {
-        return {
-            float: 'left',
-            width: '230px',
-            height: '147px',
-            margin: '30px',
-            padding: '1rem',
-            background: this.backgroundcolor,
-            boxShadow: 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px',
-            borderRadius: '20px',
-            textAlign: 'center'
-      }
-    }
-
-
-    },
-
-    methods: {
-
-      backgroundRed: function() {
-        this.backgroundcolor = "#ff714f";
-      },
-
-      backgroundBlue: function() {
-        this.backgroundcolor = "#91b3cf";
-      },
-
-      backgroundCream: function() {
-        this.backgroundcolor = "#fef4d9";
-      },
-
-      backgroundYellow: function() {
-        this.backgroundcolor = "#fdba2e";
-      },
-
-      editTitle: function() {
-        var name = prompt("Change progress title: ");
-        if(name) {
-          this.name = name;
-        }
-      }
-    }
-  });
-
-  var app = new Vue({
-    el: '#flashcardfolder',
-    data: {
-      cards: [
-      {% for folder in folders %}
-            {
-            name: "{{ folder.name}}",
-            backgroundColor: "#91b3cf",
-            id: "{{folder.id}}",
-            card_nbr: 133
-            },
-        {% endfor %}
-      ],
-    },
-  });
-</script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 
 {% endblock js %}

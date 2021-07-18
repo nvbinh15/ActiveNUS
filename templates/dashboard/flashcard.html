@@ -180,9 +180,16 @@ const fc = new Vue({
 
 {% block contentdiv2 %}
 
+<h3 style='padding:3rem 0 0 2rem'>
+  Add Card
+</h3>
+
 <form id="new-card" method="post">
   {% csrf_token %}
-  {{ form.as_p }}
+  <p>Question: </p>
+    <div class="ui input">{{ form.card_question }} </div>
+    <p>Answer: </p>
+    <div class="ui input">{{ form.card_ans }} </div>
   <input class="ui button" type="submit" value="Submit">
 </form>
 

@@ -15,16 +15,6 @@ const pomo = new Vue({
     isLongBreak: false
   },
 
-  mounted() {
-  if (localStorage.getItem('timeFocused')) {
-    try {
-    this.timeFocused = localStorage.getItem('timeFocused');
-    } catch(e) {
-    localStorage.removeItem('timeFocused');
-    }
-  } 		
-  },
-
   computed: {
      time: function() {
       return this.minutes + " : " + this.seconds;
@@ -96,7 +86,6 @@ const pomo = new Vue({
     timerCountdown() {
       console.log('Working');
       this.timerRunning = true;
-      this.interval = setInterval(this.updateCurrentTime, 1000);
       // Counts down from 60 seconds times 1000.
       setInterval( () => {
         this.timerMinutes--
@@ -128,7 +117,6 @@ const pomo = new Vue({
           this.totalTime--;
           if(this.isFocused){
               this.timeFocused++;
-              localStorage.setItem('timeFocused', this.timeFocused);
           }
       }
       }

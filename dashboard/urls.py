@@ -15,6 +15,7 @@ urlpatterns = [
     re_path('^add_event$', views.add_event, name='add_event'),
     re_path('^update$', views.update, name='update'),
     re_path('^remove', views.remove, name='remove'),
+    re_path('^deletefolder', views.deletefolder, name='deletefolder'),
     re_path('^easycard$', views.easycard, name='easycard'),
     re_path('^mediumcard$', views.mediumcard, name='mediumcard'),
     re_path('^hardcard$', views.hardcard, name='hardcard'),

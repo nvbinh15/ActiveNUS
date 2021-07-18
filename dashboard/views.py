@@ -29,7 +29,6 @@ class NameForm(forms.Form):
 
 class FlashcardFolderForm(forms.Form):
     folder_name = forms.CharField(label='Folder Name', max_length=100)
-    description = forms.CharField(label='Description', max_length=1000)
 
 class NewcardForm(forms.Form):
     card_question = forms.CharField(label='Question', max_length=100)
@@ -74,8 +73,7 @@ def flashcard(request):
         # check whether it's valid:
         if form.is_valid():
             folder_name = form.cleaned_data['folder_name']
-            description = form.cleaned_data['description']
-            folder = Folder(name=folder_name, description=description, user=current_user)
+            folder = Folder(name=folder_name, user=current_user)
             folder.save()
             # redirect to a new URL:
             return HttpResponseRedirect(reverse('flashcard'))
@@ -195,8 +193,15 @@ def flashcarddeck(request, folder_id):
         'form': form,
         "cards": all_cards
     }      
-
     return render(request, 'dashboard/flashcard.html',context)
+
+@login_required
+def deletefolder(request):
+    id = request.GET.get("id", None)
+    folder = Folder.objects.get(id=id)
+    folder.delete()
+    data = {}
+    return JsonResponse(data)
 
 @login_required
 def easycard(request):
