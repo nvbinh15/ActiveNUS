@@ -5,7 +5,3 @@ from django.contrib.auth.admin import UserAdmin
 
 # Register your models here.
 admin.site.register(User, UserAdmin)
-
-# admin.site.register(Events)
-# admin.site.register(Folder)
-# admin.site.register(Flashcard)

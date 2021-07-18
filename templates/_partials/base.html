@@ -11,20 +11,17 @@
 
         {% endblock %}
     </title>
+
     <link rel='icon' href={% static 'img/icon.png' %} type='image/x-icon'>
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"
     integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
         integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-
-    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
 
 
     <!-- <link rel='stylesheet' href={% static 'css/main.css' %}> -->
@@ -42,7 +39,6 @@
     </script>
     {% block css %}
 
-
     {% endblock css %}
 
 </head>
@@ -52,7 +48,7 @@
     {% if request.user.is_authenticated %}
     {% include "_partials/header.html" %}
     <div id="main-part" class="ui grid" style="height: 100%">
-        <div class="two wide column" id="left-div">
+        <div class="computer only two wide column" id="left-div">
             <div class="div-content" id="left-div-content">
                 <a href={% url 'home' %}>
                     <div class='tab'><i class="home icon"></i> Dashboard</div>
@@ -69,7 +65,8 @@
             </div>
 
         </div>
-        <div class="ten wide column" id="mid-div">
+
+        <div class="ten wide computer eleven wide tablet column" id="mid-div">
             <div class="div-content" id="mid-div-content">
                 {% block contentdiv1 %}
 
@@ -77,7 +74,7 @@
             </div>
         </div>
 
-        <div class="four wide column" id="right-div">
+        <div class="four wide computer five wide tablet column"  id="right-div">
             <div class="div-content" id="right-div-content">
                 {% block contentdiv2 %}
 

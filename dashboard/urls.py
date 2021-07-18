@@ -8,7 +8,6 @@ urlpatterns = [
     path('pomodoro', views.pomodoro, name='pomodoro'),
     path('about', views.about, name='about'),
     path('account', views.account, name='account'),
-    # path('calendar', views.calendar, name='calendar'),
     path('flashcard', views.flashcard, name='flashcard'),
     path('flashcard/<int:folder_id>', views.flashcarddeck, name="flashcarddeck"),
     re_path('^calendar', views.calendar, name='calendar'),

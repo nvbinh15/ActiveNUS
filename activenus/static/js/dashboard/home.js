@@ -135,15 +135,17 @@ Vue.component('progres', {
     },
 
     removeProgress: function() {
-      var id = this.id;
-      console.log(id);
-      $.ajax({
-        type: "GET",
-        url: '/deleteprogress',
-        data: {'id': id},
-        dataType: "json",
-      });
-      window.location.reload();
+      if (confirm("Are you sure you want to remove the progress?")) {
+        var id = this.id;
+        console.log(id);
+        $.ajax({
+          type: "GET",
+          url: '/deleteprogress',
+          data: {'id': id},
+          dataType: "json",
+        });
+        window.location.reload();
+      }
     }
   }
 });
@@ -153,11 +155,6 @@ var app = new Vue({
   el: '#progress',
   delimiters : ['[[',']]'],
   data: {
-    // cards: [
-    //   { id:1, title: "Discrete Math", count: 50, backgroundcolor: "#91b3cf"},
-    //   { id:2, title: "Machine Learning", count: 60, backgroundcolor: "#91b3cf"},
-    //   { id:3, title: "Orbital", count: 90, backgroundcolor: "#91b3cf"}
-    // ]
     cards: progressBackend
   },
 });
