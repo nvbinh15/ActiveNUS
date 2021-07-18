@@ -2,6 +2,7 @@
 activenus/__pycache__
 authentication/__pycache__
 dashboard/__pycache__
+*/__pycache__/*
 
 # environment
 .env
@@ -9,3 +10,9 @@ dashboard/__pycache__
 .venv/
 env/
 venv/
+
+# Text backup files
+*.bak
+
+# Database
+*.sqlite3
