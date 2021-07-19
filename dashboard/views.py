@@ -18,13 +18,18 @@ class DateInput(forms.DateInput):
 
 class NameForm(forms.Form):
     prog_name = forms.CharField(label='Progress Name', max_length=100)
-    description = forms.CharField(label='Description', max_length=1000)
     start_date = forms.DateField(label='Start Date', widget=forms.widgets.DateInput(attrs={'type': 'date'}))
     end_date = forms.DateField(label='End Date', widget=forms.widgets.DateInput(attrs={'type': 'date'}))
     widgets = {
             'start_date': DateInput(),
             'end_date': DateInput(),
         }
+    def clean(self):
+        cleaned_data = super().clean()
+        start_date = cleaned_data.get("start_date")
+        end_date = cleaned_data.get("end_date")
+        if end_date < start_date:
+            raise forms.ValidationError("End date must be greater than start date.")
 
 class FlashcardFolderForm(forms.Form):
     folder_name = forms.CharField(label='Folder Name', max_length=100)
@@ -115,7 +120,6 @@ def calendar(request):
         if form.is_valid():
             # process the data in form.cleaned_data as required
             prog_name = form.cleaned_data['prog_name']
-            description = form.cleaned_data['description']
             start = form.cleaned_data['start_date']
             end = date_end(form.cleaned_data['end_date'], 1)
             no_of_days = day_difference(start, end)
@@ -238,7 +242,7 @@ def easycard(request):
     current_user = request.user
     id = request.GET.get("id", None)
     card = Flashcard.objects.get(id=id)
-    card.score = (card.score * card.attempts + 15) / (card.attempts + 1)
+    card.score = (card.score * card.attempts + 5) / (card.attempts + 1)
     card.attempts += 1
     card.save()
     folder = Folder.objects.get(id=request.GET.get("folder_id", None))
@@ -253,7 +257,7 @@ def mediumcard(request):
     current_user = request.user
     id = request.GET.get("id", None)
     card = Flashcard.objects.get(id=id)
-    card.score = (card.score * card.attempts + 5) / (card.attempts + 1)
+    card.score = (card.score * card.attempts + 2) / (card.attempts + 1)
     card.attempts += 1
     card.save()
     folder = Folder.objects.get(id=request.GET.get("folder_id", None))

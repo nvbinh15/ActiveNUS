@@ -83,27 +83,7 @@ const pomo = new Vue({
           this.totalTime += 60;
       }
       },
-    timerCountdown() {
-      console.log('Working');
-      this.timerRunning = true;
-      // Counts down from 60 seconds times 1000.
-      setInterval( () => {
-        this.timerMinutes--
-      }, 60 * 1000)
-      
-      // Check if seconds at double zero and then make it a 59 to countdown from.
-      // need another method of checking the number while in the loop and then adding a zero on the number under 10
-      if(this.timerSeconds === '00'){
-        this.timerSeconds = 59;
-        setInterval( () => {
-          this.timerSeconds--
-        }, 1000);
-      } else {
-        setInterval( () => {
-          this.timerSeconds--
-        }, 1000);
-      }
-    },
+    
     countdownTimer() {
       if(this.totalTime <= 0){
         if(this.isFocused){

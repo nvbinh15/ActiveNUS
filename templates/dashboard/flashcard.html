@@ -99,7 +99,7 @@ const fc = new Vue({
       else {
 			this.flipped = false;
 			  this.deck = please;
-			console.log(this.deck);
+			console.log(please);
 			this.card = this.deck[0];
 			console.log(this.card);
 			console.log(this.card.fields.question);	
@@ -126,7 +126,7 @@ const fc = new Vue({
       else {
 			this.flipped = false;
 			  this.deck = please;
-			console.log(this.deck);
+			console.log(please);
 			this.card = this.deck[0];
 			console.log(this.card);
 			console.log(this.card.fields.question);	
@@ -136,11 +136,11 @@ const fc = new Vue({
 		hard: function(){
       $.ajax({
                   type: "GET",
-                  url: '/mediumcard',
+                  url: '/hardcard',
                   data: {'id': this.card.pk, 'folder_id': this.card.fields.folder},
                   dataType: "json",
                   success: function (data) {
-                      console.log('ok medium');
+                      console.log('ok hard');
 					  please = JSON.parse(data["all_cards"]);
                   },
                   failure: function (data) {
@@ -153,7 +153,7 @@ const fc = new Vue({
       else {
 			this.flipped = false;
 			  this.deck = please
-			  console.log(this.deck);
+			  console.log(please);
 			this.card = this.deck[0];
 			console.log(this.card);
 			console.log(this.card.fields.question);	
