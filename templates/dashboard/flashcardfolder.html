@@ -13,7 +13,7 @@ Flashcard | ActiveNUS
 
 {% block contentdiv1 %}
 
-<h1 style='padding: 2rem'>
+<h1>
   Flashcard
 </h1>
 <div id="flashcardfolder">
@@ -39,6 +39,8 @@ text-align: center;'>
       </div>
 </div>
 
+  {% empty %}
+  <p>Add your first flashcard folder on the right pannel.</p>
   {% endfor %}
 </div>
 <script>
@@ -60,7 +62,6 @@ text-align: center;'>
                 }
               });
               location.reload();
-            //   calendar.fullCalendar( 'removeEvents', id );
           }
   }
 </script>
@@ -69,13 +70,12 @@ text-align: center;'>
 
 
 {% block contentdiv2 %}
-<h3 style='padding:3rem 0 0 2rem'>
+<h2>
   Add Folder
-</h3>
+</h2>
 
 <form id="new-folder" method="post">
     {% csrf_token %}
-    <!-- {{ form.as_p }} -->
     <p>Folder Name: </p>
     <div class="ui input">{{ form.folder_name }} </div>
     <input class="ui button" type="submit" value="Submit">

@@ -6,17 +6,18 @@ ActiveNUS
 {% endblock title %}
 
 {% block css %}
-<!-- <link rel='stylesheet' href={% static 'css/dashboard/home.css' %}> -->
-<link rel='stylesheet' href="{% static 'css/dashboard/home.css' %}?{% now 'U' %}">
+<link rel='stylesheet' href={% static 'css/dashboard/home.css' %}>
+<!-- <link rel='stylesheet' href="{% static 'css/dashboard/home.css' %}?{% now 'U' %}"> -->
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 {% endblock css %}
 
 
 {% block contentdiv1 %}
 
-  <h1 style='padding: 2rem'>
+  <h1>
     Progress
   </h1>
+
 
   <div id="progress">
     <progres
@@ -25,22 +26,23 @@ ActiveNUS
     v-bind:id="card.id"
     v-bind:title="card.title"
     v-bind:count="card.count"
-    v-bind:backgroundcolor="card.backgroundcolor"></progres>
+    v-bind:backgroundcolor="card.backgroundcolor" class='column'></progres>
 
-    <a href="{% url 'calendar' %}">
+    <a href="{% url 'calendar' %}" >
       <div class='progress-card' style='float: left;
       width: 230px;
       height: 147px;
-      margin: 30px;
+      margin: 2rem 0 2rem 2rem;
       padding: 1rem;
       background: #FDB92E;
       box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-      border-radius: 20px;'>
+      border-radius: 20px;'  class='column'>
         <div style="font-size: 100px; padding-top: 45px; color: #fff">+</div>
       </div>
     </a>
 
   </div>
+
   
 
 
@@ -50,7 +52,7 @@ ActiveNUS
 
 {% block contentdiv2 %}
 <div id="todolist">
-  <h1 style='padding: 2rem'>
+  <h1>
       Todo List
   </h1>
   <template v-if="todo.length">
@@ -123,11 +125,6 @@ var todolist = new Vue({
   data: {
     newitem:'',
     sortByStatus:false,
-    // todo: [
-    //   // { id:1, label: "Learn VueJs", done: true },
-    //   // { id:2, label: "Code a todo list", done: false },
-    //   // { id:3, label: "Learn something else", done: false }
-    // ]
     todo: todoBackend,
   },
 
@@ -200,8 +197,7 @@ var todolist = new Vue({
   }
 });
 
-
-//JS code for progress
+// progress
 
 var progressBackend = JSON.parse("{{progresses|escapejs}}");
 

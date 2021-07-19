@@ -24,8 +24,8 @@
 
 
 
-    <!-- <link rel='stylesheet' href={% static 'css/main.css' %}> -->
-    <link rel='stylesheet' href="{% static 'css/main.css' %}?{% now 'U' %}">
+    <link rel='stylesheet' href={% static 'css/main.css' %}>
+    <!-- <link rel='stylesheet' href="{% static 'css/main.css' %}?{% now 'U' %}"> -->
 
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -47,7 +47,7 @@
 <body style='background-color: #f9fafd;'>
     {% if request.user.is_authenticated %}
     {% include "_partials/header.html" %}
-    <div id="main-part" class="ui stackable grid" style="height: 100%">
+    <div id="main-part" class="ui stackable grid" style="min-height: 100%">
         <div class="computer only two wide column" id="left-div">
             <div class="div-content" id="left-div-content">
                 <a href={% url 'home' %}>
@@ -96,7 +96,8 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.21/vue.js'></script>
-<script src="{% static 'js/main.js' %}?{% now 'U' %}"></script>
+<!-- <script src="{% static 'js/main.js' %}?{% now 'U' %}"></script> -->
+<script src={% static 'js/main.js' %}></script>
 {% block js %}
 
 {% endblock js %}

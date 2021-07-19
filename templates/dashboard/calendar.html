@@ -13,7 +13,7 @@ Calendar | ActiveNUS
 {% endblock css %}
 
 {% block contentdiv1 %}
-<h1 style='padding: 2rem'>
+<h1>
     Calendar
 </h1>
 <div class="container">
@@ -23,15 +23,15 @@ Calendar | ActiveNUS
 
 {% block contentdiv2 %} 
 <div id="new-progress">
-<h1 style='padding: 2rem 2rem 1rem 2rem'>
+<h2>
     Navigate around Calendar:
-</h1>
-<p style='padding-left: 2rem'>Click anywhere to add event</p>
-<p style='padding-left: 2rem'>Drag and drop to update event</p>
-<p style='padding-left: 2rem'>Click on any events to delete</p>
-<h1 style='padding: 2rem 2rem 1rem 2rem'>
+</h2>
+<p>Click anywhere to add event</p>
+<p>Drag and drop to update event</p>
+<p>Click on any events to delete</p>
+<h2>
     Add a new progress
-</h1>
+</h2>
 <form id="new-progress" method="post">
     {% csrf_token %}
     {% for error in form.non_field_errors %}
@@ -156,7 +156,6 @@ Calendar | ActiveNUS
                   }
               });
               location.reload();
-            //   calendar.fullCalendar( 'removeEvents', id );
           }
       },
 

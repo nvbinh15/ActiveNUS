@@ -6,6 +6,7 @@
 .progress-card {
 	text-align: center;
 	align-items: center;
+	float: left;
 }
 
 /* TODO LIST */
@@ -28,9 +29,9 @@
 	text-align:center;
 	letter-spacing:.05em;
 	font-style:italic;
-	opacity:0.8;
-	
+	opacity:0.8;	
 }
+
 #todolist ul {
 	list-style:none;
 	margin-bottom: 3rem;
@@ -60,6 +61,7 @@
 	opacity:.6;
 	text-decoration: line-through;
 }
+
 #todolist .done .label:before {
 	content:'';
 	position:absolute;
@@ -92,7 +94,7 @@ form input {
 	background:#fff;
 	padding:0 1em;
 	font-size:initial;
-    border-radius: 10px;
+    border-radius: 5px;
 	margin:5px;
 }
 form button {

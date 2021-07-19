@@ -1,7 +1,7 @@
 
   #calendar {
     font-family: sans-serif !important;
-    width: 70%;
+    width: 80%;
     margin: 0 auto;
   }
 
@@ -30,14 +30,10 @@
   #new-progress > *{
     display: flex;
     flex-direction: column;
-  justify-content: center;
-  margin: 0px 30px 0px 30px;
-  max-width: 80%;
+    justify-content: center;
   }
   
 
   #new-progress input {
     margin-bottom: 10px;
   }
-
-  /* #3a668b #be7f22*/
