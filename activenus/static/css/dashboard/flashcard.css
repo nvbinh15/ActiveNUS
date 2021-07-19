@@ -147,12 +147,15 @@
 }
 
 
-#new-card-form {
+#new-card > *{
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  flex-direction: column;
+justify-content: center;
+margin: 0px 30px 0px 30px;
+max-width: 80%;
 }
 
-#new-card-form * {
-  margin: 10px;
+
+#new-card input {
+  margin-bottom: 10px;
 }

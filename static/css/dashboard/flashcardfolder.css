@@ -1,0 +1,12 @@
+#new-folder > *{
+    display: flex;
+    flex-direction: column;
+  justify-content: center;
+  margin: 0px 30px 0px 30px;
+  max-width: 80%;
+  }
+  
+  
+  #new-folder input {
+    margin-bottom: 10px;
+  }

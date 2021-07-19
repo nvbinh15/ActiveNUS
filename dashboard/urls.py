@@ -30,4 +30,13 @@ urlpatterns = [
     re_path('^decreaseprogress', views.decreaseprogress, name='decreaseprogress'),
     re_path('^renameprogress', views.renameprogress, name='renameprogress'),
     re_path('^deleteprogress', views.deleteprogress, name='deleteprogress'),
+
+    #flashcard
+    re_path('^deletefolder', views.deletefolder, name='deletefolder'),
+    re_path('^easycard$', views.easycard, name='easycard'),
+    re_path('^mediumcard$', views.mediumcard, name='mediumcard'),
+    re_path('^hardcard$', views.hardcard, name='hardcard'),
+
+    #pomodoro
+    re_path('^finishpomodoro', views.finishpomodoro, name='finishpomodoro'),
 ]

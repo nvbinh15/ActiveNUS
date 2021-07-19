@@ -2,7 +2,7 @@ from django.core.serializers import json
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .models import Events, Folder, Flashcard, Progress, Task
+from .models import Events, Folder, Flashcard, Progress, Task, Pomodoro
 from authentication.models import User
 from django.http import JsonResponse
 from django.core.serializers.json import DjangoJSONEncoder
@@ -11,6 +11,7 @@ from django.urls import reverse
 from django import forms
 from datetime import datetime, timedelta
 from helpers.calendar import date_end
+from supermemo2 import SMTwo, mon_day_year
 from django.shortcuts import get_object_or_404
 
 
@@ -20,19 +21,21 @@ class DateInput(forms.DateInput):
 
 class NameForm(forms.Form):
     prog_name = forms.CharField(label='Progress Name', max_length=100)
-    description = forms.CharField(label='Description', max_length=1000)
     start_date = forms.DateField(label='Start Date', widget=forms.widgets.DateInput(attrs={'type': 'date'}))
     end_date = forms.DateField(label='End Date', widget=forms.widgets.DateInput(attrs={'type': 'date'}))
-    expected_hour = forms.IntegerField(label='Expected Workload')
-    expected_iteration = forms.IntegerField(label='Expected Iterations')
     widgets = {
             'start_date': DateInput(),
             'end_date': DateInput(),
         }
+    def clean(self):
+        cleaned_data = super().clean()
+        start_date = cleaned_data.get("start_date")
+        end_date = cleaned_data.get("end_date")
+        if end_date < start_date:
+            raise forms.ValidationError("End date must be greater than start date.")
 
 class FlashcardFolderForm(forms.Form):
     folder_name = forms.CharField(label='Folder Name', max_length=100)
-    description = forms.CharField(label='Description', max_length=1000)
 
 class NewcardForm(forms.Form):
     card_question = forms.CharField(label='Question', max_length=100)
@@ -116,7 +119,23 @@ def deletetask(request):
 
 @login_required
 def pomodoro(request):
-    return render(request, 'dashboard/pomodoro.html')
+    current_user = request.user
+    pomolist = current_user.pomodoro.all()
+    context = {
+        "pomolist": pomolist,
+        "pomocount": len(pomolist)
+    } 
+    return render(request, 'dashboard/pomodoro.html', context)
+
+@login_required
+def finishpomodoro(request):
+    current_user = request.user
+    add = request.GET.get("add", None)
+    if add:
+        pomodoro = Pomodoro(user=current_user)
+        pomodoro.save()
+    data = {}
+    return JsonResponse(data)
 
 @login_required
 def flashcard(request):
@@ -131,8 +150,7 @@ def flashcard(request):
         # check whether it's valid:
         if form.is_valid():
             folder_name = form.cleaned_data['folder_name']
-            description = form.cleaned_data['description']
-            folder = Folder(name=folder_name, description=description, user=current_user)
+            folder = Folder(name=folder_name, user=current_user)
             folder.save()
             # redirect to a new URL:
             return HttpResponseRedirect(reverse('flashcard'))
@@ -159,13 +177,25 @@ def calendar(request):
         if form.is_valid():
             # process the data in form.cleaned_data as required
             prog_name = form.cleaned_data['prog_name']
-            description = form.cleaned_data['description']
-            ex_hour = form.cleaned_data['expected_hour']
-            ex_iteration = form.cleaned_data['expected_iteration']
             start = form.cleaned_data['start_date']
-            end = form.cleaned_data['end_date']
-            event = Events(name=prog_name, start=start, end=date_end(start,5), user=current_user)
+            end = date_end(form.cleaned_data['end_date'], 1)
+
+            #SPACED REPETITION STARTS HERE#
+            r = SMTwo.first_review(0, start)
+            event = Events(name=prog_name, start=start, end=date_end(start,1), user=current_user)
             event.save()
+            i = 0
+            while True:
+                if i >= 5:
+                    easiness = 5
+                else:
+                    easiness = i+1
+                r = SMTwo(r.easiness, r.interval, r.repetitions).review(easiness, start + timedelta(days=i))
+                if r.review_date > end:
+                    break
+                event = Events(name=prog_name, start=r.review_date, end=date_end(r.review_date,1), user=current_user)
+                event.save()
+                i += 1
 
             progress = Progress(name=prog_name, percent=0, user=current_user)
             progress.save()
@@ -180,6 +210,7 @@ def calendar(request):
         'form': form
     }
     return render(request,'dashboard/calendar.html',context)
+
 
 @login_required
 def add_event(request):
@@ -311,3 +342,56 @@ def deleteprogress(request):
     progress = Progress.objects.get(id=id)
     progress.delete()
     return HttpResponse({})
+
+@login_required
+def deletefolder(request):
+    id = request.GET.get("id", None)
+    folder = Folder.objects.get(id=id)
+    folder.delete()
+    data = {}
+    return JsonResponse(data)
+
+@login_required
+def easycard(request):
+    current_user = request.user
+    id = request.GET.get("id", None)
+    card = Flashcard.objects.get(id=id)
+    card.score = (card.score * card.attempts + 5) / (card.attempts + 1)
+    card.attempts += 1
+    card.save()
+    folder = Folder.objects.get(id=request.GET.get("folder_id", None))
+    all_cards = folder.cards.all().exclude(id=id)
+    all_cards = sorted(all_cards, key=lambda x: x.score, reverse=False)
+    all_cards = serializers.serialize("json", all_cards,cls=DjangoJSONEncoder)
+    data = {"all_cards": all_cards}
+    return JsonResponse(data)
+
+@login_required
+def mediumcard(request):
+    current_user = request.user
+    id = request.GET.get("id", None)
+    card = Flashcard.objects.get(id=id)
+    card.score = (card.score * card.attempts + 2) / (card.attempts + 1)
+    card.attempts += 1
+    card.save()
+    folder = Folder.objects.get(id=request.GET.get("folder_id", None))
+    all_cards = folder.cards.all().exclude(id=id)
+    all_cards = sorted(all_cards, key=lambda x: x.score, reverse=False)
+    all_cards = serializers.serialize("json", all_cards,cls=DjangoJSONEncoder)
+    data = {"all_cards": all_cards}
+    return JsonResponse(data)
+
+@login_required
+def hardcard(request):
+    current_user = request.user
+    id = request.GET.get("id", None)
+    card = Flashcard.objects.get(id=id)
+    card.score = (card.score * card.attempts + 1) / (card.attempts + 1)
+    card.attempts += 1
+    card.save()
+    folder = Folder.objects.get(id=request.GET.get("folder_id", None))
+    all_cards = folder.cards.all().exclude(id=id)
+    all_cards = sorted(all_cards, key=lambda x: x.score, reverse=False)
+    all_cards = serializers.serialize("json", all_cards,cls=DjangoJSONEncoder)
+    data = {"all_cards": all_cards}
+    return JsonResponse(data)

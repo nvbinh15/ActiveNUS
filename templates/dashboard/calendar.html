@@ -23,12 +23,26 @@ Calendar | ActiveNUS
 
 {% block contentdiv2 %} 
 <div id="new-progress">
-<h1 style='padding: 2rem'>
+<h1 style='padding: 2rem 2rem 1rem 2rem'>
+    Navigate around Calendar:
+</h1>
+<p style='padding-left: 2rem'>Click anywhere to add event</p>
+<p style='padding-left: 2rem'>Drag and drop to update event</p>
+<p style='padding-left: 2rem'>Click on any events to delete</p>
+<h1 style='padding: 2rem 2rem 1rem 2rem'>
     Add a new progress
 </h1>
 <form id="new-progress" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    {% for error in form.non_field_errors %}
+    <div class="ui negative tiny message" style="text-align: center; width: 100%">{{ error  }}</div>
+    {% endfor %}
+    <p>Progress name: </p>
+    <div class="ui input">{{ form.prog_name}} </div>
+    <p>Start date: </p>
+    <div class="ui input">{{ form.start_date }} </div>
+    <p>End date: </p>
+    <div class="ui input">{{ form.end_date }} </div>
     <input id="new-submit" class="ui button" type="submit" value="Submit">
 </form>
 </div>
