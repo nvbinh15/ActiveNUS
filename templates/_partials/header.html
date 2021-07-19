@@ -1,25 +1,49 @@
 {% load static %}
 
 {% if request.user.is_authenticated %}
-<div class="ui text menu" style='margin: 5px 5px 15px 5px; height: 50px;'>
+<div class="ui text menu" id="header" style='margin: 5px 5px 15px 5px; height: 50px;'>
 
-    <a href={% url 'home' %} class="header item">
-      <img class='ui small image' id="logo" src={% static 'img/logo+icon.png' %}>
+  <div class="nav__toggle" id="nav-toggle" onclick="toggle()"><i class="large bars fitted icon"></i></div>
+
+  <div class="topnav" id="topnav">
+    <a href={% url 'home' %}>
+      <div class='mobile__link'><i class="home icon"></i> Dashboard</div>
     </a>
+    <a href={% url 'calendar' %}>
+      <div class='mobile__link'><i class="calendar alternate icon"></i> Calendar</div>
+    </a>
+    <a href={% url 'pomodoro' %}>
+      <div class='mobile__link'><i class="clock icon"></i> Pomodoro Timer</div>
+    </a>
+    <a href={% url 'flashcard' %}>
+      <div class='mobile__link'><i class="copy icon"></i> Flashcard</div>
+    </a>
+  </div>
 
-    <div class="ui right dropdown simple item">
-  
-      <div> {{ request.user.username }} &nbsp</div>
-      <img class="ui mini circular image" src={% static 'img/user.png' %}>
-  
-      <div class="menu">
-        <a href={% url 'account' %} class='item'><div class="item"><i class="user icon"></i>Account</div></a>
-        <a href={% url 'about' %} class='item'><div class='item'><i class="info circle icon"></i>About</div></a>
-        <form id='sign_out' method="post" action={% url 'logout_user' %}>
-          {% csrf_token %}
-        </form>
-        <a class='item'><div class="item" onclick="document.forms['sign_out'].submit();"><i class="sign out alternate icon"></i>Sign out</div></a>
-  
+  <a href={% url 'home' %} class="header item">
+    <img class='ui small image' id="logo" src={% static 'img/logo+icon.png' %}>
+  </a>
+
+  <div class="ui right dropdown simple item">
+
+    <div> {{ request.user.username }} &nbsp</div>
+    <img class="ui mini circular image" src={% static 'img/user.png' %}>
+
+    <div class="menu">
+      <a href={% url 'account' %} class='item'>
+        <div class="item"><i class="user icon"></i>Account</div>
+      </a>
+      <a href={% url 'about' %} class='item'>
+        <div class='item'><i class="info circle icon"></i>About</div>
+      </a>
+      <form id='sign_out' method="post" action={% url 'logout_user' %}>
+        {% csrf_token %}
+      </form>
+      <a class='item'>
+        <div class="item" onclick="document.forms['sign_out'].submit();"><i class="sign out alternate icon"></i>Sign out
+        </div>
+      </a>
+
     </div>
   </div>
 </div>
