@@ -1,0 +1,43 @@
+
+  #calendar {
+    font-family: sans-serif !important;
+    width: 70%;
+    margin: 0 auto;
+  }
+
+  .fc-state-default {
+    border: none !important;
+    text-shadow: none !important; 
+    background-image: none !important;
+    color: white !important;
+  }
+
+  .fc-left .fc-state-default {
+    background-color: #254159 !important;
+  }
+
+  .fc-right .fc-state-default {
+    background-color: #254159 !important;
+  }
+
+  .fc-event {
+    background-color: #3a668b !important; 
+    border: none !important;
+  }
+
+  .fc-time{ display: none; }
+
+  #new-progress > *{
+    display: flex;
+    flex-direction: column;
+  justify-content: center;
+  margin: 0px 30px 0px 30px;
+  max-width: 80%;
+  }
+  
+
+  #new-progress input {
+    margin-bottom: 10px;
+  }
+
+  /* #3a668b #be7f22*/

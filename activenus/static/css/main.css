@@ -80,7 +80,7 @@ a {
 .topnav {
     top: 3.5rem;
     position: fixed;
-    /* display: none; */
+    display: none;
     z-index: 200;
     transition: 0.5s;
     background-color: #f9fafd;
