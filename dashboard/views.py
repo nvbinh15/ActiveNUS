@@ -1,7 +1,7 @@
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .models import Events, Folder, Flashcard, Pomodoro
+from .models import Events, Folder, Flashcard, Pomodoro, Progress
 from authentication.models import User
 from django.http import JsonResponse
 from django.core.serializers.json import DjangoJSONEncoder
@@ -9,7 +9,8 @@ from django.core import serializers
 from django.urls import reverse
 from django import forms
 from datetime import datetime, timedelta
-from helpers.calendar import date_end
+from helpers.calendar import date_end, day_difference
+from supermemo2 import SMTwo, mon_day_year
 
 
 class DateInput(forms.DateInput):
@@ -20,8 +21,6 @@ class NameForm(forms.Form):
     description = forms.CharField(label='Description', max_length=1000)
     start_date = forms.DateField(label='Start Date', widget=forms.widgets.DateInput(attrs={'type': 'date'}))
     end_date = forms.DateField(label='End Date', widget=forms.widgets.DateInput(attrs={'type': 'date'}))
-    expected_hour = forms.IntegerField(label='Expected Workload')
-    expected_iteration = forms.IntegerField(label='Expected Iterations')
     widgets = {
             'start_date': DateInput(),
             'end_date': DateInput(),
@@ -117,13 +116,28 @@ def calendar(request):
             # process the data in form.cleaned_data as required
             prog_name = form.cleaned_data['prog_name']
             description = form.cleaned_data['description']
-            ex_hour = form.cleaned_data['expected_hour']
-            ex_iteration = form.cleaned_data['expected_iteration']
             start = form.cleaned_data['start_date']
-            end = form.cleaned_data['end_date']
-            event = Events(name=prog_name, start=start, end=date_end(start,5), user=current_user)
+            end = date_end(form.cleaned_data['end_date'], 1)
+            no_of_days = day_difference(start, end)
+
+            #SPACED REPETITION STARTS HERE#
+            r = SMTwo.first_review(0, start)
+            event = Events(name=prog_name, start=start, end=date_end(start,1), user=current_user)
             event.save()
-            progress = Events(name=prog_name, percent=0, user=current_user)
+            i = 0
+            while True:
+                if i >= 5:
+                    easiness = 5
+                else:
+                    easiness = i+1
+                r = SMTwo(r.easiness, r.interval, r.repetitions).review(easiness, start + timedelta(days=i))
+                if r.review_date > end:
+                    break
+                event = Events(name=prog_name, start=r.review_date, end=date_end(r.review_date,1), user=current_user)
+                event.save()
+                i += 1
+
+            progress = Progress(name=prog_name, percent=0, user=current_user)
             progress.save()
             # redirect to a new URL:
             return HttpResponseRedirect(reverse('calendar', ))
