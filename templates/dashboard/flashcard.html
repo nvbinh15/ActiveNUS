@@ -6,8 +6,7 @@ Flashcard | ActiveNUS
 {% endblock title %}
 
 {% block css %}
-<link rel='stylesheet' href={% static 'css/dashboard/home.css' %}>
-<!-- <link rel='stylesheet' href="{% static 'css/dashboard/flashcard.css' %}?{% now 'U' %}"> -->
+<link rel='stylesheet' href="{% static 'css/dashboard/flashcard.css' %}?{% now 'U' %}">
 {% endblock css %}
 
 
@@ -20,8 +19,8 @@ Flashcard | ActiveNUS
 <div class="flashcard-container" id="fc">
 
   <div class="flashcard hidden-xs hidden-sm" id="big-container">
-    <div class="card-flipper" @click="flip(card)">
-      <div class="card-question" v-bind:class="{ 'reveal-answer' : flipped }">
+    <div class="card-flipper" @click="flip(card)" >
+      <div class="card-question" v-bind:class="{ 'reveal-answer' : flipped }" class="column">
         <span v-if="!card.startcard">[[ card.fields.question ]]</span>
         <div v-if="card.startcard">
           <span>Click me!</span>

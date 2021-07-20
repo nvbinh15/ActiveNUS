@@ -43,7 +43,7 @@
   margin: auto;
   height: 300px;
   border-radius :20px;
-  width:700px;
+  width:600px;
   margin:20px auto;
   padding:20px;
   text-align:center;
@@ -67,6 +67,18 @@
   box-shadow: 8px 8px 6px -6px #c0c8d4;
 }
 
+@media screen and (max-width: 991px) {
+  .card-flipper {
+    width: 500px !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .card-flipper {
+    width: 300px !important;
+  }
+}
+
 /* QUESTIONS AND ANSWERS */
 
 .flashcard-container .card-question {
@@ -75,18 +87,20 @@
   transform: rotateX(0deg);
   background-color: var(--box-color-3);
   border-radius :20px;
+  line-height: normal !important;
 }
 .flashcard-container .card-question.reveal-answer {
   transform: rotateX(180deg);
 }
 .flashcard-container .card-answer {
   transform: rotateX(180deg);
-  font-size: 20px;
+  font-size: 10px;
   border-radius :20px;
   background-color: var(--box-color-2);
   flex-direction: column;
   line-height: 1;
   box-shadow: 8px 8px 6px -6px #c0c8d4;
+  line-height: normal !important;
 }
 .flashcard-container .card-answer.reveal-answer {
   transform: rotateX(0deg);
@@ -158,4 +172,12 @@ max-width: 80%;
 
 #new-card input {
   margin-bottom: 10px;
+}
+
+.card-question > span {
+  font-size: 25px !important;
+}
+
+.card-answer > span {
+  font-size: 25px !important;
 }

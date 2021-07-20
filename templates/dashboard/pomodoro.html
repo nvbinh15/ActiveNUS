@@ -6,8 +6,8 @@ Pomodoro | ActiveNUS
 {% endblock title %}
 
 {% block css %}
-<link rel='stylesheet' href={% static 'css/dashboard/pomodoro.css' %}>
-<!-- <link rel="stylesheet" href="{% static 'css/dashboard/pomodoro.css' %}?{% now 'U' %}"> -->
+<!-- <link rel='stylesheet' href={% static 'css/dashboard/pomodoro.css' %}> -->
+<link rel="stylesheet" href="{% static 'css/dashboard/pomodoro.css' %}?{% now 'U' %}">
 {% endblock css %}
 
 
@@ -22,7 +22,9 @@ Pomodoro | ActiveNUS
       <button class="ui button" v-bind:class="{'focus-button' : isShortBreak, 'non-clickable' : timerRunning }" :disabled="timerRunning" tabindex="0" @click="timerShortBreak">Short Break</button>
       <button class="ui button" v-bind:class="{'focus-button' : isLongBreak, 'non-clickable' : timerRunning }" :disabled="timerRunning" tabindex="0" @click="timerLongBreak">Long Break</button>
     </div>
-    <div id="container">
+
+
+    <div id="container" class="eight wide computer nine wide tablet">
       <button id="minus" class="" tabindex="0" v-bind:class="{'non-clickable' : timerRunning }"  @click="timeDecrease" :disabled="timerRunning" >-</button>
       <button id="plus" class="" tabindex="0" v-bind:class="{'non-clickable' : timerRunning }" @click="timeIncrease" :disabled="timerRunning">+</button>
       <div id="timer">
@@ -36,6 +38,8 @@ Pomodoro | ActiveNUS
         <button id="stop" class="ui button" v-if="timerRunning" @click="timerPause" tabindex="0">Stop</button>
       </div>
     </div>
+
+
   </div>
 
 <div class="right">

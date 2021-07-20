@@ -46,7 +46,7 @@ Vue.component('progres', {
         width: '230px',
         height: '147px',
         margin: '20px',
-        margin: '2rem 0 2rem 2rem',
+        // margin: '2rem 0 2rem 2rem',
         padding: '1rem',
         background: this.backgroundcolor,
         boxShadow: 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px',
