@@ -1,4 +1,5 @@
 from django.core.serializers import json
+from django.forms.widgets import CheckboxInput
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
@@ -23,14 +24,17 @@ class NameForm(forms.Form):
     prog_name = forms.CharField(label='Progress Name', max_length=100)
     start_date = forms.DateField(label='Start Date', widget=forms.widgets.DateInput(attrs={'type': 'date'}))
     end_date = forms.DateField(label='End Date', widget=forms.widgets.DateInput(attrs={'type': 'date'}))
+    generate = forms.BooleanField(label='Generate schedule based-on spaced-repetition method', initial=True, label_suffix='', required=False)
     widgets = {
             'start_date': DateInput(),
             'end_date': DateInput(),
+
         }
     def clean(self):
         cleaned_data = super().clean()
         start_date = cleaned_data.get("start_date")
         end_date = cleaned_data.get("end_date")
+        generate = cleaned_data.get("generate")
         if end_date < start_date:
             raise forms.ValidationError("End date must be greater than start date.")
 
@@ -179,23 +183,26 @@ def calendar(request):
             prog_name = form.cleaned_data['prog_name']
             start = form.cleaned_data['start_date']
             end = date_end(form.cleaned_data['end_date'], 1)
+            generate = form.cleaned_data['generate']
 
-            #SPACED REPETITION STARTS HERE#
-            r = SMTwo.first_review(0, start)
-            event = Events(name=prog_name, start=start, end=date_end(start,1), user=current_user)
-            event.save()
-            i = 0
-            while True:
-                if i >= 5:
-                    easiness = 5
-                else:
-                    easiness = i+1
-                r = SMTwo(r.easiness, r.interval, r.repetitions).review(easiness, start + timedelta(days=i))
-                if r.review_date > end:
-                    break
-                event = Events(name=prog_name, start=r.review_date, end=date_end(r.review_date,1), user=current_user)
+            if generate:
+
+                #SPACED REPETITION STARTS HERE#
+                r = SMTwo.first_review(0, start)
+                event = Events(name=prog_name, start=start, end=date_end(start,1), user=current_user)
                 event.save()
-                i += 1
+                i = 0
+                while True:
+                    if i >= 5:
+                        easiness = 5
+                    else:
+                        easiness = i+1
+                    r = SMTwo(r.easiness, r.interval, r.repetitions).review(easiness, start + timedelta(days=i))
+                    if r.review_date > end:
+                        break
+                    event = Events(name=prog_name, start=r.review_date, end=date_end(r.review_date,1), user=current_user)
+                    event.save()
+                    i += 1
 
             progress = Progress(name=prog_name, percent=0, user=current_user)
             progress.save()
