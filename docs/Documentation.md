@@ -35,10 +35,10 @@
   &nbsp;&nbsp;&nbsp;&nbsp;14.1.2 [Model Testing](#1412-model-testing)\
   &nbsp;&nbsp;&nbsp;&nbsp;14.1.3 [Running Tests](#1413-running-tests)\
   14.4 [Manual Testing](#142-manual-testing)
-
-  Response to Milestone Evaluations 
-
-15. [Software Security Measures](#16-software-security-measures)\
+15. [Response to Milestone Evaluations](#15-response-to-milestone-evaluations)
+  15.1 [Response to Milestone 1 Evaluations](#151-response-to-milestone-1-evaluations)\
+  15.2 [Response to Milestone 2 Evaluations](#152-response-to-milestone-2-evaluations)
+16. [Software Security Measures](#16-software-security-measures)\
   16.1 [CSRF Token](#161-csrf-token)\
   16.2 [Password Hashing](#162-password-hashing)
 17. [Software Design Patterns and Principles](#17-software-design-patterns-and-principles)\
@@ -61,7 +61,7 @@
 
 Username: test
 
-Password: testingexamplepassword
+Password: testpassword
 
 # 3. Videos
 
@@ -69,7 +69,7 @@ Password: testingexamplepassword
 [![Introduction Video](img/intro_thumbnail.png)](https://youtu.be/ZSS92-gmpTY){:target="_blank"}
 
 ## 3.2 Demo Video
-[![Demo Video](img/demo_thumbnail.png)](https://youtu.be/QgBkij0k48A){:target="_blank"}
+[![Demo Video](img/demo_thumbnail.png)](https://youtu.be/Q8iYmre0xEg){:target="_blank"}
 
 
 # 4. Proposed Level of Achievement
@@ -434,10 +434,6 @@ Unauthorized users can only access the Authentication and Registration system. S
 ## 13.3 Milestone 3: Extension
 
 
-
-
-
-
 ### 13.3.1 Dashboard
 
 #### 13.3.1.1 Progress tracking
@@ -462,14 +458,13 @@ Unauthorized users can only access the Authentication and Registration system. S
 
 #### Description
 
-<!-- * Users are able to have more options to customize their task: they can add a task tag (school, work, networking,...) and specify the level of urgency. The tags and level of urgency will be displayed beside the task title. Users will benefit from this feature in the sense that they will know which task needs finishing first and not get overwhelmed.
-* Connect client-side and server-side data: currently, users are able to interact with the todo list, but data will be refreshed after each session. By the end of milestone 3, the to-do list will be bind to the user with the one-to-many relationship. -->
+* Connect client-side and server-side data: at milestone 2, users were able to interact with the todo list, but data was refreshed after each session. Now, the to-do list is bind to the user with the one-to-many relationship.
+* Although data is saved in the database, the application does not need to reload every time users interact with the todolist.
 
 #### Implementation
 
-* Expand the current `todolist` object (add tag and the level of urgency attributes).
-* Write a Django model that has the same attribute as the `todolist` object. The server-side data will be updated by calling a Django view function asynchronously (Ajax) using Vue.
-
+* Data are saved in the `Task` Django model with `id`, `label`, `done`, and `user` (one-to-many relationship).
+* The server-side data is updated by calling a Django view function asynchronously (Ajax) using Vue.
 
 ### 13.3.2 Pomodoro Timer
 
@@ -477,56 +472,29 @@ Unauthorized users can only access the Authentication and Registration system. S
 
 #### Description
 
-* Current approach to focus cycle tracking: Currently, when the current mode is Pomodoro (focus) mode, if users stop the countdown clock, they might adjust the focus time using `+` and `-` buttons then resume. As a result, users can cheat to get their rewards, which might counteract the aim of the reward scheme.
+* Previous approach to focus cycle tracking: When the current mode is Pomodoro (focus) mode, if users stop the countdown clock, they might adjust the focus time using `+` and `-` buttons then resume. As a result, users can cheat to get their rewards, which might counteract the aim of the reward scheme.
 * New way of cycle tracking: When users top the countdown clock in Pomodoro mode, they will have 2 options: `resume` and `restart`. Additionally, when in Pomodoro mode, users are unable to adjust the time using `+` and `-` buttons. If users choose to restart, they can start a new cycle, adjust the time to their liking, but the old cycle will be completely lost. This approach will motivate users to complete their current cycle and ban them from cheating.
 * Overview/tracking cycle count: A comprehensive overview of the usage of the Pomodoro timer will be displayed to the user, which will give the user a broad view of their work/study.
 
 #### Implementation
 
 * Add new `resume` and `restart` buttons and bind their condition of appearance using VueJS.
-* Write a Django model `Cycle` that has the following attributes `cycleCount`, `duration`, and `dateTime` to store the focus time into the database.
-
-#### 13.3.2.2 Reward
-
-#### Description
-
-<!-- * There will be a reward for each week, which is a random hidden picture. The picture will be revealed piece by piece based on the total focus time of the user.
-* Users will also be able to see their progress in detail with a visualized dynamic progress bar.
-* This will gamify the pomodoro module and motivate users to focus more.
-
-![New Pomodoro](img/new_pomodoro.png) -->
-
-#### Implementation
-
-<!-- * The total focus time of the user will be stored in the database. The picture with the exact hidden pieces will be rendered based on that focus time.
-* The total time focus bar is a Vuejs component bind with asynchronous data fetch from Django backend. -->
+* Number of Pomodoro cycles completed is stored in the `Pomodoro` model.
 
 ### 13.3.3 Calendar
 
-#### 13.3.3.1 Calendar Module
-
-#### Description
-
-* Users can connect their calendar with Google Calendar, they can export their existing schedule or sync ActiveNUS calendar and Google Calendar.
-* Users can also export their schedule to `.ics` file so that they can import it to many other different calendar applications.
-
-#### Implementation
-
-* Call API from Google Calendar API to sync and read data from Google Calendar
-* We are considering using `django-ical` or `ics` package to export `.ics` files.
-
-#### 13.3.3.2 Recommendation System
+#### 13.3.3.1 Recommendation System
 
 #### Description
 
 * Within the calendar module, users have a choice to create a new progress, which will be reflected on the dashboard page. 
-* Users can choose to or not to authorize ActiveNUS to automatically render a schedule, which will be based on the expected workload and expected number of iterations using active recall and spaced repetition logic
+* Users can choose to or not to authorize ActiveNUS to automatically render a schedule, which will be based on the expected workload and expected number of iterations using active recall and spaced repetition logic.
 
 ![New Calendar](img/new_calendar.png)
 
 #### Implementation
 
-The algorithm to generate schedules automatically will be written based on Ebbinghaus’ forgetting curve and review cycle. ActiveNUS will also have conditions to restrict the input data (for example end date must be at least 2 days after the start date, or the number of iterations must fall into some range based on the expected workload input,...). Based on the input data, ActiveNUS will generate calendar events.
+The algorithm to generate schedules automatically is written based on Ebbinghaus’ forgetting curve and review cycle. Based on the input data, ActiveNUS will generate calendar events.
 
 ![Space Repetition](img/space_repetition.png)
 
@@ -538,15 +506,15 @@ The algorithm to generate schedules automatically will be written based on Ebbin
 
 #### Description
 
-* Organizing flashcards by folder. Users will be able to see the number of items in each folder to have a broader overview of the subject. They can also add a new folder with the description on this page.
-* For each folder, users have the option to edit and learn the topic
+* Organizing flashcards by folder. Users are able to see the number of items in each folder to have a broader overview of the subject. They can also add a new folder with the description on this page.
+* For each folder, users have the option to edit and learn the topic.
 
 ![New Flashcard](img/new_flashcard.png)
 
 #### Implementation
 
 * Create a new page to display folders.
-* Each folder will have a specific view page with a parameter which is the `id` of the folder and will be handled by `django.urls`.
+* Each folder has a specific view page with a parameter which is the `id` of the folder and is handled by `django.urls`.
 
 #### 13.3.4.2 Algorithm to Optimize Flashcard Order
 
@@ -570,10 +538,6 @@ number_of_attempts = number_of_attempts + 1
 With `n` equals `1`, `2`, or `5` if the user clicks on `Hard`, `Medium`, or `Easy`, respectively.
 
 The items in a folder are sorted by the score and displayed to the user in ascending order of score.
-
-
-
-
 
 
 
@@ -746,6 +710,34 @@ We have embeded Google Analytics to ActiveNUS and collect some data. However, fu
 ![Analytics](img/analytics.png)
 
 After getting data from users in phase 2 of milestone 3, we have made some modifications to meet users' need.
+
+
+# 15. Response to Milestone Evaluations
+
+## 15.1 Response to Milestone 1 Evaluations
+
+**Feedback**: About Readme: It is well-written. Great work! However, for the "Software Design Patterns and Principles" section, by the end of Milestone 2, you should write how your system applies those patterns and principles (i.e. how your code is organized to satisfy the patterns and principles) instead of quoting the theories themselves. You can also explain why you apply them but not the others. By the end of Milestone 2, you should have planned out how you are going to test your system as well.
+
+> We have reviewed and modified our "Software Design Patterns and Principles" section and given some examples of applying the principle in our project. Testing has been implemented as well.
+
+**Feedback**: For buttons such as "Login", it would be even better if the cursor changes to a "hand" icon instead of the normal cursor so that users can now they can actually click it; Login and Signup button should have a hover effect. "Log in instead" text should have a different colour (not black) so that the user knows this text can be clicked.
+
+> The design of the website has been modified after milestone 1 in response to these feedbacks. The buttons have also been adjusted accordingly.
+
+**Feedback**: The component effects are laggy and slows down the load process.
+
+> We use Heroku for deployment. Because its server is based in the US, there might be latency that slows down the loading process. However, we will stick with Heroku since it is compatible with our system. We also made some improvements to solve this problem by restructuring the static files, which will reduce the number of times the web browser has to reload these files.
+
+## 15.2 Response to Milestone 2 Evaluations
+
+**Feedback**: Maybe can embed a tutorial inside . Put the milestone video inside the website?
+
+> Great advice, we have implemented an About page.
+
+**Feedback**: The testing can be done better in the final phase on screens with different sizes as well as testing the system after it's deployed with online host.
+
+> The responsive design testing has been implemented after milestone 2.
+
 
 
 # 16. Software Security Measures
@@ -931,29 +923,8 @@ Since Heroku (deployment platform) is connected to Github, the website will be a
 
 [_<< Back_](README.md)
 
-# Response to Milestone Evaluations
 
-## Response to Milestone 1 Evaluations
 
-**Feedback**: About Readme: It is well-written. Great work! However, for the "Software Design Patterns and Principles" section, by the end of Milestone 2, you should write how your system applies those patterns and principles (i.e. how your code is organized to satisfy the patterns and principles) instead of quoting the theories themselves. You can also explain why you apply them but not the others. By the end of Milestone 2, you should have planned out how you are going to test your system as well.
+&nbsp;
 
-> We have reviewed and modified our "Software Design Patterns and Principles" section and given some examples of applying the principle in our project. Testing has been implemented as well.
-
-**Feedback**: For buttons such as "Login", it would be even better if the cursor changes to a "hand" icon instead of the normal cursor so that users can now they can actually click it; Login and Signup button should have a hover effect. "Log in instead" text should have a different colour (not black) so that the user knows this text can be clicked.
-
-> The design of the website has been modified after milestone 1 in response to these feedbacks. The buttons have also been adjusted accordingly.
-
-**Feedback**: The component effects are laggy and slows down the load process.
-
-> We use Heroku for deployment. Because its server is based in the US, there might be latency that slows down the loading process. However, we will stick with Heroku since it is compatible with our system. We also made some improvements to solve this problem by restructuring the static files, which will reduce the number of times the web browser has to reload these files.
-
-## Response to Milestone 2 Evaluations
-
-**Feedback**: Maybe can embed a tutorial inside . Put the milestone video inside the website?
-
-> Great advice, we have implemented an About page.
-
-**Feedback**: The testing can be done better in the final phase on screens with different sizes as well as testing the system after it's deployed with online host.
-
-> The responsive design testing has been implemented after milestone 2.
-
+[_<< Back_](README.md)

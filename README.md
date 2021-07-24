@@ -8,7 +8,9 @@ This repo contains our source code for ActiveNUS - a web-based application for t
 For more details, please refer to our [documentation](https://nvbinh15.github.io/ActiveNUS/).
 
 ## Deployment
-ActiveNUS is deployed on Heroku platform. You can use our product at [activenus.herokuapp.com](https://activenus.herokuapp.com/)
+ActiveNUS is deployed on Heroku platform and works well on most web browsers and devices. You can use our product at [activenus.herokuapp.com](https://activenus.herokuapp.com/). You should use desktop/laptop for the best experience.
+
+If you are using Safari, please update to the latest version.
 
 ## Set Up Instruction
 
