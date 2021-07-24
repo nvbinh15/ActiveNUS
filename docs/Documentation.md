@@ -34,8 +34,8 @@
   &nbsp;&nbsp;&nbsp;&nbsp;14.1.1 [View Testing](#1411-view-testing)\
   &nbsp;&nbsp;&nbsp;&nbsp;14.1.2 [Model Testing](#1412-model-testing)\
   &nbsp;&nbsp;&nbsp;&nbsp;14.1.3 [Running Tests](#1413-running-tests)\
-  14.4 [Manual Testing](#142-manual-testing)
-15. [Response to Milestone Evaluations](#15-response-to-milestone-evaluations)
+  14.2 [Manual Testing](#142-manual-testing)
+15. [Response to Milestone Evaluations](#15-response-to-milestone-evaluations)\
   15.1 [Response to Milestone 1 Evaluations](#151-response-to-milestone-1-evaluations)\
   15.2 [Response to Milestone 2 Evaluations](#152-response-to-milestone-2-evaluations)
 16. [Software Security Measures](#16-software-security-measures)\
@@ -50,8 +50,6 @@
   18.3 [Continuous Integration / Continuous Delivery (CI/CD)](#183-continuous-integration--continuous-delivery-cicd)
 
 &nbsp;  
-
-
 
 # 1. Deployment
 
@@ -433,7 +431,6 @@ Unauthorized users can only access the Authentication and Registration system. S
 
 ## 13.3 Milestone 3: Extension
 
-
 ### 13.3.1 Dashboard
 
 #### 13.3.1.1 Progress tracking
@@ -539,8 +536,6 @@ With `n` equals `1`, `2`, or `5` if the user clicks on `Hard`, `Medium`, or `Eas
 
 The items in a folder are sorted by the score and displayed to the user in ascending order of score.
 
-
-
 # 14. Testing
 
 ## 14.1 Automated Testing
@@ -584,26 +579,26 @@ Details of the implemented tests are included in the table below.
 
 ### 14.1.2 Model Testing
 
-The User class is inherited from the `AbstractUser` class of `django.contrib.auth.models`. The test function is written under the `TestModel` class (inherited from the `TestCase` class of `django.test`). It checks whether the user can be created correctly and asserts the matching of user information
+Django models are used to store data in the database. Certain tests are implemented to make sure the application behaves correctly.
 
-```python
-from authentication.models import User
-from django.test import TestCase
+| ID | Name | Inputs | Expected Outputs | Result |
+|----|------|--------|------------------|--------|
+|1|Test should create user|`username='username', email='email@app.com'`|`str(user) == 'email@app.com'`|Pass|
+|2|Test event name|`Events.objects.create(name='orbital', start=datetime.datetime(2021,1,1), end=datetime.datetime(2021,8,1)); name = event.name`|`name == 'orbital'`|Pass|
+|3|Test create event|`Events.objects.create(name='orbital', start=datetime.datetime(2021,1,1), end=datetime.datetime(2021,8,1))`|`str(event) == "orbital (1)"`|Pass|
+|4|Test create flashcard|`folder = Folder.objects.create(name='orbital'); Flashcard.objects.create(question='name', answer='activenus', folder=folder)`|`str(flashcard) == "name"`|Pass|
+|5|Test flashcard question|`folder = Folder.objects.create(name='orbital'); Flashcard.objects.create(question='name', answer='activenus', folder=folder); question = flashcard.question`|`question == "name"`|Pass|
+|6|Test flashcard answer|`folder = Folder.objects.create(name='orbital'); Flashcard.objects.create(question='name', answer='activenus', folder=folder); answer = flashcard.answer`|`answer == "activenus"`|Pass|
+|7|Test flashcard folder|`folder = Folder.objects.create(name='orbital'); Flashcard.objects.create(question='name', answer='activenus', folder=folder); folder_name = flashcard.folder.name`|`folder == "orbital"`|Pass|
+|8|Test create folder|`Folder.objects.create(name='orbital', description='information about orbital projects'); folder = Folder.objects.get(id=1)`|`str(folder) == "orbital (1)"`|Pass|
+|9|Test folder name|`Folder.objects.create(name='orbital', description='information about orbital projects'); folder = Folder.objects.get(id=1); name = folder.name`|`name == "orbital"`|Pass|
+|10|Test folder description|`Folder.objects.create(name='orbital', description='information about orbital projects'); folder = Folder.objects.get(id=1); description = folder.description`|`description == 'information about orbital projects`|Pass|
+|11|Test create progress|`Progress.objects.create(name="Orbital"); progress = Progress.objects.get(id=1)`|`str(progress) == "Orbital (1)"`|Pass|
+|12|Test progress default percent is zero|`Progress.objects.create(name="Orbital"); progress = Progress.objects.get(id=1)`|`progress.percent == 0`|Pass|
+|13|Test create task|`Task.objects.create(label='Write test cases'); task = Task.objects.get(id=1)`|`str(task) == "Write test cases (1)"`|Pass|
+|14|Test task default done equals false|`Task.objects.create(label='Write test cases'); task = Task.objects.get(id=1)`|`task.done == False`|Pass|
+|15|Test task done|`Task.objects.create(label='Write test cases'); task = Task.objects.get(id=1); task.done = True`|`task.done == True`|Pass|
 
-class TestModel(TestCase):
-
-    def test_should_create_user(self):
-        user = User.objects.create_user(
-                username='username', 
-                email='email@app.com',
-            )
-        user.set_password('password123')
-        user.save()
-
-        self.assertEqual(str(user), 'email@app.com')
-```
-
-In the example above, the `test_should_create_user` creates a new testing user with `username = ‘username’` and `email = ‘email@app.com’`. Then, it then checks if this information is stored correctly in the database and its string representation is correct or not.
 
 ### 14.1.3 Running Tests
 
@@ -614,9 +609,9 @@ A test database will be created so that the main database will not be affected. 
 ```
 Creating test database for alias 'default'...
 System check identified no issues (0 silenced).
-.......
+.........................
 ----------------------------------------------------------------------
-Ran 7 tests in 1.157s
+Ran 25 tests in 1.540s
 
 OK
 Destroying test database for alias 'default'...
@@ -716,28 +711,27 @@ After getting data from users in phase 2 of milestone 3, we have made some modif
 
 ## 15.1 Response to Milestone 1 Evaluations
 
-**Feedback**: About Readme: It is well-written. Great work! However, for the "Software Design Patterns and Principles" section, by the end of Milestone 2, you should write how your system applies those patterns and principles (i.e. how your code is organized to satisfy the patterns and principles) instead of quoting the theories themselves. You can also explain why you apply them but not the others. By the end of Milestone 2, you should have planned out how you are going to test your system as well.
+*Feedback*: About Readme: It is well-written. Great work! However, for the "Software Design Patterns and Principles" section, by the end of Milestone 2, you should write how your system applies those patterns and principles (i.e. how your code is organized to satisfy the patterns and principles) instead of quoting the theories themselves. You can also explain why you apply them but not the others. By the end of Milestone 2, you should have planned out how you are going to test your system as well.
 
 > We have reviewed and modified our "Software Design Patterns and Principles" section and given some examples of applying the principle in our project. Testing has been implemented as well.
 
-**Feedback**: For buttons such as "Login", it would be even better if the cursor changes to a "hand" icon instead of the normal cursor so that users can now they can actually click it; Login and Signup button should have a hover effect. "Log in instead" text should have a different colour (not black) so that the user knows this text can be clicked.
+*Feedback*: For buttons such as "Login", it would be even better if the cursor changes to a "hand" icon instead of the normal cursor so that users can now they can actually click it; Login and Signup button should have a hover effect. "Log in instead" text should have a different colour (not black) so that the user knows this text can be clicked.
 
 > The design of the website has been modified after milestone 1 in response to these feedbacks. The buttons have also been adjusted accordingly.
 
-**Feedback**: The component effects are laggy and slows down the load process.
+*Feedback*: The component effects are laggy and slows down the load process.
 
 > We use Heroku for deployment. Because its server is based in the US, there might be latency that slows down the loading process. However, we will stick with Heroku since it is compatible with our system. We also made some improvements to solve this problem by restructuring the static files, which will reduce the number of times the web browser has to reload these files.
 
 ## 15.2 Response to Milestone 2 Evaluations
 
-**Feedback**: Maybe can embed a tutorial inside . Put the milestone video inside the website?
+*Feedback*: Maybe can embed a tutorial inside . Put the milestone video inside the website?
 
 > Great advice, we have implemented an About page.
 
-**Feedback**: The testing can be done better in the final phase on screens with different sizes as well as testing the system after it's deployed with online host.
+*Feedback*: The testing can be done better in the final phase on screens with different sizes as well as testing the system after it's deployed with online host.
 
 > The responsive design testing has been implemented after milestone 2.
-
 
 
 # 16. Software Security Measures
@@ -920,9 +914,6 @@ jobs:
 The tests will be run with Python 3.8 and 3.9 if there is any push or pull request on the `main` branch. Github server will first get the lattest version of pip by running `python -m pip install --upgrade pip` and install the dependencies specified in the `requirements.txt` file. Then, it will run the tests by with the environment variables taken from Github Secrets.
 
 Since Heroku (deployment platform) is connected to Github, the website will be automatically deployed after every push if that push passes all the tests and requirements. If not, then it will be evaluated manually by the collaborators.
-
-[_<< Back_](README.md)
-
 
 
 &nbsp;

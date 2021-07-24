@@ -7,22 +7,11 @@ class EventsModelTest(TestCase):
     def setUpTestData(cls):
         Events.objects.create(name='orbital', start=datetime.datetime(2021,1,1), end=datetime.datetime(2021,8,1))
 
-    def test_name(self):
+    def test_event_name(self):
         event = Events.objects.get(id=1)
         name = event.name
         self.assertEqual(name, 'orbital')
 
-    # def test_start_date(self):
-    #     event = Events.objects.get(id=1)
-    #     start = Events.start
-    #     print(start)
-    #     self.assertEqual(start, datetime.datetime(2021,1,1))
-    
-    # def test_end_date(self):
-    #     event = Events.objects.get(id=1)
-    #     end = Events.end
-    #     self.assertEqual(end, datetime.datetime(2021,8,1))
-    
     def test_create_event(self):
         event = Events.objects.get(id=1)
         self.assertEqual(str(event), "orbital (1)")
@@ -100,7 +89,7 @@ class TaskModelTest(TestCase):
         task = Task.objects.get(id=1)
         self.assertFalse(task.done)
     
-    def test_task_done_(self):
+    def test_task_done(self):
         task = Task.objects.get(id=1)
         task.done = True
         self.assertTrue(task.done)
