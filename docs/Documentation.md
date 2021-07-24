@@ -105,13 +105,14 @@ Our flashcard system employs an underlying algorithm to sort items according to 
 Our Pomodoro module is not a stand-alone count-down timer, but a useful part of a highly interconnected system. Each successful focus cycle is recorded and updated automatically to the Calendar module.
 
 # 8. Tech Stack
-Frontend
+
+### Frontend
 * HTML/CSS/JavaScript
 * VueJS
 
 > We choose to use a front-end framework along with HTML/CSS/JavaScript to have more flexibility in creating single-page applications. We considered ReactJS and VueJS and ended up using the latter since it is easier to integrate VueJS with the other component of ActiveNUS.
 
-Backend & Database
+### Backend & Database
 * Python
 * Django
 * PostgreSQL
@@ -120,7 +121,7 @@ Backend & Database
 > 
 > We also choose PostgreSQL to store and manage data for the final product instead of SQLite3 (Django default databse) since PostgreSQL is more compatible with Heroku (to be mentioned) and can manage a larger amount of data.
 
-Server Deployment
+### Server Deployment
 * Heroku
 
 > Heroku is one of the longest running and popular cloud-based web hosting services. We choose Heroku for ActiveNUS because of the following reasons:
@@ -150,7 +151,7 @@ Activate the `venv` environment by running `$ source venv/bin/activate`. You are
 Install all the required packages by running `$ pip install -r requirements.txt`
 
 The following packages will be installed into the current environment (`venv`):
-x
+
 |Package|Version|
 |-------|-------|
 |`appdirs`|1.4.4|
@@ -304,9 +305,6 @@ Learning new concepts is also a major part of being a student. Using active reca
 
 To distinguish ourselves from tons and tons of other flashcard applications, we incorporate spaced repetition into our algorithm. ActiveNUS will ask for the familiarity of users with each and every card they encounter (easy, medium or hard), then calculate immediately what is the next card they should learn. This will optimize their learning process.
 
-#### Social
-
-Lastly, users can also interact with their friends without having to use other media platforms which might cause distractions. They can find friends and interact with them on our social forum on academic matters or student life in general.
 
 ### 12.3.2 Web Mechanism Diagram
 
@@ -444,7 +442,7 @@ Unauthorized users can only access the Authentication and Registration system. S
 
 #### 13.3.1.1 Progress tracking
 
-**Description**
+#### Description
 
 * User’s progress is displayed on the dashboard with each of their project and plan as one individual card. 
 * User will be able to view immediately their progress quantitatively with a visualized progress bar and increase or decrease easily with the `+` and `-` buttons.
@@ -452,7 +450,7 @@ Unauthorized users can only access the Authentication and Registration system. S
 
 ![New Dashboard](img/new_dashboard.png)
 
-**Implementation**
+#### Implementation
 
 * Client-side: write a VueJS component for each of the progress card that includes the following attributes:
   * `title` (string)
@@ -462,7 +460,7 @@ Unauthorized users can only access the Authentication and Registration system. S
 
 #### 13.3.1.2 To-do List
 
-**Description**
+#### Description
 
 <!-- * Users are able to have more options to customize their task: they can add a task tag (school, work, networking,...) and specify the level of urgency. The tags and level of urgency will be displayed beside the task title. Users will benefit from this feature in the sense that they will know which task needs finishing first and not get overwhelmed.
 * Connect client-side and server-side data: currently, users are able to interact with the todo list, but data will be refreshed after each session. By the end of milestone 3, the to-do list will be bind to the user with the one-to-many relationship. -->
@@ -477,20 +475,20 @@ Unauthorized users can only access the Authentication and Registration system. S
 
 #### 13.3.2.1 Countdown Clock
 
-**Description**
+#### Description
 
 * Current approach to focus cycle tracking: Currently, when the current mode is Pomodoro (focus) mode, if users stop the countdown clock, they might adjust the focus time using `+` and `-` buttons then resume. As a result, users can cheat to get their rewards, which might counteract the aim of the reward scheme.
 * New way of cycle tracking: When users top the countdown clock in Pomodoro mode, they will have 2 options: `resume` and `restart`. Additionally, when in Pomodoro mode, users are unable to adjust the time using `+` and `-` buttons. If users choose to restart, they can start a new cycle, adjust the time to their liking, but the old cycle will be completely lost. This approach will motivate users to complete their current cycle and ban them from cheating.
 * Overview/tracking cycle count: A comprehensive overview of the usage of the Pomodoro timer will be displayed to the user, which will give the user a broad view of their work/study.
 
-**Implementation**
+#### Implementation
 
 * Add new `resume` and `restart` buttons and bind their condition of appearance using VueJS.
 * Write a Django model `Cycle` that has the following attributes `cycleCount`, `duration`, and `dateTime` to store the focus time into the database.
 
 #### 13.3.2.2 Reward
 
-**Description**
+#### Description
 
 <!-- * There will be a reward for each week, which is a random hidden picture. The picture will be revealed piece by piece based on the total focus time of the user.
 * Users will also be able to see their progress in detail with a visualized dynamic progress bar.
@@ -498,7 +496,7 @@ Unauthorized users can only access the Authentication and Registration system. S
 
 ![New Pomodoro](img/new_pomodoro.png) -->
 
-**Implementation**
+#### Implementation
 
 <!-- * The total focus time of the user will be stored in the database. The picture with the exact hidden pieces will be rendered based on that focus time.
 * The total time focus bar is a Vuejs component bind with asynchronous data fetch from Django backend. -->
@@ -507,26 +505,26 @@ Unauthorized users can only access the Authentication and Registration system. S
 
 #### 13.3.3.1 Calendar Module
 
-**Description**
+#### Description
 
 * Users can connect their calendar with Google Calendar, they can export their existing schedule or sync ActiveNUS calendar and Google Calendar.
 * Users can also export their schedule to `.ics` file so that they can import it to many other different calendar applications.
 
-**Implementation**
+#### Implementation
 
 * Call API from Google Calendar API to sync and read data from Google Calendar
 * We are considering using `django-ical` or `ics` package to export `.ics` files.
 
 #### 13.3.3.2 Recommendation System
 
-**Description**
+#### Description
 
 * Within the calendar module, users have a choice to create a new progress, which will be reflected on the dashboard page. 
 * Users can choose to or not to authorize ActiveNUS to automatically render a schedule, which will be based on the expected workload and expected number of iterations using active recall and spaced repetition logic
 
 ![New Calendar](img/new_calendar.png)
 
-**Implementation**
+#### Implementation
 
 The algorithm to generate schedules automatically will be written based on Ebbinghaus’ forgetting curve and review cycle. ActiveNUS will also have conditions to restrict the input data (for example end date must be at least 2 days after the start date, or the number of iterations must fall into some range based on the expected workload input,...). Based on the input data, ActiveNUS will generate calendar events.
 
@@ -538,28 +536,28 @@ The algorithm to generate schedules automatically will be written based on Ebbin
 
 #### 13.3.4.1 Flashcard System
 
-**Description**
+#### Description
 
 * Organizing flashcards by folder. Users will be able to see the number of items in each folder to have a broader overview of the subject. They can also add a new folder with the description on this page.
 * For each folder, users have the option to edit and learn the topic
 
 ![New Flashcard](img/new_flashcard.png)
 
-**Implementation**
+#### Implementation
 
 * Create a new page to display folders.
 * Each folder will have a specific view page with a parameter which is the `id` of the folder and will be handled by `django.urls`.
 
 #### 13.3.4.2 Algorithm to Optimize Flashcard Order
 
-**Description**
+#### Description
 
 * Instead of the option to go to the next or previous card, users will be asked about their familiarity with the item.
 * The next flashcard will be rendered based on their level of familiarity with the topic.
 
 ![New Flashcard 1](img/flashcard_learning.png)
 
-**Implementation**
+#### Implementation
 
 Each card has score and number_of_attempts attributes. After each attempts, these attributes will be updated with the formula:
 
@@ -572,8 +570,6 @@ number_of_attempts = number_of_attempts + 1
 With `n` equals `1`, `2`, or `5` if the user clicks on `Hard`, `Medium`, or `Easy`, respectively.
 
 The items in a folder are sorted by the score and displayed to the user in ascending order of score.
-
-
 
 
 
@@ -670,8 +666,7 @@ Destroying test database for alias 'default'...
 |2||Users can log in successfully with correct credentials<br />User will be given appropriate warning for incorrect credentials|* Open website with no authenticated user<br />* Key in the incorrect credentials<br />* Key in the correct credentials of existing user and submit|* With incorrect credentials, users are prompted with appropriate warnings (wrong username, wrong password)<br />* With correct credentials, users can log in|Pass|
 |3||User can change password|* Open website with no authenticated user<br />* Click on `Forgot Password?`<br />* Fill in the prompted form<br />* Click on the link sent to mailbox<br />* Fill in form to change password<br />* Sign in with new password|* Users can navigate to Forgot Password form<br />* Users receive email with the link to change password<br />* User can sign in with the new password|Pass|
 |4|Dashboard|User can navigate around the functionalities|* Sign in with correct credentials<br />* Click on `Dashboard`, `Calendar`, `Pomodoro Timer` and `Flashcard` on the left bar|Users get navigated to the correct views|Pass|
-|5|Progress|User can add new progress|
-|5|To-do list|User can add new task and delete task|Navigate to Dashboard<br />In the text input field on the right, key in new task and press `Enter` (or `return`) or click submit|Users are able to key in new task<br />After submitting, new task appear on the task list|Pass|* Sign in with correct credentials<br />* Click on the yellow box with plus sign|Users get navigated to calendar view with progress form|Pass|
+|5|Progress|User can add new progress|* Sign in with correct credentials<br />* Click on the yellow box with plus sign|Users get navigated to calendar view with progress form|Pass|
 |6||User can update, delete progress|* Sign in with correct credentials<br />* Click on the plus sign, minus sign<br />* Click on the Pen button<br />* Click on the Trash button|* The number of % get increased/decreased accordingly<br />* User is prompted with a textbox to change progress name<br />* User can change color from the dropdown list|Pass|
 |7|To-do List|User can add new task and delete task|* Navigate to Dashboard<br />* In the text input field on the right, key in new task and press `Enter` (or `return`) or click submit|* Users are able to key in new task<br />* After submitting, new task appear on the task list|Pass|
 |8||User can cross out finished task|* Navigate to Dashboard<br />* User can tick the circle on the right of each task to cross it out<br />* User can untick to remove the cross|* When users tick unfinished task, it will be crossed out and marked as finished<br />* When users untick finished task, it will be marked as unfinished|Pass|
@@ -956,7 +951,7 @@ Since Heroku (deployment platform) is connected to Github, the website will be a
 
 **Feedback**: Maybe can embed a tutorial inside . Put the milestone video inside the website?
 
-> Great advice, ưe have implemented an About page.
+> Great advice, we have implemented an About page.
 
 **Feedback**: The testing can be done better in the final phase on screens with different sizes as well as testing the system after it's deployed with online host.
 
