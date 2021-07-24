@@ -27,13 +27,17 @@
   &nbsp;&nbsp;&nbsp;&nbsp;12.3.2 [Web Mechanism Diagram](#1232-web-mechanism-diagram)
 13. [Project Scopes](#13-project-scopes)\
   13.1 [Milestone 1: Setting up authentication and administration](#131-milestone-1-setting-up-authentication-and-administration)\
-  13.2 [Milestone 2: Building the core](#132-milestone-2-building-the-core)
-14. [Testing (completed in milestone 2)](#14-testing-completed-in-milestone-2)\
+  13.2 [Milestone 2: Building the core](#132-milestone-2-building-the-core)\
+  13.3 [Milestone 3: Extension](#133-milestone-3-extension)
+14. [Testing](#14-testing)\
   14.1 [Automated Testing](#141-automated-testing)\
   &nbsp;&nbsp;&nbsp;&nbsp;14.1.1 [View Testing](#1411-view-testing)\
   &nbsp;&nbsp;&nbsp;&nbsp;14.1.2 [Model Testing](#1412-model-testing)\
   &nbsp;&nbsp;&nbsp;&nbsp;14.1.3 [Running Tests](#1413-running-tests)\
   14.4 [Manual Testing](#142-manual-testing)
+
+  Response to Milestone Evaluations 
+
 15. [Software Security Measures](#16-software-security-measures)\
   16.1 [CSRF Token](#161-csrf-token)\
   16.2 [Password Hashing](#162-password-hashing)
@@ -46,6 +50,8 @@
   18.3 [Continuous Integration / Continuous Delivery (CI/CD)](#183-continuous-integration--continuous-delivery-cicd)
 
 &nbsp;  
+
+
 
 # 1. Deployment
 
@@ -67,7 +73,7 @@ Password: testingexamplepassword
 
 
 # 4. Proposed Level of Achievement
-Artemis
+Apollo 11
 
 # 5. Motivation
 A lot of students, especially university/college students, have frequent problems with study planning. They end up panicking, don’t know where to begin, and finally do not prepare well, which is the main reason for bad performances in tests and examinations.
@@ -103,13 +109,25 @@ Frontend
 * HTML/CSS/JavaScript
 * VueJS
 
+> We choose to use a front-end framework along with HTML/CSS/JavaScript to have more flexibility in creating single-page applications. We considered ReactJS and VueJS and ended up using the latter since it is easier to integrate VueJS with the other component of ActiveNUS.
+
 Backend & Database
 * Python
 * Django
-* SQLite
+* PostgreSQL
+
+> Since both developers are experienced with Python, we choose Django, which is a "high-level Python Web framework that encourages rapid development and clean, pragmatic design", for ActiveNUS. Django provides bundles of components and applications that allow us to build applications with full functionalitites and extensibility.
+> 
+> We also choose PostgreSQL to store and manage data for the final product instead of SQLite3 (Django default databse) since PostgreSQL is more compatible with Heroku (to be mentioned) and can manage a larger amount of data.
 
 Server Deployment
 * Heroku
+
+> Heroku is one of the longest running and popular cloud-based web hosting services. We choose Heroku for ActiveNUS because of the following reasons:
+> 
+> - It is a Platform as a Service, which takes care a lot of the web infrastructure.
+> - Its free tier gives us enough resources for ActiveNUS.
+> - Easy to maintain and scale applications on Heroku.
 
 # 9. Set Up Instruction
 
@@ -132,20 +150,26 @@ Activate the `venv` environment by running `$ source venv/bin/activate`. You are
 Install all the required packages by running `$ pip install -r requirements.txt`
 
 The following packages will be installed into the current environment (`venv`):
-
+x
 |Package|Version|
 |-------|-------|
 |`appdirs`|1.4.4|
+|`arrow`|0.14.7|
 |`asgiref`|3.3.4|
 |`certifi`|2020.12.5|
 |`chardet`|4.0.0|
+|`coverage`|5.5|
 |`distlib`|0.3.1|
 |`dj-database-url`|0.5.0|
 |`Django`|3.2.3|
 |`django-heroku`|0.0.0|
+|`django-ical`|1.8.0|
+|`django-recurrence`|1.10.3|
 |`firelock`|3.0.12|
 |`gunicorn`|20.1.0|
 |`heroku`|0.1.4|
+|`icalendar`|4.0.7|
+|`ics`|0.7|
 |`idna`|2.10|
 |`pipenv`|2021.5.29|
 |`python-detautil`|1.5|
@@ -153,11 +177,14 @@ The following packages will be installed into the current environment (`venv`):
 |`requests`|2.25.1|
 |`six`|1.16.0|
 |`sqlparse`|0.4.1|
+|`TatSu`|4.4.0|
 |`urllib3`|1.26.5|
 |`validate-email`|1.3|
 |`virtualenv`|20.4.7|
 |`virtualenv-clone`|0.5.4|
 |`whitenoise`|5.2.0|
+|`psycopg2-binary`|2.8.6|
+|`supermemo2`|2.0.0|
 
 Create a new file `.env` in the current directory that stores all the environment information. Type in your secret key (django secret key), your email address, and your email password. The content of the file should be like this:
 
@@ -167,7 +194,7 @@ export EMAIL_FROM_USER=<YOUR_EMAIL_ADDRESS>
 export EMAIL_HOST_PASSWORD=<YOUR_EMAIL_PASSWORD>
 ```
 
-Activate the `.env` file by running `$ python manage.py runserver`
+Activate the `.env` file by running `$ source .env`
 
 Now, everything is set up. You can run the website locally by `$ python manage.py runserver`. The local server deployment should be found at [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
 
@@ -215,10 +242,6 @@ We aim to make a website that helps users, especially students, plan for work an
 * Export iCalendar file so that users can sync with other platforms (e.g. Google Calendar)
 * User-friendly GUI to add a study session and categorize it based on modules or topics
 * Tracking is enhanced by options to evaluate the studying session (how familiar the user is with the topic after revising).
-
-**User account and Social Forum:** which user can create to save their progress and calendar and interact with friends
-* Find friends on ActiveNUS
-* Write posts in the forum, react and comment on the others’ posts
 
 **Pomodoro timer:**
 * A timer that runs for a default period of 25 minutes focus time and 5 minutes break (user has the option to make adjustment). 
@@ -410,7 +433,155 @@ Previously, we did not allow users to add cards to the card set while in learnin
 Unauthorized users can only access the Authentication and Registration system. Similarly, logged-in users can only view Dashboard, Calendar, Pomodoro Timer, and Flashcard before signing out.
 
 
-# 14. Testing (completed in milestone 2)
+## 13.3 Milestone 3: Extension
+
+
+
+
+
+
+### 13.3.1 Dashboard
+
+#### 13.3.1.1 Progress tracking
+
+**Description**
+
+* User’s progress is displayed on the dashboard with each of their project and plan as one individual card. 
+* User will be able to view immediately their progress quantitatively with a visualized progress bar and increase or decrease easily with the `+` and `-` buttons.
+* User can edit their progress card name and tag (color).
+
+![New Dashboard](img/new_dashboard.png)
+
+**Implementation**
+
+* Client-side: write a VueJS component for each of the progress card that includes the following attributes:
+  * `title` (string)
+  * `progress` (integer)
+  * `tag` (string)
+* Write a Django model that has the same attribute as the VueJS component (along with `id` and `user`). The sever-side data will be updated calling a Django view function asynchronously (Ajax) using Vue.
+
+#### 13.3.1.2 To-do List
+
+**Description**
+
+<!-- * Users are able to have more options to customize their task: they can add a task tag (school, work, networking,...) and specify the level of urgency. The tags and level of urgency will be displayed beside the task title. Users will benefit from this feature in the sense that they will know which task needs finishing first and not get overwhelmed.
+* Connect client-side and server-side data: currently, users are able to interact with the todo list, but data will be refreshed after each session. By the end of milestone 3, the to-do list will be bind to the user with the one-to-many relationship. -->
+
+#### Implementation
+
+* Expand the current `todolist` object (add tag and the level of urgency attributes).
+* Write a Django model that has the same attribute as the `todolist` object. The server-side data will be updated by calling a Django view function asynchronously (Ajax) using Vue.
+
+
+### 13.3.2 Pomodoro Timer
+
+#### 13.3.2.1 Countdown Clock
+
+**Description**
+
+* Current approach to focus cycle tracking: Currently, when the current mode is Pomodoro (focus) mode, if users stop the countdown clock, they might adjust the focus time using `+` and `-` buttons then resume. As a result, users can cheat to get their rewards, which might counteract the aim of the reward scheme.
+* New way of cycle tracking: When users top the countdown clock in Pomodoro mode, they will have 2 options: `resume` and `restart`. Additionally, when in Pomodoro mode, users are unable to adjust the time using `+` and `-` buttons. If users choose to restart, they can start a new cycle, adjust the time to their liking, but the old cycle will be completely lost. This approach will motivate users to complete their current cycle and ban them from cheating.
+* Overview/tracking cycle count: A comprehensive overview of the usage of the Pomodoro timer will be displayed to the user, which will give the user a broad view of their work/study.
+
+**Implementation**
+
+* Add new `resume` and `restart` buttons and bind their condition of appearance using VueJS.
+* Write a Django model `Cycle` that has the following attributes `cycleCount`, `duration`, and `dateTime` to store the focus time into the database.
+
+#### 13.3.2.2 Reward
+
+**Description**
+
+<!-- * There will be a reward for each week, which is a random hidden picture. The picture will be revealed piece by piece based on the total focus time of the user.
+* Users will also be able to see their progress in detail with a visualized dynamic progress bar.
+* This will gamify the pomodoro module and motivate users to focus more.
+
+![New Pomodoro](img/new_pomodoro.png) -->
+
+**Implementation**
+
+<!-- * The total focus time of the user will be stored in the database. The picture with the exact hidden pieces will be rendered based on that focus time.
+* The total time focus bar is a Vuejs component bind with asynchronous data fetch from Django backend. -->
+
+### 13.3.3 Calendar
+
+#### 13.3.3.1 Calendar Module
+
+**Description**
+
+* Users can connect their calendar with Google Calendar, they can export their existing schedule or sync ActiveNUS calendar and Google Calendar.
+* Users can also export their schedule to `.ics` file so that they can import it to many other different calendar applications.
+
+**Implementation**
+
+* Call API from Google Calendar API to sync and read data from Google Calendar
+* We are considering using `django-ical` or `ics` package to export `.ics` files.
+
+#### 13.3.3.2 Recommendation System
+
+**Description**
+
+* Within the calendar module, users have a choice to create a new progress, which will be reflected on the dashboard page. 
+* Users can choose to or not to authorize ActiveNUS to automatically render a schedule, which will be based on the expected workload and expected number of iterations using active recall and spaced repetition logic
+
+![New Calendar](img/new_calendar.png)
+
+**Implementation**
+
+The algorithm to generate schedules automatically will be written based on Ebbinghaus’ forgetting curve and review cycle. ActiveNUS will also have conditions to restrict the input data (for example end date must be at least 2 days after the start date, or the number of iterations must fall into some range based on the expected workload input,...). Based on the input data, ActiveNUS will generate calendar events.
+
+![Space Repetition](img/space_repetition.png)
+
+*Ebbinghaus' forgetting curve and review cycle.*
+
+### 13.3.4 Flashcard 
+
+#### 13.3.4.1 Flashcard System
+
+**Description**
+
+* Organizing flashcards by folder. Users will be able to see the number of items in each folder to have a broader overview of the subject. They can also add a new folder with the description on this page.
+* For each folder, users have the option to edit and learn the topic
+
+![New Flashcard](img/new_flashcard.png)
+
+**Implementation**
+
+* Create a new page to display folders.
+* Each folder will have a specific view page with a parameter which is the `id` of the folder and will be handled by `django.urls`.
+
+#### 13.3.4.2 Algorithm to Optimize Flashcard Order
+
+**Description**
+
+* Instead of the option to go to the next or previous card, users will be asked about their familiarity with the item.
+* The next flashcard will be rendered based on their level of familiarity with the topic.
+
+![New Flashcard 1](img/flashcard_learning.png)
+
+**Implementation**
+
+Each card has score and number_of_attempts attributes. After each attempts, these attributes will be updated with the formula:
+
+```python
+score = (score * number_of_attempts + n) / (number_of_attempts + 1)
+
+number_of_attempts = number_of_attempts + 1
+```
+
+With `n` equals `1`, `2`, or `5` if the user clicks on `Hard`, `Medium`, or `Easy`, respectively.
+
+The items in a folder are sorted by the score and displayed to the user in ascending order of score.
+
+
+
+
+
+
+
+
+
+# 14. Testing
 
 ## 14.1 Automated Testing
 
@@ -493,24 +664,34 @@ Destroying test database for alias 'default'...
 
 ## 14.2 Manual Testing
 
-| ID | Function | Objective | Expected | Steps Taken | Result |
-|----|----------|-----------|----------|-------------|--------|
-|1|Authentication|User can sign up|Open website with no authenticated user<br />Click `Sign up` at the right hand corner<br />After being navigated to sign up page, key in credentials<br />Click the link sent to mailbox|Users are able to navigate to the sign up page<br />After keying in the credentials and submit the form, a verification email will be sent to their mailbox<br />After clicking the link, their account is created and stored in database|Pass|
-|2||Users can log in successfully with correct credentials<br />User will be given appropriate warning for incorrect credentials|Open website with no authenticated user<br />Key in the incorrect credentials<br />Key in the correct credentials of existing user and submit|With incorrect credentials, users are prompted with appropriate warnings (wrong username, wrong password)<br />With correct credentials, users can log in|Pass|
-|3||User can change password|Open website with no authenticated user<br />Click on `Forgot Password?`<br />Fill in the prompted form<br />Click on the link sent to mailbox<br />Fill in form to change password<br />Sign in with new password|Users can navigate to Forgot Password form<br />Users receive email with the link to change password<br />User can sign in with the new password|Pass|
-|4|Dashboard|User can navigate around the functionalities|Sign in with correct credentials<br />Click on `Dashboard`, `Calendar`, `Pomodoro Timer` and `Flashcard` on the left bar|Users get navigated to the correct views|Pass|
-|5|To-do list|User can add new task and delete task|Navigate to Dashboard<br />In the text input field on the right, key in new task and press `Enter` (or `return`) or click submit|Users are able to key in new task<br />After submitting, new task appear on the task list|Pass|
-|6||User can cross out finished task|Navigate to Dashboard<br />User can tick the circle on the right of each task to cross it out<br />User can untick to remove the cross|When users tick unfinished task, it will be crossed out and marked as finished<br />When users untick finished task, it will be marked as unfinished|Pass|
-|7||User can sort task according to status|Navigate to Dashboard<br />User can toggle the button below the tasks to sort according to status|When the button is toggled on, tasks is sorted according to status<br />When button is toggled off, tasks is not sorted and displayed according to their added order|Pass|
-|8|Calendar|User can add new event, delete event, update event|Navigate to Calendar<br />Add new event: Click on one day or drag across several day to be prompted with a new event form. Fill in the prompt<br />Update event: Drag existing events to other dates<br />Delete event: Click on existing events and prompted with a form to confirm deletion|New event is added by click or drag to choose date<br />Existing events are updated on the calendar<br />Upon deletion, existing event will disappear from calendar|Pass|
-|9||User can navigate to different months|Navigate to Calendar<br />Click on the two arrows on the top left corner of the calendar to navigate to the previous and future months<br />Click on `today` button next to the arrows to return to today’s date|On clicking the left and right arrows, the calendar shift backward/forward by one month<br />On clicking the `today` button, the calendar returns to the current month|Pass|
-|10||User can view month, week and day|Navigate to Calendar<br />Click on the 3 buttons `month`, `week`, `day` on the top right corner of the calendar|The view changes according to the button clicked|Pass|
-|11|Pomodoro timer|User can start timer immediately with Pomodoro mode|Navigate to Pomodoro Timer<br />Press `Start`|When first navigated to Pomodoro Timer, the button `Pomodoro` on the top left will be highlighted with black, indicating it is in Pomodoro mode, timer is defaultly set to 25 minutes<br />On pressing `Start`, timer starts immediately to count down|Pass|
-|12||User will be taken to break mode after a Pomodoro session|Navigate to Pomodoro Timer<br />Make sure the Pomodoro mode is highlighted, if not, click on it<br />Run the timer and wait for it to reach 00:00|When the timer counts to 00:00, the timer will stop, send a notification on browser<br />Mode is switched to Short Break|Pass|
-|13||User can start, stop and resume timer|Navigate to Pomodoro Timer<br />Click `Start` to start counting down<br />Click `Stop` to pause the timer<br />Click `Pomodoro`/`Short Break`/`Long Break` buttons on the top to reset timer|On clicking `Start`, the `Start` button will change to `Stop` button<br />On clicking `Stop`, timer will be pause<br />No matter the current state, when clicking on 3 buttons on the top, timer will be reset and brought to the respective modes|Pass|
-|14||User can adjust time|Navigate to Pomodoro Timer<br />Click `+` and `-` buttons to adjust time|When clicking `+` and `-`, timer will increase or decrease by 1 minute<br />The `+` `-` buttons are disable when the timer is running<br />The timer can only be increased up to 90 minutes and decreased to 1 minute|Pass|
-|15|Flashcard|User can flip card and progress through the deck|Navigate to Flashcard<br />Click on `Next`<br />Click on the card to flip and see answer<br />Clicking `Next` or `Previous` to view other cards|On clicking `next`, the first card is presented<br />Card will be flipped to the answer when clicked on<br />Clicking `Next` and `Previous`, the other card will be presented|Pass|
-|16||User can add card|Navigate to Flashcard<br />Click on `Next` to start the deck<br />Fill the form below the card and submit to add<br />Fill unfinished form then submit|On submitting the new card with all fields filled in, the new card object will be added to local storage on browser<br />On submitting the new card with unfinished form, no new card will be added to local storage on browser|Pass|
+| ID | Function | Objective | Steps Taken | Expected | Result |
+|----|----------|-----------|-------------|----------|--------|
+|1|Authentication|User can sign up|* Open website with no authenticated user<br />* Click `Sign up` at the right hand corner<br />* After being navigated to sign up page, key in credentials<br />* Click the link sent to mailbox|* Users are able to navigate to the sign up page<br />* After keying in the credentials and submit the form, a verification email will be sent to their mailbox<br />* After clicking the link, their account is created and stored in database|Pass|
+|2||Users can log in successfully with correct credentials<br />User will be given appropriate warning for incorrect credentials|* Open website with no authenticated user<br />* Key in the incorrect credentials<br />* Key in the correct credentials of existing user and submit|* With incorrect credentials, users are prompted with appropriate warnings (wrong username, wrong password)<br />* With correct credentials, users can log in|Pass|
+|3||User can change password|* Open website with no authenticated user<br />* Click on `Forgot Password?`<br />* Fill in the prompted form<br />* Click on the link sent to mailbox<br />* Fill in form to change password<br />* Sign in with new password|* Users can navigate to Forgot Password form<br />* Users receive email with the link to change password<br />* User can sign in with the new password|Pass|
+|4|Dashboard|User can navigate around the functionalities|* Sign in with correct credentials<br />* Click on `Dashboard`, `Calendar`, `Pomodoro Timer` and `Flashcard` on the left bar|Users get navigated to the correct views|Pass|
+|5|Progress|User can add new progress|
+|5|To-do list|User can add new task and delete task|Navigate to Dashboard<br />In the text input field on the right, key in new task and press `Enter` (or `return`) or click submit|Users are able to key in new task<br />After submitting, new task appear on the task list|Pass|* Sign in with correct credentials<br />* Click on the yellow box with plus sign|Users get navigated to calendar view with progress form|Pass|
+|6||User can update, delete progress|* Sign in with correct credentials<br />* Click on the plus sign, minus sign<br />* Click on the Pen button<br />* Click on the Trash button|* The number of % get increased/decreased accordingly<br />* User is prompted with a textbox to change progress name<br />* User can change color from the dropdown list|Pass|
+|7|To-do List|User can add new task and delete task|* Navigate to Dashboard<br />* In the text input field on the right, key in new task and press `Enter` (or `return`) or click submit|* Users are able to key in new task<br />* After submitting, new task appear on the task list|Pass|
+|8||User can cross out finished task|* Navigate to Dashboard<br />* User can tick the circle on the right of each task to cross it out<br />* User can untick to remove the cross|* When users tick unfinished task, it will be crossed out and marked as finished<br />* When users untick finished task, it will be marked as unfinished|Pass|
+|9||User can sort task according to status|* Navigate to Dashboard<br />* User can toggle the button below the tasks to sort according to status|* When the button is toggled on, tasks is sorted according to status<br />* When button is toggled off, tasks is not sorted and displayed according to their added order|Pass|
+|10|Calendar|User can add new event, delete event, update event|* Navigate to Calendar<br />* Add new event: Click on one day or drag across several day to be prompted with a new event form. Fill in the prompt<br />* Update event: Drag existing events to other dates<br />* Delete event: Click on existing events and prompted with a form to confirm deletion|* New event is added by click or drag to choose date<br />* Existing events are updated on the calendar<br />* Upon deletion, existing event will disappear from calendar|Pass|
+|11||User can navigate to different months|* Navigate to Calendar<br />* Click on the two arrows on the top left corner of the calendar to navigate to the previous and future months<br />* Click on `today` button next to the arrows to return to today’s date|* On clicking the left and right arrows, the calendar shift backward/forward by one month<br />* On clicking the `today` button, the calendar returns to the current month|Pass|
+|12||User can view month, week and day|* Navigate to Calendar<br />* Click on the 3 buttons `month`, `week`, `day` on the top right corner of the calendar|The view changes according to the button clicked|Pass|
+|13||User can add new progress with automatically generated events|* Navigate to Calendar<br />* Fill in the form, tick the last box|* Several events are generated with SM2 algorithm, reflected on the calendar<br />* New progress is added, reflected on dashboard page|Pass|
+|14||User can add new progress without automatically generated events|* Navigate to Calendar<br />* Fill in the form, leave the last box unticked|* No new events are generated<br />* New progress is added, reflected on dashboard page|Pass|
+|15|Pomodoro timer|User can start timer immediately with Pomodoro mode|* Navigate to Pomodoro Timer<br />* Press `Start`|* When first navigated to Pomodoro Timer, the button `Pomodoro` on the top left will be highlighted with black, indicating it is in Pomodoro mode, timer is defaultly set to 25 minutes<br />* On pressing `Start`, timer starts immediately to count down|Pass|
+|16||Rewards will be updated after a Pomodoro session|* Navigate to Pomodoro Timer<br />* Make sure the Pomodoro mode is highlighted, if not, click on it<br />* Run the timer and wait for it to reach 00:00|* When the timer counts to 00:00, the timer will stop, send a notification on browser<br />* A new tomato is added on the right panel on page reload|Pass|
+|17||User can start, stop and resume timer|* Navigate to Pomodoro Timer<br />* Click `Start` to start counting down<br />* Click `Stop` to pause the timer<br />Click `Pomodoro`/`Short Break`/`Long Break` buttons on the top to reset timer|* On clicking `Start`, the `Start` button will change to `Stop` button<br />* On clicking `Stop`, timer will be pause<br />* No matter the current state, when clicking on 3 buttons on the top, timer will be reset and brought to the respective modes|Pass|
+|18||User can adjust time|* Navigate to Pomodoro Timer<br />* Click `+` and `-` buttons to adjust time|* When clicking `+` and `-`, timer will increase or decrease by 1 minute<br />* The `+` `-` buttons are disable when the timer is running<br />* The timer can only be increased up to 90 minutes and decreased to 1 minute|Pass|
+|19|Flashcard|User can add a new deck|Navigate to flashcard<br />Fill in the form on the right panel<br />Click `Submit`|A new deck is created on the middle panel|Pass|
+|20||User can flip card and progress through the deck|* Navigate to Flashcard<br />* Click the one deck<br />* Click on `Next`<br />* Click on the card to flip and see answer<br />* Clicking `Easy`, `Medium`, or `Hard` to view other cards|* On clicking `next`, the first card is presented<br />* Card will be flipped to the answer when clicked on<br />* Clicking `Easy`, `Medium`, or `Hard`, the other card will be presented|Pass|
+|21||User can add card|* Navigate to Flashcard<br />* Click on one deck<br />* Click on Next to start the deck<br />* Fill the form on the right of the card and submit to add<br />* Fill unfinished form then submit|* On submitting the new card with all fields filled in, the new card object will be added to local storage on browser<br />* On submitting the new card with unfinished form, no new card will be added to local storage on browser|Pass|
+|22|Responsive Design|Panel stacking for small screen|* Log in to ActiveNUS<br />* Set medium to large screen size (width above 767px)<br />* Reduce to small screen size (width below 767px)|* At medium to large screen size: there will be two panels placed horizontally.<br />* At small screen size: the horizontal panels will be stacked vertically|Pass|
+|23||Navigation bar collapsible for small to medium screen|* Log in to ActiveNUS<br />* Set large screen size (width above 991px)<br />* Reduce to medium screen size (width below 991px)|* At large screen size: the navigation bar is on the left<br />* At medium to small screen size: the navigation bar is collapsed|Pass|
+|24||Pomodoro Clock|* Navigate to Pomodoro<br />* Set large screen size (width above 991px)<br />* Reduce to medium screen size (width below 991px, above 767px)<br />* Reduce to small screen size (width below 767px)|At large, medium or small screen size, the clock is contained within the middle panel and shows clearly the buttons|Pass|
+|25||Flashcard|* Navigate to Flashcard<br />* Set large screen size (width above 991px)<br />* Reduce to medium screen size (width below 991px, above 767px)<br />* Reduce to small screen size (width below 767px)|At large, medium or small screen size, the flashcard is contained within the middle panel and shows clearly the words|Pass|
 
 
 ## 14.3 User Acceptance Testing
@@ -569,7 +750,7 @@ We have embeded Google Analytics to ActiveNUS and collect some data. However, fu
 
 ![Analytics](img/analytics.png)
 
-After getting more data from users in phase 2 of milestone 3, we will have the modifications to meet users' need.
+After getting data from users in phase 2 of milestone 3, we have made some modifications to meet users' need.
 
 
 # 16. Software Security Measures
@@ -754,3 +935,30 @@ The tests will be run with Python 3.8 and 3.9 if there is any push or pull reque
 Since Heroku (deployment platform) is connected to Github, the website will be automatically deployed after every push if that push passes all the tests and requirements. If not, then it will be evaluated manually by the collaborators.
 
 [_<< Back_](README.md)
+
+# Response to Milestone Evaluations
+
+## Response to Milestone 1 Evaluations
+
+**Feedback**: About Readme: It is well-written. Great work! However, for the "Software Design Patterns and Principles" section, by the end of Milestone 2, you should write how your system applies those patterns and principles (i.e. how your code is organized to satisfy the patterns and principles) instead of quoting the theories themselves. You can also explain why you apply them but not the others. By the end of Milestone 2, you should have planned out how you are going to test your system as well.
+
+> We have reviewed and modified our "Software Design Patterns and Principles" section and given some examples of applying the principle in our project. Testing has been implemented as well.
+
+**Feedback**: For buttons such as "Login", it would be even better if the cursor changes to a "hand" icon instead of the normal cursor so that users can now they can actually click it; Login and Signup button should have a hover effect. "Log in instead" text should have a different colour (not black) so that the user knows this text can be clicked.
+
+> The design of the website has been modified after milestone 1 in response to these feedbacks. The buttons have also been adjusted accordingly.
+
+**Feedback**: The component effects are laggy and slows down the load process.
+
+> We use Heroku for deployment. Because its server is based in the US, there might be latency that slows down the loading process. However, we will stick with Heroku since it is compatible with our system. We also made some improvements to solve this problem by restructuring the static files, which will reduce the number of times the web browser has to reload these files.
+
+## Response to Milestone 2 Evaluations
+
+**Feedback**: Maybe can embed a tutorial inside . Put the milestone video inside the website?
+
+> Great advice, ưe have implemented an About page.
+
+**Feedback**: The testing can be done better in the final phase on screens with different sizes as well as testing the system after it's deployed with online host.
+
+> The responsive design testing has been implemented after milestone 2.
+

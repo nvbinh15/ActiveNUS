@@ -50,13 +50,13 @@
 |S/N|Task|Date|Orbitee 1 (hrs)|Orbitee 2 (hrs)|Remarks|
 |---|----|----|---------------|---------------|-------|
 |22|Team Meeting|30/6/2021|2|2|Evaluate other teams|
-|23|Programming|1/7/2021 - 7/7/2021||||
+|23|Programming|1/7/2021 - 7/7/2021|10|10|Set up Google Analytics<br />Build backend models, connect backend - frontend components<br />Implement About and Account page|
 |24|Team Meeting|8/7/2021|3|3|Feedback evaluations<br />Update project scope and plan|
-|25|Programming|9/7/2021 - 13/7/2021||||
+|25|Programming|9/7/2021 - 13/7/2021|20|20|Build core features:<br />* Home<br />* Calendar<br />* Flashcard<br />* Pomodoro timer|
 |26|Testing|14/7/2021|4|4|Write and run automated tests<br />Perform manual tests|
-|27|Programming|14/7/2021 - 16/7/2021||||
+|27|Programming|14/7/2021 - 16/7/2021|10|10|Fix bugs<br />Complete core features<br />Migrate database to PostgreSQL<br />Complete Heroku configurations|
 |28|User Acceptance Testing|17/7/2021 - 19/7/2021|5|5|Public first prototype<br />Conduct survey via Google form<br />Interview users about the product|
-|29|Programming|20/7/2021 - 22/7/2021|||Fix bug and update features based on users' feedback|
+|29|Programming|20/7/2021 - 22/7/2021|5|5|Fix bug and update features based on users' feedback|
 |30|Writing Documentation|22/7/2021 - 24/7/2021|6|4||
 |31|Making Demo Video|23/7/2021 - 24/7/2021|1|3|Showcase final product|
 |32|Team Meeting|25/7/2021|2|2|Finalize Milestone 3 Submission|
@@ -65,7 +65,7 @@
 
 |Total Hours|Orbitee 1|Orbitee 2|
 |-----------|---------|---------|
-|380|190|190|
+|390|195|195|
 
 &nbsp;
 
