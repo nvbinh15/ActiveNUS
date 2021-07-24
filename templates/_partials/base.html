@@ -23,8 +23,9 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
-
+    {% if request.user.is_authenticated %}
     <link rel='stylesheet' href={% static 'css/main.css' %}>
+    {% endif %}
     <!-- <link rel='stylesheet' href="{% static 'css/main.css' %}?{% now 'U' %}"> -->
 
 
