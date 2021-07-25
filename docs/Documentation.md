@@ -909,7 +909,4 @@ The tests will be run with Python 3.8 and 3.9 if there is any push or pull reque
 
 Since Heroku (deployment platform) is connected to Github, the website will be automatically deployed after every push if that push passes all the tests and requirements. If not, then it will be evaluated manually by the collaborators.
 
-
-&nbsp;
-
 [_<< Back_](README.md)

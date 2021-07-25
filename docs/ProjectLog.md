@@ -6,7 +6,6 @@
 
 **Orbitee 2:** Tran Thi Phuong Thao
 
-&nbsp;
 
 ### Lift-Off + Milestone 1 (10 May - 31 May)
 
@@ -66,7 +65,5 @@
 |Total Hours|Orbitee 1|Orbitee 2|
 |-----------|---------|---------|
 |390|195|195|
-
-&nbsp;
 
 [_<< Back_](README.md)
