@@ -238,19 +238,17 @@ We aim to make a website that helps users, especially students, plan for work an
 **Dashboard:** a comprehensive overview of your work/study progress and daily tasks 
 
 **Calendar:** help you plan and track your studies with built-in active recall and spaced repetition logic.
-* Export iCalendar file so that users can sync with other platforms (e.g. Google Calendar)
-* User-friendly GUI to add a study session and categorize it based on modules or topics
-* Tracking is enhanced by options to evaluate the studying session (how familiar the user is with the topic after revising).
+* User-friendly GUI to add a study session
+* Generate a recommended study schedule based on SuperMemo algorithm
 
 **Pomodoro timer:**
 * A timer that runs for a default period of 25 minutes focus time and 5 minutes break (user has the option to make adjustment). 
-* Each successful studying cycle will be recorded into the tracking calendar. Most of the administrative work is automatically done for the users.
 * Send a notification at the system level (when the user is navigating outside the website)
 * Users will be rewarded for each successful attempt.
 
 **Flashcards systems:** Flashcard is an indispensable component of the active recall studying method
 * Create folders of flashcards based on the topic you are studying for. 
-* Accessing the flashcards folder for the topic or module directly from the dashboard
+* For each folder, you can add cards and study
 
 ## 12.2 User Interface Design
 ActiveNUS’s main target users are students and young people. Therefore, we choose a modern design language for the platform. Furthermore, we also promote simplicity in design, helping users get the best experience of learning and working with ActiveNUS.
@@ -281,13 +279,11 @@ Once logged in, users are greeted with a comprehensive overview of their long-te
 
 As for progress, they can add, edit and change the styling of their progress box according to their likings. Progress adding is directly linked to the active recall automatic scheduler discussed in the calendar module. 
 
-For daily tasks, users can add, cross out, delete and sort their tasks. They can also add labels and priority for their daily tasks.
+For daily tasks, users can add, cross out, delete and sort their tasks.
 
 #### Calendar
 
 Users of ActiveNUS will also benefit from a scheduling tool with our built-in calendar module. Users are able to add, delete and update events. Users can also easily navigate to different dates, or view your monthly, weekly and daily calendar. 
-
-For better user experience, ActiveNUS allows users to integrate with external calendars, they can add events to their Google calendar and export iCal files.
 
 #### Pomodoro Timer
 
@@ -295,11 +291,11 @@ Another feature which is very helpful for personal productivity is the Pomodoro 
 
 There are 3 modes: Pomodoro (focus mode), Short Break and Long Break. Each mode is associated with a default time interval, but users can easily change it according to their needs. 
 
-To motivate users, ActiveNUS makes use of a reward scheme, which is a new jigsaw puzzle every week. Users have to finish more focus cycles to unlock new pieces.
+To motivate users, ActiveNUS makes use of a rewarding scheme. Each successful focus cycle will be represented by a tomato.
 
 #### Flashcard
 
-Learning new concepts is also a major part of being a student. Using active recall, the flashcard method has been one of the most efficient when it comes to learning new concepts. ActiveNUS also includes an extensive flashcard module to aid students. Users can organize flashcards into folders, add flashcards and edit folders according to the topic they are learning. 
+Learning new concepts is also a major part of being a student. Using active recall, the flashcard method has been one of the most efficient when it comes to learning new concepts. ActiveNUS also includes an extensive flashcard module to aid students. Users can organize flashcards into folders, add flashcards according to the topic they are learning. 
 
 To distinguish ourselves from tons and tons of other flashcard applications, we incorporate spaced repetition into our algorithm. ActiveNUS will ask for the familiarity of users with each and every card they encounter (easy, medium or hard), then calculate immediately what is the next card they should learn. This will optimize their learning process.
 
@@ -469,14 +465,12 @@ Unauthorized users can only access the Authentication and Registration system. S
 
 #### Description
 
-* Previous approach to focus cycle tracking: When the current mode is Pomodoro (focus) mode, if users stop the countdown clock, they might adjust the focus time using `+` and `-` buttons then resume. As a result, users can cheat to get their rewards, which might counteract the aim of the reward scheme.
-* New way of cycle tracking: When users top the countdown clock in Pomodoro mode, they will have 2 options: `resume` and `restart`. Additionally, when in Pomodoro mode, users are unable to adjust the time using `+` and `-` buttons. If users choose to restart, they can start a new cycle, adjust the time to their liking, but the old cycle will be completely lost. This approach will motivate users to complete their current cycle and ban them from cheating.
 * Overview/tracking cycle count: A comprehensive overview of the usage of the Pomodoro timer will be displayed to the user, which will give the user a broad view of their work/study.
-
+* Fix countdown previous issue: at Milestone 2, the Pomodoro countdown clock is reported to drift when in use, resulting in inaccurate time tracking.
 #### Implementation
 
-* Add new `resume` and `restart` buttons and bind their condition of appearance using VueJS.
 * Number of Pomodoro cycles completed is stored in the `Pomodoro` model.
+* Disable 3 modes when Pomodoro clock is counting down to prevent drift.
 
 ### 13.3.3 Calendar
 
@@ -491,7 +485,7 @@ Unauthorized users can only access the Authentication and Registration system. S
 
 #### Implementation
 
-The algorithm to generate schedules automatically is written based on Ebbinghaus’ forgetting curve and review cycle. Based on the input data, ActiveNUS will generate calendar events.
+The algorithm to generate schedules automatically is written based on Ebbinghaus’ forgetting curve and SuperMemo algorithm. Based on the input data, ActiveNUS will generate calendar events, assuming that the familiarity of user after every revision session increases.
 
 ![Space Repetition](img/space_repetition.png)
 
@@ -504,7 +498,7 @@ The algorithm to generate schedules automatically is written based on Ebbinghaus
 #### Description
 
 * Organizing flashcards by folder. Users are able to see the number of items in each folder to have a broader overview of the subject. They can also add a new folder with the description on this page.
-* For each folder, users have the option to edit and learn the topic.
+* For each folder, users have the option to learn the topic or delete.
 
 ![New Flashcard](img/new_flashcard.png)
 
