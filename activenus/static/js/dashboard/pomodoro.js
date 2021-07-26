@@ -95,7 +95,7 @@ const pomo = new Vue({
           success: function (data) {
               console.log('Success Pomodoro');
               notifyMe();
-              
+              location.reload();  
           },
           failure: function (data) {
             console.log('Fail Pomodoro');
@@ -105,6 +105,7 @@ const pomo = new Vue({
           if(this.isFocused){
               this.timerShortBreak();
           } else {
+            notifyMe();
               this.timerReset();
           }
       } else {
