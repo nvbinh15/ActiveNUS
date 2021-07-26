@@ -122,6 +122,7 @@ const pomo = new Vue({
 })
 
 function notifyMe() {
+  console.log("Get inside notifunc");
   // Let's check if the browser supports notifications
   if (!("Notification" in window)) {
     alert("This browser does not support desktop notification");
