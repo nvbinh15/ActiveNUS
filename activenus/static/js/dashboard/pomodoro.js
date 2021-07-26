@@ -94,6 +94,8 @@ const pomo = new Vue({
           dataType: "json",
           success: function (data) {
               console.log('Success Pomodoro');
+              notifyMe();
+              location.reload();
               
           },
           failure: function (data) {
@@ -101,13 +103,11 @@ const pomo = new Vue({
           }
       });
     }
-          notifyMe();
           if(this.isFocused){
               this.timerShortBreak();
           } else {
               this.timerReset();
           }
-          location.reload();
       } else {
           if (this.timerRunning == true) {
           this.totalTime--;
