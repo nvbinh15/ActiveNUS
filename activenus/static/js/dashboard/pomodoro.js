@@ -95,7 +95,6 @@ const pomo = new Vue({
           success: function (data) {
               console.log('Success Pomodoro');
               notifyMe();
-              location.reload();
               
           },
           failure: function (data) {
