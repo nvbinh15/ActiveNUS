@@ -148,5 +148,8 @@ function notifyMe() {
   // want to be respectful there is no need to bother them any more.
 }
 
+ if (Notification.permission !== "denied") {
+    Notification.requestPermission();
+ }
 const vm = pomo.mount('#pomodoro-module');
 console.log(vm.totalTime); // => 4
