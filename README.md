@@ -14,11 +14,7 @@ If you are using Safari, please update to the latest version.
 
 ## Set Up Instruction
 
-Change into the directory you want to store the code (the directory must not contain any non-empty directory named `ActiveNUS`). Clone the codebase by `$ git clone https://github.com/nvbinh15/ActiveNUS.git`. Change into the `ActiveNUS` directory.
-
-Create a virtual environment with `python3` by running `$ virtualenv -p python3 venv`. A new directory called `venv` will be created in the current directory. Activate the `venv` environment by running `$ source venv/bin/activate`. You are now switching to the `venv` environment.
-
-Install all the required packages by running `$ pip install -r requirements.txt`
+Clone the codebase and install all the required packages by running `$ pip install -r requirements.txt` (you may want to use a Python virtual environment to isolate all the dependencies).
 
 Create a new file `.env` in the current directory that stores all the environment information. Type in your secret key (django secret key), your email address, and your email password. The content of the file should be like this:
 
