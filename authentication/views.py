@@ -14,9 +14,6 @@ from django.core.mail import EmailMessage
 from django.conf import settings
 import threading
 
-# Create your views here.
-
-
 class EmailThread(threading.Thread):
 
     def __init__(self, email):
@@ -42,7 +39,6 @@ def send_activation_email(user, request):
                     from_email=settings.EMAIL_FROM_USER, to=[user.email]
                     )
     
-
     EmailThread(email).start()
 
 
@@ -70,7 +66,6 @@ def login_user(request):
 
         login(request, user)
 
-        
         return redirect(reverse('home'))
 
     return render(request, 'authentication/login.html')
@@ -173,3 +168,4 @@ def activate_user(request, uidb64, token):
         return redirect(reverse('auth_login'))
 
     return render(request, 'authentication/activate-failed.html', {"user": user})
+    

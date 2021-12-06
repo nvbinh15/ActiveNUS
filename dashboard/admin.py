@@ -1,11 +1,6 @@
 from django.contrib import admin
 from .models import Events, Folder, Flashcard, Task, Progress, Pomodoro
 
-# Register your models here.
-# admin.site.register(Events)
-# admin.site.register(Folder)
-# admin.site.register(Flashcard)
-
 @admin.register(Events)
 class EventsAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'user', 'start', 'end']
@@ -30,4 +25,3 @@ class ProgressAdmin(admin.ModelAdmin):
 @admin.register(Pomodoro)
 class PomodoroAdmin(admin.ModelAdmin):
     list_display = ['user']
-

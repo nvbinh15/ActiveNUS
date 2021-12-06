@@ -16,7 +16,6 @@ from supermemo2 import SMTwo, mon_day_year
 from django.shortcuts import get_object_or_404
 
 
-
 class DateInput(forms.DateInput):
     input_type = 'date'
 
@@ -402,3 +401,4 @@ def hardcard(request):
     all_cards = serializers.serialize("json", all_cards,cls=DjangoJSONEncoder)
     data = {"all_cards": all_cards}
     return JsonResponse(data)
+    
