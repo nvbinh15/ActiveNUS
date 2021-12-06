@@ -26,10 +26,10 @@ export EMAIL_HOST_PASSWORD=<YOUR_EMAIL_PASSWORD>
 
 Activate the `.env` file by running `$ source .env`
 
-> Now, everything is set up. You can run the website locally by `$ python manage.py runserver`. The local server deployment should be found at [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
+> Now, everything is set up. You can run the website locally by `$ python3 manage.py runserver`. The local server deployment should be found at [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
 
 ## Running Tests
 
-To run tests, use the command `$ python manage.py test`.
+To run tests, use the command `$ python3 manage.py test`.
 
 A test database will be created so that the main database will not be affected. The program will report the bugs detected, the run time, and the overall status. Finally, the test database will be destroyed.
