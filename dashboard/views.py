@@ -14,12 +14,14 @@ from datetime import datetime, timedelta
 from helpers.calendar import date_end
 from supermemo2 import SMTwo, mon_day_year
 from django.shortcuts import get_object_or_404
-
+from json import dumps
 
 class DateInput(forms.DateInput):
     input_type = 'date'
 
 class NameForm(forms.Form):
+    """A class that represents the form for the user to create a progress"""
+
     prog_name = forms.CharField(label='Progress Name', max_length=100)
     start_date = forms.DateField(label='Start Date', widget=forms.widgets.DateInput(attrs={'type': 'date'}))
     end_date = forms.DateField(label='End Date', widget=forms.widgets.DateInput(attrs={'type': 'date'}))
@@ -27,8 +29,8 @@ class NameForm(forms.Form):
     widgets = {
             'start_date': DateInput(),
             'end_date': DateInput(),
-
         }
+
     def clean(self):
         cleaned_data = super().clean()
         start_date = cleaned_data.get("start_date")
@@ -38,9 +40,11 @@ class NameForm(forms.Form):
             raise forms.ValidationError("End date must be greater than start date.")
 
 class FlashcardFolderForm(forms.Form):
+    """A class that represents the form for the user to create a flashcard folder"""
     folder_name = forms.CharField(label='Folder Name', max_length=100)
 
 class NewcardForm(forms.Form):
+    """A class that represents the form for the user to create a flashcard item"""
     card_question = forms.CharField(label='Question', max_length=100)
     card_ans = forms.CharField(label='Answer', max_length=1000)
 
@@ -53,9 +57,6 @@ def about(request):
 @login_required
 def account(request):
     return render(request, 'dashboard/account.html')
-
-
-from json import dumps
 
 @login_required
 def home(request):
@@ -100,7 +101,6 @@ def addtask(request):
     data = {}
     return HttpResponse(data)
 
-
 @login_required
 def mark_task(request):
     id = request.GET.get("id", None)
@@ -110,7 +110,6 @@ def mark_task(request):
     data = {}
     return HttpResponse(data)
     
-
 @login_required
 def deletetask(request):
     id = request.GET.get("id", None)
@@ -118,7 +117,6 @@ def deletetask(request):
     task.delete()
     data = {}
     return HttpResponse(data)
-
 
 @login_required
 def pomodoro(request):
@@ -283,6 +281,8 @@ def flashcarddeck(request, folder_id):
 
     return render(request, 'dashboard/flashcard.html',context)
 
+# Progress methods
+# set progress card colors
 @login_required
 def setblue(request):
     id = request.GET.get("id", None)
@@ -315,7 +315,7 @@ def setcream(request):
     progress.save()
     return HttpResponse({})
 
-
+# increase/decrease progress percentage
 @login_required
 def increaseprogress(request):
     id = request.GET.get("id", None)
@@ -349,6 +349,7 @@ def deleteprogress(request):
     progress.delete()
     return HttpResponse({})
 
+# Flashcard methods
 @login_required
 def deletefolder(request):
     id = request.GET.get("id", None)

@@ -4,6 +4,7 @@ from authentication.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Events(models.Model):
+    """A class that represents events saved in the calendar"""
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255,null=True,blank=True)
     start = models.DateTimeField(null=True,blank=True)
@@ -14,6 +15,7 @@ class Events(models.Model):
         return f"{self.name} ({self.id})"
 
 class Progress(models.Model):
+    """A class that represent progresses (consists of multiple events) of the user"""
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255,null=True,blank=True)
     percent = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)], blank=True, null=True, default=0)
@@ -24,6 +26,7 @@ class Progress(models.Model):
         return f"{self.name} ({self.id})"
 
 class Folder(models.Model):
+    """A class that represents flashcard folders"""
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255,null=True,blank=True)
     description = models.CharField(max_length=1000,null=True,blank=True)
@@ -33,6 +36,7 @@ class Folder(models.Model):
         return f"{self.name} ({self.id})"
 
 class Flashcard(models.Model):
+    """A class that represents flashcard items"""
     id = models.AutoField(primary_key=True)
     question = models.CharField(max_length=255,null=True,blank=True)
     answer = models.CharField(max_length=1000,null=True,blank=True)
@@ -47,6 +51,7 @@ class Flashcard(models.Model):
 
 
 class Task(models.Model):
+    """A class that represents tasks in the todo list"""
     id = models.AutoField(primary_key=True)
     label = models.CharField(max_length=200)
     done = models.BooleanField(null=True, blank=True, default=False)
@@ -56,6 +61,7 @@ class Task(models.Model):
         return f"{self.label} ({self.id})"
 
 class Pomodoro(models.Model):
+    """A class that saves pomodoro cycles info"""
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='pomodoro')
 

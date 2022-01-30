@@ -15,15 +15,16 @@ from django.conf import settings
 import threading
 
 class EmailThread(threading.Thread):
-
+    """
+    Seperate thread sending email
+    Page can load without waiting for the email to be sent
+    """
     def __init__(self, email):
         self.email = email
         threading.Thread.__init__(self)
 
     def run(self):
         self.email.send()
-
-
 
 def send_activation_email(user, request):
     current_site = get_current_site(request)
@@ -40,8 +41,6 @@ def send_activation_email(user, request):
                     )
     
     EmailThread(email).start()
-
-
 
 
 @auth_user_should_not_access
@@ -80,6 +79,7 @@ def register(request):
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
 
+        # handle errors
         if len(username) > 150:
             messages.add_message(request, messages.ERROR,
                             'Username should contain 150 characters or fewer')
@@ -128,12 +128,14 @@ def register(request):
         user.set_password(password1)
         user.save()
 
-
         if not context['has_error']:
             send_activation_email(user, request)
 
-            messages.add_message(request, messages.SUCCESS,
-                             'We sent you an email to verify your account')
+            messages.add_message(
+                request, messages.SUCCESS,
+                'We sent you an email to verify your account'
+            )
+            
             return redirect('auth_login')
 
     return render(request, 'authentication/register.html')

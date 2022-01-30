@@ -5,7 +5,6 @@ from .models import Events, Folder, Flashcard, Task, Progress, Pomodoro
 class EventsAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'user', 'start', 'end']
 
-
 @admin.register(Folder)
 class FolderAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'user', 'description']
