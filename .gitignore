@@ -15,6 +15,7 @@ venv/
 
 # Text backup files
 *.bak
+*.dump
 
 # Database
 *.sqlite3

@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY',)
 # DEBUG = True
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'activenus.herokuapp.com', 'web-production-8201.up.railway.app']
+ALLOWED_HOSTS = ['127.0.0.1', 'activenus.herokuapp.com', 'activenus.up.railway.app']
 
 AUTH_USER_MODEL = "authentication.User" 
 
