@@ -8,7 +8,7 @@ This repo contains our source code for ActiveNUS - a web-based application for t
 For more details, please refer to our [documentation](https://nvbinh15.github.io/ActiveNUS/).
 
 ## Deployment
-ActiveNUS is deployed on Heroku platform and works well on most web browsers and devices. You can use our product at [activenus.herokuapp.com](https://activenus.herokuapp.com/). You should use desktop/laptop for the best experience.
+ActiveNUS is deployed on Railway platform and works well on most web browsers and devices. You can use our product at [activenus.up.railway.app](https://activenus.up.railway.app/). You should use desktop/laptop for the best experience.
 
 If you are using Safari, please update to the latest version.
 
@@ -16,7 +16,7 @@ If you are using Safari, please update to the latest version.
 
 Clone the codebase and install all the required packages by running `$ pip install -r requirements.txt` (you may want to use a Python virtual environment to isolate all the dependencies).
 
-Create a new file `.env` in the current directory that stores all the environment information. Type in your secret key (django secret key), your email address, and your email password. The content of the file should be like this:
+Create a new file `.env` in the current directory that stores all the environment information. Type in your secret key (Django secret key), your email address, and your email password. The content of the file should be like this:
 
 ```
 export SECRET_KEY=’<YOUR_SECRET_KEY>’
